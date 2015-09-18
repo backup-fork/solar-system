@@ -3,97 +3,65 @@ function initialize(){
     c = document.getElementById("myCanvas");
     ctx = c.getContext("2d");
 
-    Xpos = 0;
-    Ypos = 0;
-    Xvel = 0;
-    Yvel = 0;
-
-    size = 20;
-    move_vel = 3;
-
-
     lastframe = Date.now();
-    var timer;
-    clearInterval(timer);
-    timer = setInterval(function(){update()}, 1);
-
-
-    var audio = new Audio("Dreamscape.mp3");
-    audio.play();
-
-
-    clouds = new Array();
-    clouds[0] = new Point(10, 10);
-    clouds[1] = new Point(20, 20);
-
     starttime = Date.now();
     frames = 0;
-
     fps = 0;
 
-    // Load images
-    imageObj = new Image();
+    planets = [];
+    //planets[0] = new Planet(100, 100);
 
-    images = new Array();
-    images[0] = "clouds.gif";
+    //p = new Planet(10, 10);
 
-    n_images = 1;
-
-    for (var i = 0; i < n_images; i++){
-        imageObj.src=images[i]
-    }
-
+    var timer;
+    clearInterval(timer);
+    timer = setInterval(function(){loop()}, 1);
 }
 
-function drawBox(x, y){
-    ctx.fillStyle = "#FF0000";
-    ctx.fillRect(x, y, size, size);
-}
-
-function drawPlayer(x, y){
-    //drawBox(x, y);
-    fish = new Image();
-    fish.src = "fishie.png";
-    var scale = 0.5;
-
-    ctx.save();
-    if (Xvel > 0){
-        ctx.scale(-1, 1);
-    }
-    ctx.translate(x + fish.width/2*scale, y + fish.height/2*scale);
-    //ctx.rotate(0.5);
-    ctx.drawImage(fish, 0, 0, fish.width*scale, fish.height*scale);
-    ctx.restore();
-}
-
-function update(){
+function loop(){
     now = Date.now()
     dt = (now - lastframe)/1000;
     lastframe = now;
 
-    if (Xpos < 0) Xvel = Math.abs(Xvel);
-    if (Ypos > c.height - 100) Yvel = -Math.abs(Yvel);
-    //Yvel = Math.max(-5, Yvel);
-    /*
-    Xpos = Math.max(0, Xpos);
-    Ypos = Math.max(0, Ypos);
-    Xpos = Math.min(c.width  - size, Xpos);
-    Ypos = Math.min(c.height - size, Ypos);
-    */
+    //ctx.clearRect(0, 0, c.width, c.height);
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0, 0, c.width, c.height);
 
-    Xpos = Xpos + Xvel*dt;
-    Ypos = Ypos + Yvel*dt;
+    G = 10000;
+    a = 10;
+    for (var i = 0; i < planets.length; i++){
+        p1 = planets[i];
+        fx = 0;
+        fy = 0;
+        for (var j = 0; j < planets.length; j++){
+            if (i == j)
+                continue;
+            p2 = planets[j];
+            rx = p2.x - p1.x;
+            ry = p2.y - p1.y;
+            r = Math.sqrt( rx*rx + ry*ry );
 
-    if (Xpos < 0) Xpos = 0;
-    if (Xpos > c.width - size) Xpos = c.width - size;
+            fx += G * p1.m * p2.m * rx / (r*r*r + a*a*a);
+            fy += G * p1.m * p2.m * ry / (r*r*r + a*a*a);
+        }
+        p1.vx += fx * dt / p1.m;
+        p1.vy += fy * dt / p1.m;
+    }
+
+    for (var i = 0; i < planets.length; i++){
+        p = planets[i];
+        p.x += p.vx*dt;
+        p.y += p.vy*dt;
+    }
 
 
-    Yvel = Yvel + 50*dt;
-
-    draw()
+    for (var i = 0; i < planets.length; i++){
+        p = planets[i];
+        draw_circ(p.x, p.y, 10);
+    }
 
     // *** compute fps *** //
-    if (frames % 10 == 0){
+    if (frames % 100 == 0){
         time = Date.now();
         fps = frames / (time - starttime) * 1000;
         fps = parseInt(fps);
@@ -103,48 +71,33 @@ function update(){
         starttime = Date.now();
         frames = 0;
     }
+
     frames++;
-}
-
-function Point (x, y){
-    this.x = x;
-    this.y = y;
-}
-
-// needs work
-function Rect(bottomleft, topright){
-    this.bottomleft = bottomleft;
-    this.topright = topright;
-}
-
-function collideRect(r1, r2){
-    return false;
-}
-
-function draw(){
-    //ctx.clearRect(0, 0, c.width, c.height);
-    clouds = new Image();
-    clouds.src = "clouds.gif";
-    ctx.drawImage(clouds,0,0);
-    drawPlayer(Xpos, Ypos);
-
-    for (i = 0; i < clouds.length; i++){
-        drawBox(clouds[i].x, clouds[i].y);
-    }
 
     ctx.font="20px Georgia";
     ctx.fillText(fps, c.width - 40, c.height - 5);
 }
 
-function keyDown(e){
-    //alert("Keycode: " + e.keyCode);
-    kc = e.keyCode;
-    if(kc == 37)
-        Xpos = Xpos - move_vel;
-    if(kc == 38)
-        Ypos = Ypos - move_vel;
-    if(kc == 39)
-        Xpos = Xpos + move_vel;
-    if(kc == 40)
-        Ypos = Ypos + move_vel;
+function Planet(x, y, vx, vy, m){
+    this.x  = x;
+    this.y  = y;
+    this.vx = vx;
+    this.vy = vy;
+    this.m  = m;
+}
+
+function draw_circ(x, y, r){
+    ctx.beginPath();
+    ctx.fillStyle = "#FFFFFF";
+    ctx.arc(x, y, r, 0, 2*Math.PI);
+    ctx.fill();
+    ctx.closePath();
+}
+
+function mouseDown(e){
+    //alert(e.screenX + " " + e.screenY);
+    x = e.clientX - c.offsetLeft;
+    y = e.clientY - c.offsetTop;
+
+    planets.push( new Planet(x, y, 0, 0, 1) );
 }
