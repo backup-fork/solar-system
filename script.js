@@ -13,15 +13,19 @@ function initialize(){
 
     //p = new Planet(10, 10);
 
-    var timer;
-    clearInterval(timer);
-    timer = setInterval(function(){loop()}, 1);
+    //var timer;
+    sim_loop = setInterval(function(){loop()}, 16);
+    //clearInterval(timer);
 }
 
 function loop(){
     now = Date.now()
     dt = (now - lastframe)/1000;
     lastframe = now;
+
+    if (dt > 0.1)
+        return;
+
 
     //ctx.clearRect(0, 0, c.width, c.height);
     ctx.fillStyle = "#000000";
@@ -94,10 +98,19 @@ function draw_circ(x, y, r){
     ctx.closePath();
 }
 
+function new_planet_loop(){
+}
+
 function mouseDown(e){
     //alert(e.screenX + " " + e.screenY);
     x = e.clientX - c.offsetLeft;
     y = e.clientY - c.offsetTop;
 
     planets.push( new Planet(x, y, 0, 0, 1) );
+
+    clearInterval(sim_loop);
+}
+
+function mouseUp(e){
+    sim_loop = setInterval(function(){loop()}, 16);
 }
