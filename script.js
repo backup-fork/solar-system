@@ -27,9 +27,6 @@ function loop(){
         return;
 
 
-    //ctx.clearRect(0, 0, c.width, c.height);
-    ctx.fillStyle = "#000000";
-    ctx.fillRect(0, 0, c.width, c.height);
 
     G = 10000;
     a = 10;
@@ -59,10 +56,6 @@ function loop(){
     }
 
 
-    for (var i = 0; i < planets.length; i++){
-        p = planets[i];
-        draw_circ(p.x, p.y, 10);
-    }
 
     // *** compute fps *** //
     if (frames % 100 == 0){
@@ -76,7 +69,21 @@ function loop(){
         frames = 0;
     }
 
+    draw();
+
     frames++;
+
+}
+
+function draw(){
+    //ctx.clearRect(0, 0, c.width, c.height);
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0, 0, c.width, c.height);
+
+    for (var i = 0; i < planets.length; i++){
+        p = planets[i];
+        draw_circ(p.x, p.y, 10 + p.m);
+    }
 
     ctx.font="20px Georgia";
     ctx.fillText(fps, c.width - 40, c.height - 5);
@@ -99,6 +106,13 @@ function draw_circ(x, y, r){
 }
 
 function new_planet_loop(){
+    now = Date.now();
+
+    mass = (now - start_planet)/100;
+
+    planets[planets.length - 1].m = mass;
+
+    draw();
 }
 
 function mouseDown(e){
@@ -106,11 +120,17 @@ function mouseDown(e){
     x = e.clientX - c.offsetLeft;
     y = e.clientY - c.offsetTop;
 
-    planets.push( new Planet(x, y, 0, 0, 1) );
 
+    // stop the sim
     clearInterval(sim_loop);
+
+    start_planet = Date.now();
+    planets.push( new Planet(x, y, 0, 0, 1) );
+    planet_loop = setInterval(function(){
+        new_planet_loop()}, 16);
 }
 
 function mouseUp(e){
+    clearInterval(planet_loop);
     sim_loop = setInterval(function(){loop()}, 16);
 }
