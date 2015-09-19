@@ -166,3 +166,11 @@ function mouseMove(e){
     }
 
 }
+
+function keyDown(e){
+    kc = e.keyCode;
+    if (kc == 27){
+        mode = "sim";
+        sim_loop = setInterval(function(){loop()}, 16);
+    }
+}
