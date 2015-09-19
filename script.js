@@ -147,9 +147,15 @@ function mouseDown(e){
         dx = x - p.x;
         dy = y - p.y;
 
+        if (dx == 0)
+            p.vx = 0;
+        else
+            p.vx = sign(dx)*20*Math.log(Math.abs(dx));
+        if (dy == 0)
+            p.vy = 0;
+        else
+            p.vy = sign(dy)*20*Math.log(Math.abs(dy));
 
-        p.vx = sign(dx)*20*Math.log(Math.abs(dx));
-        p.vy = sign(dy)*20*Math.log(Math.abs(dy));
         mode = "sim";
         sim_loop = setInterval(function(){loop()}, 16);
     }
