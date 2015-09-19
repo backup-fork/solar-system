@@ -25,7 +25,8 @@ function loop(){
 
 
 
-    G = 10000;
+    //G = 10000;
+    G = 4 * Math.pi^2; // AU^3 yr^-2 Ms^-1
     a = 10;
     for (var i = 0; i < planets.length; i++){
         p1 = planets[i];
@@ -38,6 +39,8 @@ function loop(){
             rx = p2.x - p1.x;
             ry = p2.y - p1.y;
             r = Math.sqrt( rx*rx + ry*ry );
+
+            r = r / 30;
 
             fx += G * p1.m * p2.m * rx / (r*r*r + a*a*a);
             fy += G * p1.m * p2.m * ry / (r*r*r + a*a*a);
@@ -79,7 +82,7 @@ function draw(){
 
     for (var i = 0; i < planets.length; i++){
         p = planets[i];
-        draw_circ(p.x, p.y, 10 + p.m);
+        draw_circ(p.x, p.y, 2*Math.pow(p.m, 1/3));
     }
 
     ctx.font="20px Georgia";
@@ -105,13 +108,22 @@ function draw_circ(x, y, r){
 function mass_loop(){
     now = Date.now();
 
-    mass = (now - start_planet)/100;
+    held = (now - start_planet)/100;
+
+    mass = held*held;
 
     planets[planets.length - 1].m = mass;
 
     draw();
 }
 
+function sign(x){
+    if (x > 0)
+        return 1;
+    if (x < 0)
+        return -1;
+    return 0;
+}
 
 function mouseDown(e){
     //alert(e.screenX + " " + e.screenY);
@@ -134,10 +146,10 @@ function mouseDown(e){
 
         dx = x - p.x;
         dy = y - p.y;
-        //r = Math.sqrt(dx*dx + dy*dy);
 
-        p.vx = dx / 10;
-        p.vy = dy / 10;
+
+        p.vx = sign(dx)*20*Math.log(Math.abs(dx));
+        p.vy = sign(dy)*20*Math.log(Math.abs(dy));
         mode = "sim";
         sim_loop = setInterval(function(){loop()}, 16);
     }
