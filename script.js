@@ -9,13 +9,10 @@ function initialize(){
     fps = 0;
 
     planets = [];
-    //planets[0] = new Planet(100, 100);
 
-    //p = new Planet(10, 10);
+    mode = "sim";
 
-    //var timer;
     sim_loop = setInterval(function(){loop()}, 16);
-    //clearInterval(timer);
 }
 
 function loop(){
@@ -105,7 +102,7 @@ function draw_circ(x, y, r){
     ctx.closePath();
 }
 
-function new_planet_loop(){
+function mass_loop(){
     now = Date.now();
 
     mass = (now - start_planet)/100;
@@ -115,22 +112,57 @@ function new_planet_loop(){
     draw();
 }
 
+
 function mouseDown(e){
     //alert(e.screenX + " " + e.screenY);
     x = e.clientX - c.offsetLeft;
     y = e.clientY - c.offsetTop;
 
 
-    // stop the sim
-    clearInterval(sim_loop);
+    if (mode == "sim"){
+        clearInterval(sim_loop);
 
-    start_planet = Date.now();
-    planets.push( new Planet(x, y, 0, 0, 1) );
-    planet_loop = setInterval(function(){
-        new_planet_loop()}, 16);
+        start_planet = Date.now();
+        planets.push( new Planet(x, y, 0, 0, 1) );
+
+        mode = "mass";
+        mass_timer = setInterval(function(){
+            mass_loop()}, 16);
+    }
+    if (mode == "vec"){
+        p = planets[planets.length-1];
+
+        dx = x - p.x;
+        dy = y - p.y;
+        //r = Math.sqrt(dx*dx + dy*dy);
+
+        p.vx = dx / 10;
+        p.vy = dy / 10;
+        mode = "sim";
+        sim_loop = setInterval(function(){loop()}, 16);
+    }
 }
 
 function mouseUp(e){
-    clearInterval(planet_loop);
-    sim_loop = setInterval(function(){loop()}, 16);
+    if (mode == "mass"){
+        clearInterval(mass_timer);
+        mode = "vec";
+    }
+}
+
+function mouseMove(e){
+    x = e.clientX - c.offsetLeft;
+    y = e.clientY - c.offsetTop;
+    if (mode == "vec"){
+        draw();
+
+        p = planets[planets.length-1];
+
+        ctx.strokeStyle = "#FFFFFF";
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+    }
+
 }
