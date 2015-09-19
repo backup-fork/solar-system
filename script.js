@@ -1,6 +1,9 @@
 function initialize(){
     //alert("hello!");
-    c = document.getElementById("myCanvas");
+    c = document.getElementById("solar_system");
+    c.width = window.innerWidth || document.body.clientWidth;
+    c.height = window.innerHeight || document.body.clientHeight;
+
     ctx = c.getContext("2d");
 
     lastframe = Date.now();
