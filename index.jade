@@ -2,9 +2,10 @@ doctype html
 html(lang='en')
     head
         title Solar system builder!
+        meta(charset='UTF-8')
         link(href='_assets/css/main.css' type='text/css' rel='stylesheet')
         link(href='https://fonts.googleapis.com/css?family=Overlock' rel='stylesheet' type='text/css')
-    body(onload="initialize();" onkeydown="keyDown(event);" onmousedown="mouseDown(event);" onmouseup="mouseUp(event);" onmousemove="mouseMove(event);")
+    body(onload='initialize();' onkeydown='keyDown(event);' onmousedown='mouseDown(event);' onmouseup='mouseUp(event);' onmousemove='mouseMove(event);')
         canvas#solar_system
         #cursor
         #caption Click and hold
