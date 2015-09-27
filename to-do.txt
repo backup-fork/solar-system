@@ -1,0 +1,9 @@
+- Have particles leave trails that vanish over time
+
+- Plot trajectories
+
+- Colors represent...mass? velocity?
+
+- More stable numerical scheme
+
+- Resize, move window
