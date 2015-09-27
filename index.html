@@ -1,24 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>solar system builder!</title>
-        <script type="text/javascript" src="script.js">
-        </script>
-        <style>
-            *{margin: 0; padding: 0;}
-        </style>
+        <title>Solar system builder!</title>
+        <link href="_assets/css/main.css" type="text/css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Overlock' rel='stylesheet' type='text/css'>
     </head>
-    <body
-        onload="initialize();"
-        onkeydown="keyDown(event);"
-        onmousedown="mouseDown(event);"
-        onmouseup="mouseUp(event);"
-        onmousemove="mouseMove(event);"
-        style="background-color:#444444">
-        <center>
-        <canvas id="solar_system"
-        style="background-color:#444444">
-        </canvas>
-    </center>
+    <body onload="initialize();" onkeydown="keyDown(event);" onmousedown="mouseDown(event);" onmouseup="mouseUp(event);" onmousemove="mouseMove(event);">
+        <canvas id="solar_system"></canvas>
+        <div id="cursor"></div>
+        <div id="caption">Click and hold</div>
+        <script type="text/javascript" src="vendor/greensock/TweenMax.min.js"></script>
+        <script type="text/javascript" src="_assets/js/ui.js"></script>
+        <script type="text/javascript" src="_assets/js/solar.js"></script>
     </body>
 </html>

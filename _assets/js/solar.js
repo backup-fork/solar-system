@@ -1,8 +1,6 @@
 function initialize(){
     //alert("hello!");
     c = document.getElementById("solar_system");
-    c.width = window.innerWidth || document.body.clientWidth;
-    c.height = window.innerHeight || document.body.clientHeight;
 
     ctx = c.getContext("2d");
 
@@ -80,7 +78,7 @@ function loop(){
 
 function draw(){
     //ctx.clearRect(0, 0, c.width, c.height);
-    ctx.fillStyle = "#000000";
+    ctx.fillStyle = "#263238";
     ctx.fillRect(0, 0, c.width, c.height);
 
     for (var i = 0; i < planets.length; i++){
