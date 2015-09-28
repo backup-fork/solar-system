@@ -13,7 +13,7 @@ body {
 #cursor {
   width: 72px;
   height: 72px;
-  border: 2px dotted #999999;
+  border: 1px dashed #999;
   background: url("../static/crosshair.png") center center no-repeat;
   background-size: 8px;
   border-radius: 72px;
@@ -28,10 +28,12 @@ body {
     border: 2px dashed transparent; }
 
 #caption {
-  color: #37474f;
+  color: #37474F;
   position: fixed;
   bottom: 0px;
   width: 100%;
   text-align: center;
   font-size: 24px;
   pointer-events: none; }
+
+/*# sourceMappingURL=main.css.map */

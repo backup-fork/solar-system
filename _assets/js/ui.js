@@ -67,7 +67,7 @@
 			})
 			TweenMax.to("#cursor", .412, {
 				scale: 0,
-				rotation: 120,
+				rotation: 30,
 				onComplete: function(){
 					cursor.className = "vector"
 				}

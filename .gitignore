@@ -26,3 +26,4 @@ Temporary Items
 
 # SASS cache
 .sass-cache
+*.css.map
