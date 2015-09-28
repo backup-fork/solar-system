@@ -32,7 +32,7 @@ body {
   position: absolute;
   left: 44px;
   top: -3px;
-  width: 150px;
+  width: 200px;
   height: 35px;
   line-height: 35px;
   border-radius: 8px 8px 8px 0;
@@ -42,19 +42,19 @@ body {
 
 #caption-ink {
   background: rgba(84, 110, 122, 0.8);
-  width: 350px;
-  height: 350px;
-  border-radius: 175px;
+  width: 440.0px;
+  height: 440.0px;
+  border-radius: 220.0px;
   position: absolute;
-  left: -175px;
-  top: -140px;
+  left: -220.0px;
+  top: -185.0px;
   z-index: 100; }
 
 #caption-message {
   position: relative;
   z-index: 200;
   color: white;
-  font-size: 18px;
+  font-size: 13px;
   letter-spacing: 0.5px; }
 
 /*# sourceMappingURL=main.css.map */

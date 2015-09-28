@@ -31,13 +31,13 @@ body
 		border: 2px dashed transparent
 
 $message-height: 35px
-
+$caption-width: 200px
 
 #caption
 	position: absolute
 	left: $cursor-width / 2 + 8px
 	top: $cursor-width / 2 - $message-height - 4px
-	width: 150px
+	width: $caption-width
 	height: $message-height
 	line-height: $message-height
 	border-radius: 8px 8px 8px 0
@@ -46,7 +46,7 @@ $message-height: 35px
 	z-index: 600
 
 #caption-ink
-	$ink-splash: 350px
+	$ink-splash: $caption-width * 2.2
 	background: rgba(84, 110, 122, 0.8)
 	width: $ink-splash
 	height: $ink-splash
@@ -60,5 +60,5 @@ $message-height: 35px
 	position: relative
 	z-index: 200
 	color: white
-	font-size: 18px
+	font-size: 13px
 	letter-spacing: .5px
