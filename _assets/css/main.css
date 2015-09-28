@@ -16,24 +16,45 @@ body {
   border: 1px dashed #999;
   background: url("../static/crosshair.png") center center no-repeat;
   background-size: 8px;
-  border-radius: 72px;
-  z-index: 99999;
+  border-radius: 36px;
+  z-index: 500;
   position: fixed;
   opacity: 1;
   pointer-events: none;
   top: 0;
   left: 0;
+  visibility: hidden;
   transition: box-shadow 100ms linear; }
   #cursor.vector {
     border: 2px dashed transparent; }
 
 #caption {
-  color: #37474F;
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
+  position: absolute;
+  left: 44px;
+  top: -3px;
+  width: 150px;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 8px 8px 8px 0;
   text-align: center;
-  font-size: 24px;
-  pointer-events: none; }
+  overflow: hidden;
+  z-index: 600; }
+
+#caption-ink {
+  background: rgba(84, 110, 122, 0.8);
+  width: 350px;
+  height: 350px;
+  border-radius: 175px;
+  position: absolute;
+  left: -175px;
+  top: -140px;
+  z-index: 100; }
+
+#caption-message {
+  position: relative;
+  z-index: 200;
+  color: white;
+  font-size: 18px;
+  letter-spacing: 0.5px; }
 
 /*# sourceMappingURL=main.css.map */

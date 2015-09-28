@@ -1,3 +1,5 @@
+$cursor-width: 72px
+
 *
 	margin: 0
 	padding: 0
@@ -11,28 +13,52 @@ body
 	cursor: none
 
 #cursor
-	width: 72px
-	height: 72px
+	width: $cursor-width
+	height: $cursor-width
 	border: 1px dashed #999
 	background: url("../static/crosshair.png") center center no-repeat
 	background-size: 8px
-	border-radius: 72px
-	z-index: 99999
+	border-radius: $cursor-width / 2
+	z-index: 500
 	position: fixed
 	opacity: 1
 	pointer-events: none
 	top: 0
 	left: 0
+	visibility: hidden
 	transition: box-shadow 100ms linear
 	&.vector
 		border: 2px dashed transparent
 
+$message-height: 35px
+
 
 #caption
-	color: #37474F
-	position: fixed
-	bottom: 0px
-	width: 100%
+	position: absolute
+	left: $cursor-width / 2 + 8px
+	top: $cursor-width / 2 - $message-height - 4px
+	width: 150px
+	height: $message-height
+	line-height: $message-height
+	border-radius: 8px 8px 8px 0
 	text-align: center
-	font-size: 24px
-	pointer-events: none
+	overflow: hidden
+	z-index: 600
+
+#caption-ink
+	$ink-splash: 350px
+	background: rgba(84, 110, 122, 0.8)
+	width: $ink-splash
+	height: $ink-splash
+	border-radius: $ink-splash / 2
+	position: absolute
+	left: -$ink-splash / 2
+	top: -$ink-splash / 2 + $message-height
+	z-index: 100
+
+#caption-message
+	position: relative
+	z-index: 200
+	color: white
+	font-size: 18px
+	letter-spacing: .5px
