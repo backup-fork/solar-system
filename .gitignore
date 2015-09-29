@@ -5,6 +5,8 @@ _Store
 # Icon must end with two \r
 Icon
 
+# vim swap files
+*.swp
 
 # Thumbnails
 ._*
