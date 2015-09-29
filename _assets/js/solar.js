@@ -54,6 +54,10 @@ function loop(){
         p = planets[i];
         p.x += p.vx*dt;
         p.y += p.vy*dt;
+
+        p.prev_x[ p.count ] = p.x;
+        p.prev_y[ p.count ] = p.y;
+        p.count += 1;
     }
 
 
@@ -82,8 +86,7 @@ function draw(){
     ctx.fillRect(0, 0, c.width, c.height);
 
     for (var i = 0; i < planets.length; i++){
-        p = planets[i];
-        draw_circ(p.x, p.y, 2*Math.pow(p.m, 1/3));
+        planets[i].draw();
     }
 
     ctx.font="20px Georgia";
@@ -96,6 +99,16 @@ function Planet(x, y, vx, vy, m){
     this.vx = vx;
     this.vy = vy;
     this.m  = m;
+
+    this.count = 0;
+
+    this.prev_x = [];
+    this.prev_y = [];
+
+    this.draw = function(){
+        draw_circ(this.x, this.y, 2*Math.pow(this.m, 1/3));
+        draw_curve(this.prev_x, this.prev_y);
+    };
 }
 
 function draw_circ(x, y, r){
@@ -104,6 +117,21 @@ function draw_circ(x, y, r){
     ctx.arc(x, y, r, 0, 2*Math.PI);
     ctx.fill();
     ctx.closePath();
+}
+
+function draw_curve(xs, ys){
+    ctx.beginPath();
+    ctx.strokeStyle = "#000000";
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.2";
+    ctx.lineCap = "round";
+    ctx.lineWidth = 2;
+    ctx.moveTo(xs[0], ys[0]);
+    for (var i = 0; i < xs.length; i++){
+        ctx.lineTo(xs[i], ys[i]);
+    }
+    ctx.stroke();
+    ctx.closePath();
+
 }
 
 function mass_loop(){
