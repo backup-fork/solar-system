@@ -1,4 +1,4 @@
-- Have particles leave trails that vanish over time
+- Fix drift due to coordinate rounding
 
 - Plot trajectories
 
@@ -7,3 +7,7 @@
 - More stable numerical scheme
 
 - Resize, move window
+
+
+Done:
+- Have particles leave trails that vanish over time
