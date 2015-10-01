@@ -16,6 +16,27 @@ function initialize(){
     sim_loop = setInterval(function(){loop()}, 16);
 }
 
+function force( p, planets ){
+    var fx = 0;
+    var fy = 0;
+    for (var j = 0; j < planets.length; j++){
+        p2 = planets[j];
+
+        if (p.x == p2.x && p.y == p2.y)
+            continue;
+
+        rx = p2.x - p.x;
+        ry = p2.y - p.y;
+        r = Math.sqrt( rx*rx + ry*ry );
+
+        r = r / 30;
+
+        fx += G * p.m * p2.m * rx / (r*r*r + a*a*a);
+        fy += G * p.m * p2.m * ry / (r*r*r + a*a*a);
+    }
+    return [fx, fy];
+}
+
 function loop(){
     now = Date.now()
     dt = (now - lastframe)/1000;
@@ -24,34 +45,20 @@ function loop(){
     if (dt > 0.1)
         return;
 
-
-
     //G = 10000;
     G = 4 * Math.pi^2; // AU^3 yr^-2 Ms^-1
     a = 10;
     for (var i = 0; i < planets.length; i++){
-        p1 = planets[i];
-        fx = 0;
-        fy = 0;
-        for (var j = 0; j < planets.length; j++){
-            if (i == j)
-                continue;
-            p2 = planets[j];
-            rx = p2.x - p1.x;
-            ry = p2.y - p1.y;
-            r = Math.sqrt( rx*rx + ry*ry );
+        p = planets[i];
+        f = force( p, planets);
+        fx = f[0];
+        fy = f[1];
+        p.vx += fx * dt / p.m;
+        p.vy += fy * dt / p.m;
 
-            r = r / 30;
-
-            fx += G * p1.m * p2.m * rx / (r*r*r + a*a*a);
-            fy += G * p1.m * p2.m * ry / (r*r*r + a*a*a);
-        }
-        p1.vx += fx * dt / p1.m;
-        p1.vy += fy * dt / p1.m;
-
-        if (p1.frozen == 1){
-            p1.vx = 0;
-            p1.vy = 0;
+        if (p.frozen == 1){
+            p.vx = 0;
+            p.vy = 0;
         }
     }
 
@@ -201,9 +208,9 @@ function mouseDown(e){
 
             if (dx*dx + dy*dy <= rad*rad){
                 p.frozen *= -1;
+                // TO DO: fix the cursor here
                 return;
             }
-
         }
 
         clearInterval(sim_loop);
@@ -216,6 +223,81 @@ function mouseDown(e){
             mass_loop()}, 16);
     }
     if (mode == "vec"){
+
+        mode = "sim";
+        sim_loop = setInterval(function(){loop()}, 16);
+    }
+}
+
+function mouseUp(e){
+    if (mode == "mass"){
+        clearInterval(mass_timer);
+        mode = "vec";
+    }
+}
+
+function trajectory(){
+    q = planets[ planets.length - 1 ];
+
+    plans = planets.slice(0, planets.length);
+
+    p = new Planet( q.x, q.y, q.vx, q.vy, q.m );
+
+    var dt = 0.01;
+    var xs = []
+    var ys = []
+
+    for (var i = 1; i < 1000; i++){
+        f = force(p, plans);
+        fx = f[0];
+        fy = f[1];
+
+        p.vx += dt * fx/p.m;
+        p.vy += dt * fy/p.m;
+
+        p.x += dt * p.vx;
+        p.y += dt * p.vy;
+
+        xs.push(p.x);
+        ys.push(p.y);
+    }
+
+    // draw the trajectory
+    dottedstroke(xs, ys);
+}
+
+function dottedstroke(xs, ys){
+    //ctx.strokeStyle = "#FFFFFF";
+    ctx.strokeStyle = "rgba(250, 128, 114, 0.4)";
+    ctx.beginPath();
+    ctx.moveTo(xs[0], ys[0]);
+    ctx.lineCap = "round";
+    var count = 0;
+    var max_count = 20;
+    for (var i = 0; i < xs.length; i++){
+        if ( count == 0 ){
+            ctx.moveTo(xs[i], ys[i]);
+        }
+
+        ctx.lineTo(xs[i], ys[i]);
+        count++;
+
+        if (count == max_count){
+            i += max_count;
+            count = 0;
+        }
+    }
+    ctx.stroke();
+    //ctx.stroke();
+    ctx.lineCap = "butt";
+}
+
+function mouseMove(e){
+    x = e.clientX - c.offsetLeft;
+    y = e.clientY - c.offsetTop;
+    if (mode == "vec"){
+        draw();
+
         p = planets[planets.length-1];
 
         dx = x - p.x;
@@ -230,31 +312,13 @@ function mouseDown(e){
         else
             p.vy = sign(dy)*20*Math.log(Math.abs(dy));
 
-        mode = "sim";
-        sim_loop = setInterval(function(){loop()}, 16);
-    }
-}
-
-function mouseUp(e){
-    if (mode == "mass"){
-        clearInterval(mass_timer);
-        mode = "vec";
-    }
-}
-
-function mouseMove(e){
-    x = e.clientX - c.offsetLeft;
-    y = e.clientY - c.offsetTop;
-    if (mode == "vec"){
-        draw();
-
-        p = planets[planets.length-1];
-
         ctx.strokeStyle = "#FFFFFF";
         ctx.beginPath();
         ctx.moveTo(p.x, p.y);
         ctx.lineTo(x, y);
         ctx.stroke();
+
+        trajectory();
     }
 
 }
@@ -263,6 +327,9 @@ function keyDown(e){
     kc = e.keyCode;
     if (kc == 27){
         if (mode == "vec"){
+            p = planets[ planets.length - 1 ];
+            p.vx = 0;
+            p.vy = 0;
             mode = "sim";
             sim_loop = setInterval(function(){loop()}, 16);
         }
