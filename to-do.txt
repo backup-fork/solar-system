@@ -1,5 +1,9 @@
 - Fix drift due to coordinate rounding
 
+- Fix frozen planet UI issue
+
+- Black holes
+
 - Plot trajectories
 
 - Colors represent...mass? velocity?
@@ -11,3 +15,4 @@
 
 Done:
 - Have particles leave trails that vanish over time
+- Click on existing planet to freeze it in place

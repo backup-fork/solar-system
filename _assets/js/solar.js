@@ -48,6 +48,11 @@ function loop(){
         }
         p1.vx += fx * dt / p1.m;
         p1.vy += fy * dt / p1.m;
+
+        if (p1.frozen == 1){
+            p1.vx = 0;
+            p1.vy = 0;
+        }
     }
 
     for (var i = 0; i < planets.length; i++){
@@ -105,6 +110,9 @@ function Planet(x, y, vx, vy, m){
     this.vy = vy;
     this.m  = m;
 
+    // -1 = not frozen, 1 = frozen
+    this.frozen = -1; 
+
     this.tail = 200;
 
     this.count = 0;
@@ -113,9 +121,13 @@ function Planet(x, y, vx, vy, m){
     this.prev_y = [];
 
     this.draw = function(){
-        draw_circ(this.x, this.y, 2*Math.pow(this.m, 1/3));
+        draw_circ(this.x, this.y, radius( this.m ));
         draw_curve(this.prev_x, this.prev_y);
     };
+}
+
+function radius(m){
+    return 2*Math.pow(m, 1./3);
 }
 
 function draw_circ(x, y, r){
@@ -179,6 +191,21 @@ function mouseDown(e){
 
 
     if (mode == "sim"){
+        for (var i = 0; i < planets.length; i++){
+            p = planets[i];
+
+            dx = x - p.x;
+            dy = y - p.y;
+
+            rad = radius( p.m );
+
+            if (dx*dx + dy*dy <= rad*rad){
+                p.frozen *= -1;
+                return;
+            }
+
+        }
+
         clearInterval(sim_loop);
 
         start_planet = Date.now();
