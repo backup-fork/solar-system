@@ -78,7 +78,7 @@
 		idle_timer = setTimeout(function() {
 			if(!clicked_once)
 			open_tooltip();
-		}, 2000);
+		}, 500);
 	};
 
 	//init
