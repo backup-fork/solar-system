@@ -239,7 +239,7 @@ function mouseUp(e){
 function trajectory(){
     q = planets[ planets.length - 1 ];
 
-    plans = planets.slice(0, planets.length);
+    plans = planets.slice(0, planets.length-1);
 
     p = new Planet( q.x, q.y, q.vx, q.vy, q.m );
 
@@ -273,7 +273,7 @@ function dottedstroke(xs, ys){
     ctx.moveTo(xs[0], ys[0]);
     ctx.lineCap = "round";
     var count = 0;
-    var max_count = 20;
+    var max_count = 3;
     for (var i = 0; i < xs.length; i++){
         if ( count == 0 ){
             ctx.moveTo(xs[i], ys[i]);
@@ -306,11 +306,12 @@ function mouseMove(e){
         if (dx == 0)
             p.vx = 0;
         else
-            p.vx = sign(dx)*20*Math.log(Math.abs(dx));
+            //p.vx = sign(dx)*20*Math.log(Math.abs(dx));
+            p.vx = sign(dx)*60*Math.log(Math.abs(dx));
         if (dy == 0)
             p.vy = 0;
         else
-            p.vy = sign(dy)*20*Math.log(Math.abs(dy));
+            p.vy = sign(dy)*60*Math.log(Math.abs(dy));
 
         ctx.strokeStyle = "#FFFFFF";
         ctx.beginPath();
