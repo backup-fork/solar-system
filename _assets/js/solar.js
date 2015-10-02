@@ -307,11 +307,14 @@ function mouseMove(e){
             p.vx = 0;
         else
             //p.vx = sign(dx)*20*Math.log(Math.abs(dx));
-            p.vx = sign(dx)*40*Math.log(Math.abs(dx));
+            //p.vx = sign(dx)*40*Math.log(Math.abs(dx));
+            p.vx = dx;
         if (dy == 0)
             p.vy = 0;
         else
-            p.vy = sign(dy)*40*Math.log(Math.abs(dy));
+            //p.vy = sign(dy)*40*Math.log(Math.abs(dy));
+            p.vy = dy;
+
 
         ctx.strokeStyle = "#FFFFFF";
         ctx.beginPath();
