@@ -1,8 +1,9 @@
 (function(){
 	var canvas = document.getElementById("solar_system"),
-		cursor = document.getElementById("cursor"),
-		caption = document.getElementById("caption"),
-		clicked_once = false,
+		hours_hand = document.getElementById("hours"),
+		minutes_hand = document.getElementById("minutes"),
+		time_toggle = document.getElementById("time"),
+		time_message = document.getElementById("time-message"),
 
 		//Timers
 		debounce_resize,
@@ -10,9 +11,16 @@
 		//Int
 		window_w,
 		window_h,
-		clicked = 0,
+		timescale = 10,
 
+		//Bool
+		traveling_forward = true,
 
+		//Animation timelines
+		hours = new TimelineMax({repeat:-1}),
+		minutes = new TimelineMax({repeat:-1}),
+
+	//Functions
 	query_window_dimensions = function(){
 		window_w = window.innerWidth || document.body.clientWidth;
 		window_h = window.innerHeight || document.body.clientHeight;
@@ -22,120 +30,49 @@
 		query_window_dimensions();
 		canvas.width = window_w;
 		canvas.height = window_h;
-	},
-
-	position_cursor = function(e){
-		var cx = e.clientX - (cursor.offsetWidth / 2),
-			cy = e.clientY - (cursor.offsetHeight / 2);
-		cursor.style.transform = "translate(" + cx + "px, " + cy + "px)";
-		caption.style.transform = "translate(" + cx + "px, " + cy + "px)";
-	},
-
-	position_caption = function(){
-		query_window_dimensions();
-		caption.style.bottom = window_h / 2 + "px";
-	},
-
-	init_tooltip = function(){
-		TweenMax.set("#caption-ink", {
-			scale: 0
-		});
-
-		TweenMax.set("#caption-message", {
-			autoAlpha: 0
-		});
-	},
-
-	close_tooltip = function(){
-		TweenMax.to("#caption-message", .12, {
-			autoAlpha: 0,
-		});
-		TweenMax.to("#caption", .212, {
-			boxShadow: "0px 0px 0px rgba(0, 0, 0, 0)",
-			marginTop: "0"
-		});
-		TweenMax.to("#caption-ink", .12, {
-			scale: 0,
-			delay: .1
-		});
-	},
-
-	open_tooltip = function(){
-		TweenMax.to("#caption-ink", .212, {
-			scale: 1,
-		});
-		TweenMax.to("#caption", .212, {
-			boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.25)",
-			marginTop: "-3px"
-		});
-		TweenMax.to("#caption-message", .212, {
-			autoAlpha: 1,
-			delay: .1
-		});
-	},
-
-	set_idle_timer = function(){
-		idle_timer = setTimeout(function() {
-			if(!clicked_once)
-			open_tooltip();
-		}, 500);
 	};
+
+	//Animations
+	hours.set(hours_hand, {
+		rotation: 180
+	})
+	hours.to(hours_hand, timescale, {
+		rotation: 540,
+		transformOrigin: "0px 0px",
+		ease:Linear.easeNone
+	})
+
+	minutes.set(minutes_hand, {
+		rotation: -90
+	})
+	minutes.to(minutes_hand, timescale*60, {
+		rotation: 270,
+		transformOrigin: "0px 0px",
+		ease:Linear.easeNone
+	})
 
 	//init
 	size_canvas();
-	position_caption();
-	set_idle_timer();
-	init_tooltip();
-
 
 	//Events
 	window.onresize = function(e){
 		clearTimeout(debounce_resize);
 		debounce_resize = setTimeout(function() {
 			size_canvas();
-			position_caption();
 		}, 100);
-	}
+	};
 
-	window.onmousemove = function(e){
-		cursor.style.visibility = "visible";
-		position_cursor(e);
-
-		close_tooltip();
-		clearTimeout(idle_timer);
-		set_idle_timer();
-	}
-
-	canvas.onmousedown = function(e){
-		close_tooltip();
-		clicked_once = true;
-		TweenMax.to("#header", .412, {
-			height: 10
-		})
-		if(clicked){
-			cursor.className = "";
-			clicked = false;
-		}else {
-			TweenMax.set("#cursor", {
-				x: e.clientX - (cursor.offsetWidth / 2),
-				y: e.clientY - (cursor.offsetHeight / 2),
-				scale: 1,
-				rotation: 0
-			})
-			TweenMax.to("#cursor", .412, {
-				scale: 0,
-				rotation: 30,
-				onComplete: function(){
-					cursor.className = "vector"
-				}
-			})
-			clicked = true;
+	time_toggle.onclick = function(){
+		if(traveling_forward){
+			time_message.innerHTML = "backward";
+			hours.reverse();
+			minutes.reverse();
+			traveling_forward = false;
+		} else {
+			time_message.innerHTML = "forward";
+			hours.play();
+			minutes.play();
+			traveling_forward = true;
 		}
-	}
-	document.onkeydown = function(e){
-	    if (e.keyCode == 27){
-			cursor.className = "";
-			clicked = false;
-	    }
 	}
 })();

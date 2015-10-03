@@ -5,56 +5,159 @@
 body {
   overflow: hidden;
   background: #263238;
-  font-family: "Overlock", sans-serif; }
+  font-family: "Helvetica Neue", Arial, sans-serif; }
 
 #solar_system {
-  cursor: none; }
-
-#cursor {
-  width: 72px;
-  height: 72px;
-  border: 1px dashed #999;
-  background: url("../static/crosshair.png") center center no-repeat;
-  background-size: 8px;
-  border-radius: 36px;
-  z-index: 500;
   position: fixed;
-  opacity: 1;
-  pointer-events: none;
-  top: 0;
-  left: 0;
-  visibility: hidden;
-  transition: box-shadow 100ms linear; }
-  #cursor.vector {
-    border: 2px dashed transparent; }
+  z-index: 0; }
 
-#caption {
-  position: absolute;
-  left: 44px;
-  top: -3px;
-  width: 200px;
-  height: 35px;
-  line-height: 35px;
-  border-radius: 8px 8px 8px 0;
-  text-align: center;
+#control-panel {
+  position: fixed;
+  z-index: 10;
+  width: 300px;
+  height: 100vh;
+  background: #222;
+  box-shadow: inset 0px 1px 5px rgba(0, 0, 0, 0.5);
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+#brand {
+  height: 90px;
   overflow: hidden;
-  z-index: 600; }
+  background: #222222;
+  background: -moz-linear-gradient(top, #222222 80%, #1e1e1e 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(80%, #222222), color-stop(100%, #1e1e1e));
+  background: -webkit-linear-gradient(top, #222222 80%, #1e1e1e 100%);
+  background: -o-linear-gradient(top, #222222 80%, #1e1e1e 100%);
+  background: -ms-linear-gradient(top, #222222 80%, #1e1e1e 100%);
+  background: linear-gradient(to bottom, #222222 80%, #1e1e1e 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#222222', endColorstr='#1e1e1e',GradientType=0 );
+  position: relative; }
+  #brand:after {
+    content: "";
+    position: absolute;
+    top: -50px;
+    left: -90px;
+    bottom: 45px;
+    right: 0;
+    z-index: 0;
+    background: -moz-radial-gradient(center, ellipse cover, #2a4666 0%, #222222 60%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #2a4666), color-stop(60%, #222222));
+    background: -webkit-radial-gradient(center, ellipse cover, #2a4666 0%, #222222 60%);
+    background: -o-radial-gradient(center, ellipse cover, #2a4666 0%, #222222 60%);
+    background: -ms-radial-gradient(center, ellipse cover, #2a4666 0%, #222222 60%);
+    background: radial-gradient(ellipse at center, #2a4666 0%, #222222 60%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a4666', endColorstr='#222222',GradientType=1 ); }
 
-#caption-ink {
-  background: rgba(84, 110, 122, 0.8);
-  width: 440.0px;
-  height: 440.0px;
-  border-radius: 220.0px;
-  position: absolute;
-  left: -220.0px;
-  top: -185.0px;
-  z-index: 100; }
+#logo {
+  width: 260px;
+  height: 48px;
+  background: url("../static/solar_logo.png") top left no-repeat;
+  background-size: 100%;
+  margin: 20px 0 0 24px;
+  z-index: 5;
+  position: relative; }
+  #logo h1 {
+    font-size: 0;
+    text-indent: -9999px; }
 
-#caption-message {
+#time {
+  cursor: pointer;
+  overflow: auto;
+  padding-bottom: 0; }
+  #time p {
+    float: left;
+    font-size: 11px;
+    color: #4A90E2;
+    text-transform: lowercase;
+    letter-spacing: 3px;
+    padding: 18px 24px 24px 14px; }
+
+#time-clock {
+  float: left;
+  width: 32px;
+  height: 32px;
+  border: 1px #d4d4d4 solid;
+  border-radius: 32px;
+  margin: 8px 0 0 0;
   position: relative;
-  z-index: 200;
-  color: white;
-  font-size: 13px;
-  letter-spacing: 0.5px; }
+  pointer-events: none; }
+  #time-clock #hours {
+    width: 0px;
+    height: 12px;
+    border-left: 1px #d4d4d4 solid;
+    position: absolute;
+    left: 16px;
+    top: 16px; }
+  #time-clock #minutes {
+    width: 0px;
+    height: 10px;
+    border-left: 1px #d4d4d4 solid;
+    position: absolute;
+    left: 16px;
+    top: 16px; }
+
+#speed {
+  padding: 12px; }
+  #speed h2 {
+    margin: 0px 0px 6px 12px; }
+  #speed #speed-half input {
+    border-right: none;
+    border-radius: 2px 0px 0px 2px; }
+  #speed #speed-normal input {
+    border-left: none;
+    border-right: none; }
+  #speed #speed-twice input {
+    border-left: none;
+    border-radius: 0px 2px 2px 0px; }
+  #speed div {
+    float: left;
+    position: relative; }
+    #speed div a {
+      position: absolute;
+      left: 0;
+      top: 0px;
+      width: 91px;
+      text-align: center;
+      line-height: 30px;
+      pointer-events: none;
+      font-size: 11px;
+      color: #d4d4d4;
+      letter-spacing: 2.5px; }
+  #speed input {
+    border: 1px #1C1C1C solid;
+    width: 91px;
+    height: 30px;
+    background: #272727;
+    cursor: pointer;
+    margin: 0;
+    display: block;
+    outline: none;
+    box-shadow: inset 0px 1px 0px #2A2A2A;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none; }
+    #speed input:hover + a {
+      color: #4A90E2; }
+    #speed input:checked {
+      background: #232323;
+      box-shadow: none; }
+      #speed input:checked + a {
+        color: #4A90E2; }
+
+.control {
+  clear: both;
+  padding: 24px;
+  margin: 8px 0 8px 0; }
+  .control h2 {
+    color: #444;
+    font-size: 11px;
+    font-weight: 400;
+    text-transform: uppercase;
+    user-select: none;
+    letter-spacing: 2.5px; }
 
 /*# sourceMappingURL=main.css.map */

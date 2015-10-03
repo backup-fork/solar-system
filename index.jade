@@ -1,17 +1,38 @@
 doctype html
 html(lang='en')
     head
-        title Solar system builder!
+        title Gravity Simulation
         meta(charset='UTF-8')
         link(href='_assets/css/main.css' type='text/css' rel='stylesheet')
         link(href='https://fonts.googleapis.com/css?family=Overlock' rel='stylesheet' type='text/css')
     body(onload='initialize();' onkeydown='keyDown(event);' onmousedown='mouseDown(event);' onmouseup='mouseUp(event);' onmousemove='mouseMove(event);')
         canvas#solar_system
-        #cursor
-
-        #caption
-            #caption-ink
-            #caption-message Click and hold to create mass
+        #control-panel
+            #brand
+                #logo
+                    h1 Solar Simulator
+            #time.control
+                h2 Arrow of time
+                #time-clock
+                    #hours
+                    #minutes
+                p#time-message.selected Forward
+            #speed.control
+                h2 Speed
+                div#speed-half
+                    input(type='radio' name='speed_control')
+                    a 1/2
+                div#speed-normal
+                    input(type='radio' name='speed_control' checked)
+                    a normal
+                div#speed-twice
+                    input(type='radio' name='speed_control')
+                    a 2X
+            #trails.control
+                h2 Particle trails
+                input(type='range' name='particle_trails' min='0' max='100')
+                a off
+                a &infin;
         script(type='text/javascript' src='vendor/greensock/TweenMax.min.js')
         script(type='text/javascript' src='_assets/js/ui.js')
         script(type='text/javascript' src='_assets/js/solar.js')
