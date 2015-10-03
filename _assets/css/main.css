@@ -321,7 +321,9 @@ body {
     bottom: 0;
     position: absolute;
     cursor: pointer;
-    pointer-events: auto; }
+    pointer-events: auto;
+    border: 1px #141414 solid;
+    border-radius: 2px; }
     #keyboard-window button:hover {
       color: #4A90E2; }
 
