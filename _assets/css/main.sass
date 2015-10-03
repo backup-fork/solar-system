@@ -22,18 +22,28 @@ body
 	position: fixed
 	top: 0
 	left: 0
-	background: url('../static/menu.png') center center no-repeat
-	background-size: 20px 16px
-	width: 20px * 3
-	height: 16px *3
+	width: 80px
+	height: 60px
 	z-index: 9999
 	text-indent: -9999px
 	font-size: 0
 	visibility: none
 	cursor: pointer
 	pointer-events: auto
-
 	opacity: 0.4
+	#settings_top, #settings_mid, #settings_bottom
+		display: block
+		background: #4A90E2
+		width: 20px
+		height: 3px
+		left: 20px
+		position: absolute
+	#settings_top
+		top: 15px
+	#settings_mid
+		top: 20px
+	#settings_bottom
+		top: 25px
 	&:hover
 		opacity: 1
 

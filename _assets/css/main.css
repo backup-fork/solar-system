@@ -15,10 +15,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  background: url("../static/menu.png") center center no-repeat;
-  background-size: 20px 16px;
-  width: 60px;
-  height: 48px;
+  width: 80px;
+  height: 60px;
   z-index: 9999;
   text-indent: -9999px;
   font-size: 0;
@@ -26,6 +24,19 @@ body {
   cursor: pointer;
   pointer-events: auto;
   opacity: 0.4; }
+  #settings #settings_top, #settings #settings_mid, #settings #settings_bottom {
+    display: block;
+    background: #4A90E2;
+    width: 20px;
+    height: 3px;
+    left: 20px;
+    position: absolute; }
+  #settings #settings_top {
+    top: 15px; }
+  #settings #settings_mid {
+    top: 20px; }
+  #settings #settings_bottom {
+    top: 25px; }
   #settings:hover {
     opacity: 1; }
 
