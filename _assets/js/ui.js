@@ -1,5 +1,6 @@
 (function(){
 	var canvas = document.getElementById("solar_system"),
+		settings_button = document.getElementById("settings"),
 		controlpanel = document.getElementById("control-panel"),
 		hours_hand = document.getElementById("hours"),
 		minutes_hand = document.getElementById("minutes"),
@@ -19,10 +20,12 @@
 
 		//Bool
 		traveling_forward = true,
+		drawer_open = false,
 
 		//Animation timelines
 		hours = new TimelineMax({repeat:-1}),
 		minutes = new TimelineMax({repeat:-1}),
+		animate_drawer = new TimelineMax(),
 
 	//Functions
 	query_window_dimensions = function(){
@@ -43,23 +46,40 @@
 	};
 
 	//Animations
+
+	//Hours hand
 	hours.set(hours_hand, {
 		rotation: 180
-	})
+	});
 	hours.to(hours_hand, timescale, {
 		rotation: 540,
 		transformOrigin: "0px 0px",
 		ease:Linear.easeNone
-	})
+	});
 
+	//Minutes hand
 	minutes.set(minutes_hand, {
 		rotation: -90
-	})
+	});
 	minutes.to(minutes_hand, timescale*60, {
 		rotation: 270,
 		transformOrigin: "0px 0px",
 		ease:Linear.easeNone
-	})
+	});
+
+	//Control panel opening
+
+	animate_drawer.to(controlpanel, .212, {
+		x: 0
+	});
+	animate_drawer.to(canvas, .212, {
+		left: 300
+	}, "-=.212");
+	animate_drawer.to(settings, .212, {
+		left: 320
+	}, "-=.212");
+	
+	animate_drawer.pause();
 
 	//init
 	size_canvas();
@@ -71,6 +91,16 @@
 		debounce_resize = setTimeout(function() {
 			size_canvas();
 		}, 100);
+	};
+
+	settings.onclick = function(){
+		if(drawer_open){
+			animate_drawer.reverse();
+			drawer_open = false;
+		} else {
+			animate_drawer.play();
+			drawer_open = true;
+		}
 	};
 
 	time_toggle.onclick = function(){
@@ -85,7 +115,7 @@
 			minutes.play();
 			traveling_forward = true;
 		}
-	}
+	};
 
 	trails_slider.onmouseup = function(){
 		if(trails_slider.value == 0){
@@ -96,5 +126,5 @@
 			trails_off.className = "";
 			trails_inf.className = "";
 		}
-	}
+	};
 })();

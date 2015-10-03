@@ -11,6 +11,24 @@ body {
   position: fixed;
   z-index: 0; }
 
+#settings {
+  position: fixed;
+  top: 20px;
+  left: 24px;
+  background: url("../static/menu.png") top left no-repeat;
+  background-size: 100%;
+  width: 20px;
+  height: 16px;
+  z-index: 9999;
+  text-indent: -9999px;
+  font-size: 0;
+  visibility: none;
+  cursor: pointer;
+  pointer-events: auto;
+  opacity: 0.4; }
+  #settings:hover {
+    opacity: 1; }
+
 #control-panel {
   position: fixed;
   z-index: 10;
