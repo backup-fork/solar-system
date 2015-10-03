@@ -12,6 +12,8 @@
 		speed_half = document.getElementById("speed-half"),
 		speed_normal = document.getElementById("speed-normal"),
 		speed_twice = document.getElementById("speed-twice"),
+		dialog_trigger = document.getElementById("keyboard-shortcuts"),
+		dialog_window = document.getElementById("keyboard-window"),
 
 		//Timers
 		debounce_resize,
@@ -24,6 +26,7 @@
 		//Bool
 		traveling_forward = true,
 		drawer_open = false,
+		dialog_visible = false,
 
 		//Animation timelines
 		animate_clock_forward = new TimelineMax({
@@ -52,6 +55,40 @@
 			x: -300,
 			autoAlpha: 1
 		})
+	},
+
+	position_dialog = function(){
+		query_window_dimensions();
+		dialog_window.style.left = (window_w - dialog_window.offsetWidth - (drawer_open ? 300 : 0)) / 2 + "px"
+		dialog_window.style.top = (window_h - dialog_window.offsetHeight) / 2 + "px"
+	},
+
+	open_dialog = function(){
+		dialog_trigger.className = 'active'
+		TweenMax.to(dialog_window, .212, {
+			autoAlpha: 1,
+			marginTop: -20
+		});
+		dialog_visible = true;
+	}
+
+	close_dialog = function(){
+		if(dialog_visible){
+			dialog_trigger.className = ''
+			TweenMax.to(dialog_window, .212, {
+				autoAlpha: 0,
+				marginTop: 0
+			});
+			dialog_visible = false;
+		}
+	},
+
+	toggle_dialog = function(){
+		if(dialog_visible){
+			close_dialog();
+		} else {
+			open_dialog();
+		};
 	};
 
 	//ANIMATIONS
@@ -88,6 +125,11 @@
 	//init
 	size_canvas();
 	init_controlpanel();
+	position_dialog();
+
+	TweenMax.set(dialog_window, {
+		autoAlpha: 0
+	})
 
 	//Events
 	window.onresize = function(e){
@@ -96,6 +138,12 @@
 			size_canvas();
 		}, 100);
 	};
+
+	document.onmousedown = function(e) {
+		if(e.target != dialog_window && e.target != dialog_trigger) {
+			close_dialog();         
+		}
+	}
 
 	settings.onclick = function(){
 		if(drawer_open){
@@ -152,5 +200,9 @@
 	
 	speed_twice.onmouseup = function(){
 		animate_clock_forward.timeScale(2.5);
+	}
+
+	dialog_trigger.onclick = function(){
+		toggle_dialog();
 	}
 })();

@@ -286,8 +286,18 @@ body
 	letter-spacing: 2.5px
 	cursor: pointer
 	width: 300px
-	&:hover
+	&:hover 
+		color: #777
+	&.active
 		color: #4A90E2
+#keyboard-window
+	position: fixed
+	width: 600px
+	height: 400px
+	border-radius: 2px
+	background: rgba(0, 0, 0, 0.5)
+	box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2)
+	z-index: 99999
 
 #options-off.active, #options-inf.active
 	color: #4A90E2
