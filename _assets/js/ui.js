@@ -68,15 +68,18 @@
 	}, "-=360");
 
 	//Control panel opening
-	animate_drawer.to(controlpanel, .212, {
-		x: 0
+	animate_drawer.to(controlpanel, .282, {
+		x: 0,
+		ease:Cubic.easeInOut
 	});
-	animate_drawer.to(canvas, .212, {
-		left: 300
-	}, "-=.212");
-	animate_drawer.to(settings, .212, {
-		left: 300
-	}, "-=.212");
+	animate_drawer.to(canvas, .282, {
+		left: 300,
+		ease:Cubic.easeInOut
+	}, "-=.282");
+	animate_drawer.to(settings, .282, {
+		left: 300,
+		ease:Cubic.easeInOut
+	}, "-=.282");
 	
 	animate_drawer.pause();
 
@@ -94,13 +97,15 @@
 
 	settings.onclick = function(){
 		if(drawer_open){
-			settings.className = ''
-			controlpanel.className = ''
+			settings.className = '';
+			controlpanel.className = '';
+			animate_drawer.timeScale(1.5);
 			animate_drawer.reverse();
 			drawer_open = false;
 		} else {
 			settings.className = 'active'
 			controlpanel.className = 'active'
+			animate_drawer.timeScale(1);
 			animate_drawer.play();
 			drawer_open = true;
 		}
