@@ -95,10 +95,12 @@
 	settings.onclick = function(){
 		if(drawer_open){
 			settings.className = ''
+			controlpanel.className = ''
 			animate_drawer.reverse();
 			drawer_open = false;
 		} else {
 			settings.className = 'active'
+			controlpanel.className = 'active'
 			animate_drawer.play();
 			drawer_open = true;
 		}
