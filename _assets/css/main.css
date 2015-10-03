@@ -196,9 +196,11 @@ body {
     -webkit-appearance: none;
     -moz-appearance: none;
     -o-appearance: none;
-    appearance: none; }
+    appearance: none;
+    transition: color 200ms linear; }
     #speed input:hover + a {
-      color: #4A90E2; }
+      color: #4A90E2;
+      transition: color 200ms linear; }
     #speed input:checked {
       background: #232323;
       box-shadow: none; }
@@ -289,9 +291,11 @@ body {
   font-size: 11px;
   letter-spacing: 2.5px;
   cursor: pointer;
-  width: 300px; }
+  width: 300px;
+  transition: color 200ms linear; }
   #keyboard-shortcuts:hover {
-    color: #777; }
+    color: #777;
+    transition: color 200ms linear; }
   #keyboard-shortcuts.active {
     color: #4A90E2; }
 
@@ -302,7 +306,7 @@ body {
   border-radius: 2px;
   padding: 24px;
   background: rgba(0, 0, 0, 0.5);
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 0px transparent;
   z-index: 99999; }
   #keyboard-window button {
     padding: 8px 24px 8px 24px;
@@ -310,7 +314,6 @@ body {
     border: none;
     outline: none;
     color: #d4d4d4;
-    text-transform: capitalize;
     letter-spacing: 1.5px;
     font-size: 11px;
     display: block;

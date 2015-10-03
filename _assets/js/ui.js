@@ -67,7 +67,11 @@
 		dialog_trigger.className = 'active'
 		TweenMax.to(dialog_window, .212, {
 			autoAlpha: 1,
-			marginTop: -20
+			marginTop: -20,
+		});
+		TweenMax.to(dialog_window, .212, {
+			boxShadow:  "0px 10px 20px rgba(0, 0, 0, 0.2)",
+			delay: 0.05
 		});
 		dialog_visible = true;
 	}
@@ -77,7 +81,8 @@
 			dialog_trigger.className = ''
 			TweenMax.to(dialog_window, .212, {
 				autoAlpha: 0,
-				marginTop: 0
+				marginTop: 0,
+				boxShadow:  "0px 0px 0px rgba(0, 0, 0, 0)"
 			});
 			dialog_visible = false;
 		}
