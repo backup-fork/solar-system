@@ -183,7 +183,8 @@ body {
     -moz-appearance: none;
     -o-appearance: none;
     appearance: none;
-    outline: none; }
+    outline: none;
+    cursor: pointer; }
     #trails input[type="range"]:after {
       content: "";
       position: absolute;
