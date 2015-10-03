@@ -24,7 +24,6 @@
 		//Bool
 		traveling_forward = true,
 		drawer_open = false,
-		clock_reversed = false,
 
 		//Animation timelines
 		animate_clock_forward = new TimelineMax({
