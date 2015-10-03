@@ -105,7 +105,7 @@ function draw(){
     for (var i = 0; i < planets.length; i++){
         planets[i].draw();
     }
-
+    ctx.fillStyle = "#4A90E2";
     ctx.font="13px Helvetica";
     ctx.fillText(fps + " FPS", c.width - 50, c.height - 6);
 }
