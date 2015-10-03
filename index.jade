@@ -5,8 +5,8 @@ html(lang='en')
         meta(charset='UTF-8')
         link(href='_assets/css/main.css' type='text/css' rel='stylesheet')
         link(href='https://fonts.googleapis.com/css?family=Overlock' rel='stylesheet' type='text/css')
-    body(onload='initialize();' onkeydown='keyDown(event);' onmousedown='mouseDown(event);' onmouseup='mouseUp(event);' onmousemove='mouseMove(event);')
-        canvas#solar_system
+    body(onload='initialize();' onkeydown='keyDown(event);')
+        canvas#solar_system(onmousedown='mouseDown(event);' onmouseup='mouseUp(event);' onmousemove='mouseMove(event);')
         a#settings Settings
         #control-panel
             #brand
