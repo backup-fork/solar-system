@@ -103,17 +103,18 @@ body {
   border-radius: 32px;
   margin: 8px 0 0 0;
   position: relative;
+  transform: rotate(180deg);
   pointer-events: none; }
   #time-clock #hours {
     width: 0px;
-    height: 12px;
+    height: 10px;
     border-left: 1px #d4d4d4 solid;
     position: absolute;
     left: 16px;
     top: 16px; }
   #time-clock #minutes {
     width: 0px;
-    height: 10px;
+    height: 12px;
     border-left: 1px #d4d4d4 solid;
     position: absolute;
     left: 16px;

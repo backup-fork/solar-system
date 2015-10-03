@@ -21,10 +21,16 @@
 		//Bool
 		traveling_forward = true,
 		drawer_open = false,
+		clock_reversed = false,
 
 		//Animation timelines
-		hours = new TimelineMax({repeat:-1}),
-		minutes = new TimelineMax({repeat:-1}),
+		animate_clock_forward = new TimelineMax({
+			repeat:-1,
+			onReverseComplete: function(){
+				animate_clock_forward.seek(360);
+			}
+		}),
+
 		animate_drawer = new TimelineMax(),
 
 	//Functions
@@ -46,30 +52,20 @@
 		})
 	};
 
-	//Animations
-
-	//Hours hand
-	hours.set(hours_hand, {
-		rotation: 180
-	});
-	hours.to(hours_hand, timescale, {
-		rotation: 540,
-		transformOrigin: "0px 0px",
-		ease:Linear.easeNone
+	//ANIMATIONS
+	animate_clock_forward.to(hours, 360, {
+		rotation: 360,
+		transformOrigin:'0px 0px',
+		ease: Linear.easeNone
 	});
 
-	//Minutes hand
-	minutes.set(minutes_hand, {
-		rotation: -90
-	});
-	minutes.to(minutes_hand, timescale*60, {
-		rotation: 270,
-		transformOrigin: "0px 0px",
-		ease:Linear.easeNone
-	});
+	animate_clock_forward.to(minutes, 360, {
+		rotation: 21600,
+		transformOrigin:'0px 0px',
+		ease: Linear.easeNone
+	}, "-=360");
 
 	//Control panel opening
-
 	animate_drawer.to(controlpanel, .212, {
 		x: 0
 	});
@@ -107,13 +103,11 @@
 	time_toggle.onclick = function(){
 		if(traveling_forward){
 			time_message.innerHTML = "backward";
-			hours.reverse();
-			minutes.reverse();
+			animate_clock_forward.reverse();
 			traveling_forward = false;
 		} else {
 			time_message.innerHTML = "forward";
-			hours.play();
-			minutes.play();
+			animate_clock_forward.play();
 			traveling_forward = true;
 		}
 	};
