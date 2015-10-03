@@ -25,21 +25,6 @@ body {
   pointer-events: auto;
   opacity: 0.4;
   transition: opacity 100ms linear; }
-  #settings #settings_top, #settings #settings_mid, #settings #settings_bottom {
-    display: block;
-    background: #4A90E2;
-    width: 20px;
-    height: 3px;
-    left: 20px;
-    position: absolute;
-    transition: all 200ms linear;
-    transition-delay: 100ms; }
-  #settings #settings_top {
-    top: 15px; }
-  #settings #settings_mid {
-    top: 20px; }
-  #settings #settings_bottom {
-    top: 25px; }
   #settings.active {
     transition: opacity 100ms linear; }
     #settings.active #settings_top {
@@ -59,6 +44,25 @@ body {
       transition-delay: 100ms; }
   #settings:hover {
     opacity: 1; }
+
+#settings_top, #settings_mid, #settings_bottom {
+  display: block;
+  background: #4A90E2;
+  width: 20px;
+  height: 3px;
+  left: 20px;
+  position: absolute;
+  transition: all 200ms linear;
+  transition-delay: 100ms; }
+
+#settings_top {
+  top: 15px; }
+
+#settings_mid {
+  top: 20px; }
+
+#settings_bottom {
+  top: 25px; }
 
 #control-panel {
   position: fixed;
@@ -143,35 +147,28 @@ body {
   position: relative;
   transform: rotate(180deg);
   pointer-events: none; }
-  #time-clock #hours {
-    width: 0px;
-    height: 10px;
-    border-left: 1px #d4d4d4 solid;
-    position: absolute;
-    left: 16px;
-    top: 16px; }
-  #time-clock #minutes {
-    width: 0px;
-    height: 12px;
-    border-left: 1px #d4d4d4 solid;
-    position: absolute;
-    left: 16px;
-    top: 16px; }
+
+#hours {
+  width: 0px;
+  height: 10px;
+  border-left: 1px #d4d4d4 solid;
+  position: absolute;
+  left: 16px;
+  top: 16px; }
+
+#minutes {
+  width: 0px;
+  height: 12px;
+  border-left: 1px #d4d4d4 solid;
+  position: absolute;
+  left: 16px;
+  top: 16px; }
 
 #speed {
   overflow: auto;
   padding: 12px; }
   #speed h2 {
     margin: 0px 0px 6px 12px; }
-  #speed #speed-half input {
-    border-right: none;
-    border-radius: 2px 0px 0px 2px; }
-  #speed #speed-normal input {
-    border-left: none;
-    border-right: none; }
-  #speed #speed-twice input {
-    border-left: none;
-    border-radius: 0px 2px 2px 0px; }
   #speed div {
     float: left;
     position: relative; }
@@ -207,6 +204,18 @@ body {
       box-shadow: none; }
       #speed input:checked + a {
         color: #4A90E2; }
+
+#speed-half input {
+  border-right: none;
+  border-radius: 2px 0px 0px 2px; }
+
+#speed-normal input {
+  border-left: none;
+  border-right: none; }
+
+#speed-twice input {
+  border-left: none;
+  border-radius: 0px 2px 2px 0px; }
 
 #trails {
   overflow: auto;
