@@ -106,8 +106,8 @@ function draw(){
         planets[i].draw();
     }
 
-    ctx.font="20px Georgia";
-    ctx.fillText(fps, c.width - 40, c.height - 5);
+    ctx.font="13px Helvetica";
+    ctx.fillText(fps + " FPS", c.width - 50, c.height - 6);
 }
 
 function Planet(x, y, vx, vy, m){
