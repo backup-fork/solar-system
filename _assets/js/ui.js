@@ -119,7 +119,9 @@
 	trails_slider.onmouseup = function(){
 		if(trails_slider.value == 0){
 			trails_off.className = "active";
+			trails_inf.className = "";
 		} else if (trails_slider.value == 100){
+			trails_off.className = "";
 			trails_inf.className = "active";
 		} else {
 			trails_off.className = "";
