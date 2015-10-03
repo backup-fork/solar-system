@@ -300,12 +300,33 @@ body {
   width: 600px;
   height: 400px;
   border-radius: 2px;
+  padding: 24px;
   background: rgba(0, 0, 0, 0.5);
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
   z-index: 99999; }
+  #keyboard-window button {
+    padding: 8px 24px 8px 24px;
+    background: #222;
+    border: none;
+    outline: none;
+    color: #d4d4d4;
+    text-transform: capitalize;
+    letter-spacing: 1.5px;
+    font-size: 11px;
+    display: block;
+    font-weight: 200;
+    bottom: 0;
+    position: absolute;
+    cursor: pointer; }
+    #keyboard-window button:hover {
+      color: #4A90E2; }
 
 #options-off.active, #options-inf.active {
   color: #4A90E2; }
+
+.content {
+  position: relative;
+  height: 100%; }
 
 .control {
   clear: both;
