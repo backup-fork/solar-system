@@ -20,18 +20,19 @@ body
 
 #settings
 	position: fixed
-	top: 20px
-	left: 24px
-	background: url('../static/menu.png') top left no-repeat
-	background-size: 100%
-	width: 20px
-	height: 16px
+	top: 0
+	left: 0
+	background: url('../static/menu.png') center center no-repeat
+	background-size: 20px 16px
+	width: 20px * 3
+	height: 16px *3
 	z-index: 9999
 	text-indent: -9999px
 	font-size: 0
 	visibility: none
 	cursor: pointer
 	pointer-events: auto
+
 	opacity: 0.4
 	&:hover
 		opacity: 1
@@ -43,6 +44,8 @@ body
 	height: 100vh
 	background: #222
 	box-shadow: inset 0px 1px 6px rgba(0, 0, 0, 0.5)
+	opacity: 0
+	visibility: hidden
 	+user-select
 
 #brand

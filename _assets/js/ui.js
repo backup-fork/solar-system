@@ -41,7 +41,8 @@
 
 	init_controlpanel = function(){
 		TweenMax.set(controlpanel, {
-			x: -300
+			x: -300,
+			autoAlpha: 1
 		})
 	};
 
@@ -76,7 +77,7 @@
 		left: 300
 	}, "-=.212");
 	animate_drawer.to(settings, .212, {
-		left: 320
+		left: 300
 	}, "-=.212");
 	
 	animate_drawer.pause();
