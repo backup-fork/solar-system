@@ -30,9 +30,10 @@ html(lang='en')
                     a 2X
             #trails.control
                 h2 Particle trails
-                input(type='range' name='particle_trails' min='0' max='100')
-                a off
-                a &infin;
+                input(id="trails_slider" type='range' name='particle_trails' min='0' max='100')
+                div#trails-options
+                    a#options-off off
+                    a#options-inf &infin;
         script(type='text/javascript' src='vendor/greensock/TweenMax.min.js')
         script(type='text/javascript' src='_assets/js/ui.js')
         script(type='text/javascript' src='_assets/js/solar.js')
