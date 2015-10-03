@@ -9,6 +9,9 @@
 		trails_slider = document.getElementById("trails_slider"),
 		trails_off = document.getElementById("options-off"),
 		trails_inf = document.getElementById("options-inf"),
+		speed_half = document.getElementById("speed-half"),
+		speed_normal = document.getElementById("speed-normal"),
+		speed_twice = document.getElementById("speed-twice"),
 
 		//Timers
 		debounce_resize,
@@ -123,4 +126,15 @@
 			trails_inf.className = "";
 		}
 	};
+	speed_half.onmouseup = function(){
+		animate_clock_forward.timeScale(0.25);
+	}
+
+	speed_normal.onmouseup = function(){
+		animate_clock_forward.timeScale(1);
+	}
+	
+	speed_twice.onmouseup = function(){
+		animate_clock_forward.timeScale(2.5);
+	}
 })();
