@@ -116,7 +116,6 @@
 			traveling_forward = true;
 		}
 	};
-
 	trails_slider.onmouseup = function(){
 		if(trails_slider.value == 0){
 			trails_off.className = "active";
