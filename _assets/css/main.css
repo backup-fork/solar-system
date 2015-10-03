@@ -17,7 +17,7 @@ body {
   width: 300px;
   height: 100vh;
   background: #222;
-  box-shadow: inset 0px 1px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0px 1px 6px rgba(0, 0, 0, 0.5);
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -100,6 +100,7 @@ body {
     top: 16px; }
 
 #speed {
+  overflow: auto;
   padding: 12px; }
   #speed h2 {
     margin: 0px 0px 6px 12px; }
@@ -147,6 +148,71 @@ body {
       box-shadow: none; }
       #speed input:checked + a {
         color: #4A90E2; }
+
+#trails {
+  overflow: auto;
+  padding: 12px; }
+  #trails h2 {
+    margin: 0px 0px 6px 12px; }
+  #trails input[type="range"] {
+    width: 266px;
+    border-radius: 2px;
+    height: 5px;
+    border: 1px #1C1C1C solid;
+    background: #272727;
+    position: relative;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    outline: none; }
+    #trails input[type="range"]:after {
+      content: "";
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      top: 2px;
+      border-top: 1px #222 solid; }
+  #trails input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    cursor: col-resize; }
+    #trails input[type=range]::-webkit-slider-thumb:after {
+      content: "";
+      width: 0;
+      height: 0;
+      left: 2px;
+      top: 7px;
+      position: absolute;
+      z-index: 10;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid #4A90E2;
+      transform: scaleX(0.7); }
+
+#trails-options {
+  width: 262px;
+  color: #d4d4d4;
+  font-size: 11px;
+  margin-top: 5px;
+  margin-left: 5px;
+  position: relative; }
+  #trails-options a:first-child {
+    float: left;
+    letter-spacing: 1.5px; }
+  #trails-options a:last-child {
+    float: right;
+    font-size: 24px;
+    font-weight: lighter;
+    margin-top: -8px; }
+
+#options-off.active, #options-inf.active {
+  color: #4A90E2; }
 
 .control {
   clear: both;

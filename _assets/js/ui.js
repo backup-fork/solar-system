@@ -1,9 +1,13 @@
 (function(){
 	var canvas = document.getElementById("solar_system"),
+		controlpanel = document.getElementById("control-panel"),
 		hours_hand = document.getElementById("hours"),
 		minutes_hand = document.getElementById("minutes"),
 		time_toggle = document.getElementById("time"),
 		time_message = document.getElementById("time-message"),
+		trails_slider = document.getElementById("trails_slider"),
+		trails_off = document.getElementById("options-off"),
+		trails_inf = document.getElementById("options-inf"),
 
 		//Timers
 		debounce_resize,
@@ -30,6 +34,12 @@
 		query_window_dimensions();
 		canvas.width = window_w;
 		canvas.height = window_h;
+	},
+
+	init_controlpanel = function(){
+		TweenMax.set(controlpanel, {
+			x: -300
+		})
 	};
 
 	//Animations
@@ -53,6 +63,7 @@
 
 	//init
 	size_canvas();
+	init_controlpanel();
 
 	//Events
 	window.onresize = function(e){
@@ -73,6 +84,17 @@
 			hours.play();
 			minutes.play();
 			traveling_forward = true;
+		}
+	}
+
+	trails_slider.onmouseup = function(){
+		if(trails_slider.value == 0){
+			trails_off.className = "active";
+		} else if (trails_slider.value == 100){
+			trails_inf.className = "active";
+		} else {
+			trails_off.className = "";
+			trails_inf.className = "";
 		}
 	}
 })();
