@@ -77,7 +77,9 @@
 		ease:Cubic.easeInOut
 	}, "-=.282");
 	animate_drawer.to(settings, .282, {
-		left: 300,
+		left: 282,
+		top: 0,
+		rotation: 90,
 		ease:Cubic.easeInOut
 	}, "-=.282");
 	
@@ -106,12 +108,12 @@
 		} else {
 			settings.className = 'active'
 			controlpanel.className = 'active'
-			animate_drawer.timeScale(1);
 			if(traveling_forward){
 				animate_clock_forward.play();
 			} else {
 				animate_clock_forward.reverse();
 			}
+			animate_drawer.timeScale(.5)
 			animate_drawer.play();
 			drawer_open = true;
 		}
