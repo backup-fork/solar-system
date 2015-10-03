@@ -101,11 +101,17 @@
 			controlpanel.className = '';
 			animate_drawer.timeScale(1.5);
 			animate_drawer.reverse();
+			animate_clock_forward.pause();
 			drawer_open = false;
 		} else {
 			settings.className = 'active'
 			controlpanel.className = 'active'
 			animate_drawer.timeScale(1);
+			if(traveling_forward){
+				animate_clock_forward.play();
+			} else {
+				animate_clock_forward.reverse();
+			}
 			animate_drawer.play();
 			drawer_open = true;
 		}
