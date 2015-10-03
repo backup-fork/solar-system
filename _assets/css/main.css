@@ -23,20 +23,40 @@ body {
   visibility: none;
   cursor: pointer;
   pointer-events: auto;
-  opacity: 0.4; }
+  opacity: 0.4;
+  transition: opacity 100ms linear; }
   #settings #settings_top, #settings #settings_mid, #settings #settings_bottom {
     display: block;
     background: #4A90E2;
     width: 20px;
     height: 3px;
     left: 20px;
-    position: absolute; }
+    position: absolute;
+    transition: all 200ms linear;
+    transition-delay: 100ms; }
   #settings #settings_top {
     top: 15px; }
   #settings #settings_mid {
     top: 20px; }
   #settings #settings_bottom {
     top: 25px; }
+  #settings.active {
+    transition: opacity 100ms linear; }
+    #settings.active #settings_top {
+      left: 10px;
+      transform: rotate(-45deg) translate(0, 7px);
+      transition: all 200ms linear;
+      transition-delay: 100ms; }
+    #settings.active #settings_mid {
+      left: 10px;
+      opacity: 0;
+      transition: all 200ms linear;
+      transition-delay: 100ms; }
+    #settings.active #settings_bottom {
+      left: 10px;
+      transform: rotate(45deg) translate(0, -7px);
+      transition: all 200ms linear;
+      transition-delay: 100ms; }
   #settings:hover {
     opacity: 1; }
 

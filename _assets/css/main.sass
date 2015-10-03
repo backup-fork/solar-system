@@ -31,6 +31,7 @@ body
 	cursor: pointer
 	pointer-events: auto
 	opacity: 0.4
+	transition: opacity 100ms linear
 	#settings_top, #settings_mid, #settings_bottom
 		display: block
 		background: #4A90E2
@@ -38,12 +39,33 @@ body
 		height: 3px
 		left: 20px
 		position: absolute
+		transition: all 200ms linear
+		transition-delay: 100ms
 	#settings_top
 		top: 15px
 	#settings_mid
 		top: 20px
 	#settings_bottom
 		top: 25px
+	&.active
+		transition: opacity 100ms linear
+		#settings_top
+			left: 10px
+			transform: rotate(-45deg) translate(0, 7px)
+			transition: all 200ms linear
+			transition-delay: 100ms
+		#settings_mid
+			left: 10px
+			opacity: 0
+			transition: all 200ms linear
+			transition-delay: 100ms
+		#settings_bottom
+			left: 10px
+			transform: rotate(45deg) translate(0, -7px)
+			transition: all 200ms linear
+			transition-delay: 100ms
+
+
 	&:hover
 		opacity: 1
 
