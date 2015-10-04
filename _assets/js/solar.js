@@ -6,6 +6,9 @@ function initialize(){
 
     speed_multiplier = 1;
     paused = -1; // -1 = not paused, 1 = paused
+    spacebar_toggle = -1; // same thing, but for UI logic
+
+    trail_length = 200;
 
     lastframe = Date.now();
     starttime = Date.now();
@@ -79,7 +82,7 @@ function loop(){
 
         p.prev_x.push(p.x);
         p.prev_y.push(p.y);
-        if (p.prev_x.length > p.tail){
+        if (p.prev_x.length > trail_length){
             p.prev_x.shift();
             p.prev_y.shift();
         }
@@ -218,7 +221,6 @@ function mouseDown(e){
 
             if (dx*dx + dy*dy <= rad*rad){
                 p.frozen *= -1;
-                // TO DO: fix the cursor here
                 return;
             }
         }
@@ -298,7 +300,6 @@ function dottedstroke(xs, ys){
         }
     }
     ctx.stroke();
-    //ctx.stroke();
     ctx.lineCap = "butt";
 }
 
@@ -316,13 +317,10 @@ function mouseMove(e){
         if (dx == 0)
             p.vx = 0;
         else
-            //p.vx = sign(dx)*20*Math.log(Math.abs(dx));
-            //p.vx = sign(dx)*40*Math.log(Math.abs(dx));
             p.vx = dx;
         if (dy == 0)
             p.vy = 0;
         else
-            //p.vy = sign(dy)*40*Math.log(Math.abs(dy));
             p.vy = dy;
 
 
@@ -339,13 +337,13 @@ function mouseMove(e){
 
 function keyDown(e){
     kc = e.keyCode;
-    //alert(kc);
 
     // space bar
     if (kc == 32){
         paused *= -1;
     }
 
+    // escape
     if (kc == 27){
         if (mode == "vec"){
             p = planets[ planets.length - 1 ];
@@ -356,6 +354,7 @@ function keyDown(e){
         }
     }
 
+    // r
     if (kc == 82){
         for (var i = 0; i < planets.length; i++){
             planets[i].vx *= -1;

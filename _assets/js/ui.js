@@ -23,6 +23,7 @@
 		ctrl_key = document.getElementById("ctrlkey"),
 		space_key = document.getElementById("spacekey"),
 
+
 		//Timers
 		debounce_resize,
 
@@ -226,6 +227,18 @@
 			case 32:
 				//space key
 				flash_key(space_key);
+                if (spacebar_toggle == -1)
+                    animate_clock_forward.timeScale(0);
+                if (spacebar_toggle == 1){
+                    if (speed_multiplier == 0.5)
+                        animate_clock_forward.timeScale(0.3);
+                    if (speed_multiplier == 1)
+                        animate_clock_forward.timeScale(1.);
+                    if (speed_multiplier == 2)
+                        animate_clock_forward.timeScale(2.5);
+                }
+
+                spacebar_toggle *= -1;
 				break;
 		}
 	}
