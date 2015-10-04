@@ -197,11 +197,11 @@
 
 	time_toggle.onclick = function(){
 		if(traveling_forward){
-			time_message.innerHTML = "backward";
+			time_message.innerHTML = "play backward";
 			animate_clock_forward.reverse();
 			traveling_forward = false;
 		} else {
-			time_message.innerHTML = "forward";
+			time_message.innerHTML = "play forward";
 			animate_clock_forward.play();
 			traveling_forward = true;
 		}
