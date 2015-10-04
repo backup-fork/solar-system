@@ -197,11 +197,11 @@
 
 	time_toggle.onclick = function(){
 		if(traveling_forward){
-			time_message.innerHTML = "play backward";
+			time_message.innerHTML = "playing backward";
 			animate_clock_forward.reverse();
 			traveling_forward = false;
 		} else {
-			time_message.innerHTML = "play forward";
+			time_message.innerHTML = "playing forward";
 			animate_clock_forward.play();
 			traveling_forward = true;
 		}
@@ -219,7 +219,7 @@
 		}
 	};
 	speed_half.onmouseup = function(){
-		animate_clock_forward.timeScale(0.25);
+		animate_clock_forward.timeScale(0.3);
 	}
 
 	speed_normal.onmouseup = function(){
