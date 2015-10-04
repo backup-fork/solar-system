@@ -324,6 +324,28 @@ body
 		border-radius: 2px
 		&:hover
 			color: #4A90E2
+	&:after
+		content: ''
+		position: absolute
+		top: -100px
+		left: -90px
+		bottom: 400px
+		right: 0
+		z-index: 0
+		opacity: 0
+		background: -moz-radial-gradient(center, ellipse cover,  rgba(42,70,102,1) 0%, rgba(20,20,20,0) 60%) /* FF3.6+ */
+		background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(42,70,102,1)), color-stop(60%,rgba(20,20,20,0))) /* Chrome,Safari4+ */
+		background: -webkit-radial-gradient(center, ellipse cover,  rgba(42,70,102,1) 0%,rgba(20,20,20,0) 60%) /* Chrome10+,Safari5.1+ */
+		background: -o-radial-gradient(center, ellipse cover,  rgba(42,70,102,1) 0%,rgba(20,20,20,0) 60%) /* Opera 12+ */
+		background: -ms-radial-gradient(center, ellipse cover,  rgba(42,70,102,1) 0%,rgba(20,20,20,0) 60%) /* IE10+ */
+		background: radial-gradient(ellipse at center,  rgba(42,70,102,1) 0%,rgba(20,20,20,0) 60%) /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a4666', endColorstr='#00141414',GradientType=1 ) /* IE6-9 fallback on horizontal gradient */
+
+#keyboard-window.active:after
+	opacity: .8
+	transition: opacity 600ms linear, top 600ms ease-in-out
+	transition-delay: 300ms
+
 #keyboard-window-ink
 	width: 800px
 	height: 800px

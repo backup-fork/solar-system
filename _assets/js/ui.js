@@ -68,6 +68,7 @@
 	open_dialog = function(){
 		position_dialog();
 		dialog_trigger.className = 'active'
+		dialog_window.className = 'active'
 		TweenMax.set(dialog_ink, {
 			scale: 0
 		})
@@ -97,6 +98,7 @@
 	close_dialog = function(){
 		if(dialog_visible){
 			dialog_trigger.className = ''
+			dialog_window.className = ''
 			TweenMax.to(dialog_window, .212, {
 				autoAlpha: 0,
 				marginTop: 0,
