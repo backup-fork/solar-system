@@ -4,6 +4,9 @@ function initialize(){
 
     ctx = c.getContext("2d");
 
+    // boolean of keys currently pressed
+    keys = [];
+
     speed_multiplier = 1;
     paused = -1; // -1 = not paused, 1 = paused
 
@@ -338,9 +341,20 @@ function keyDown(e){
     kc = e.keyCode;
     //alert(kc);
 
+    keys[kc] = true;
+
+
     // space bar
     if (kc == 32){
         paused *= -1;
+    }
+
+    // c
+    if (kc == 67){
+        // control key already pressed
+        if (keys[17]){
+            planets = [];
+        }
     }
 
     // escape
@@ -353,14 +367,11 @@ function keyDown(e){
             sim_loop = setInterval(function(){loop()}, 16);
         }
     }
+}
 
-    // r
-    /*
-    if (kc == 82){
-        //alert("yarp");
-        reverse_particles();
-    }
-    */
+function keyUp(e){
+    kc = e.keyCode;
+    keys[kc] = false;
 }
 
 function reverse_particles(){
