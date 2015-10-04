@@ -5,6 +5,7 @@ function initialize(){
     ctx = c.getContext("2d");
 
     speed_multiplier = 1;
+    paused = -1; // -1 = not paused, 1 = paused
 
     lastframe = Date.now();
     starttime = Date.now();
@@ -46,6 +47,10 @@ function loop(){
 
     dt *= speed_multiplier;
 
+    if (paused == 1){
+        draw();
+        return;
+    }
 
     if (dt > 0.1)
         return;
@@ -334,6 +339,13 @@ function mouseMove(e){
 
 function keyDown(e){
     kc = e.keyCode;
+    //alert(kc);
+
+    // space bar
+    if (kc == 32){
+        paused *= -1;
+    }
+
     if (kc == 27){
         if (mode == "vec"){
             p = planets[ planets.length - 1 ];
