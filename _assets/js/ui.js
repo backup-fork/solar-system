@@ -159,6 +159,9 @@
 		clearTimeout(debounce_resize);
 		debounce_resize = setTimeout(function() {
 			size_canvas();
+			if(dialog_visible){
+				position_dialog();			
+			}
 		}, 100);
 	};
 
