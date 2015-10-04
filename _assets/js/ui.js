@@ -16,6 +16,12 @@
 		dialog_window = document.getElementById("keyboard-window"),
 		dialog_ink = document.getElementById("keyboard-window-ink"),
 		dialog_content = dialog_window.getElementsByClassName("content"),
+		one_key = document.getElementById("onekey"),
+		two_key = document.getElementById("twokey"),
+		three_key = document.getElementById("threekey"),
+		r_key = document.getElementById("rkey"),
+		ctrl_key = document.getElementById("ctrlkey"),
+		space_key = document.getElementById("spacekey"),
 
 		//Timers
 		debounce_resize,
@@ -108,6 +114,22 @@
 		}
 	},
 
+	flash_key = function(object){
+		if(dialog_visible){
+			TweenMax.to(object, .212, {
+				background: "#1f1f1f",
+				color: "#4A90E2",
+				boxShadow: "inset 0px 1px 0px #1f1f1f",
+			});
+			TweenMax.to(object, .212, {
+				background: "#222222",
+				color: "#979797",
+				boxShadow: "inset 0px 1px 0px #2A2A2A",
+				delay: .212
+			});
+		}
+	},
+
 	toggle_dialog = function(){
 		if(dialog_visible){
 			close_dialog();
@@ -170,6 +192,38 @@
 	document.onmousedown = function(e) {
 		if(e.target != dialog_window && e.target != dialog_trigger) {
 			close_dialog();         
+		}
+	}
+
+	window.onkeydown = function(e){
+		switch(e.keyCode){
+			case 49:
+				// 1 key			
+				flash_key(one_key);
+				speed_half.getElementsByTagName("input")[0].checked = true;
+				animate_clock_forward.timeScale(0.3);
+				break;
+			case 50:
+				// 2 key
+				flash_key(two_key);
+				speed_normal.getElementsByTagName("input")[0].checked = true;
+				animate_clock_forward.timeScale(1);
+				break;
+			case 51:
+				// 3 key
+				flash_key(three_key);
+				speed_twice.getElementsByTagName("input")[0].checked = true;
+				animate_clock_forward.timeScale(2.5);
+				break;
+			case 82:
+				// R key
+				flash_key(r_key);
+				time_toggle.click();
+				break;
+			case 32:
+				//space key
+				flash_key(space_key);
+				break;
 		}
 	}
 
