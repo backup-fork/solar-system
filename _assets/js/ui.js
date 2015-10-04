@@ -266,6 +266,7 @@
 	};
 
 	time_toggle.onclick = function(){
+        reverse_particles();
 		if(traveling_forward){
 			time_message.innerHTML = "playing backward";
 			animate_clock_forward.reverse();

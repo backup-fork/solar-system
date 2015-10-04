@@ -355,10 +355,13 @@ function keyDown(e){
     }
 
     // r
-    if (kc == 82){
-        for (var i = 0; i < planets.length; i++){
-            planets[i].vx *= -1;
-            planets[i].vy *= -1;
-        }
+    if (kc == 82)
+        reverse_particles();
+}
+
+function reverse_particles(){
+    for (var i = 0; i < planets.length; i++){
+        planets[i].vx *= -1;
+        planets[i].vy *= -1;
     }
 }
