@@ -336,6 +336,7 @@ function mouseMove(e){
 
 function keyDown(e){
     kc = e.keyCode;
+    //alert(kc);
 
     // space bar
     if (kc == 32){
@@ -354,8 +355,12 @@ function keyDown(e){
     }
 
     // r
-    if (kc == 82)
+    /*
+    if (kc == 82){
+        //alert("yarp");
         reverse_particles();
+    }
+    */
 }
 
 function reverse_particles(){
