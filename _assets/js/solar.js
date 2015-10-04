@@ -6,7 +6,6 @@ function initialize(){
 
     speed_multiplier = 1;
     paused = -1; // -1 = not paused, 1 = paused
-    spacebar_toggle = -1; // same thing, but for UI logic
 
     trail_length = 200;
 
