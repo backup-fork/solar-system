@@ -335,8 +335,9 @@ body {
   left: -70px;
   border-radius: 800px;
   position: absolute;
-  background: rgba(0, 0, 0, 0.7);
-  top: -170px; }
+  background: rgba(20, 20, 20, 0.8);
+  top: -170px;
+  pointer-events: none; }
 
 #options-off.active, #options-inf.active {
   color: #4A90E2; }

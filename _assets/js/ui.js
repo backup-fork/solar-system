@@ -15,6 +15,7 @@
 		dialog_trigger = document.getElementById("keyboard-shortcuts"),
 		dialog_window = document.getElementById("keyboard-window"),
 		dialog_ink = document.getElementById("keyboard-window-ink"),
+		dialog_content = dialog_window.getElementsByClassName("content"),
 
 		//Timers
 		debounce_resize,
@@ -70,6 +71,10 @@
 		TweenMax.set(dialog_ink, {
 			scale: 0
 		})
+		TweenMax.set(dialog_content, {
+			autoAlpha: 0,
+			y: "5px"
+		})
 		TweenMax.to(dialog_window, .212, {
 			autoAlpha: 1,
 			marginTop: -20,
@@ -80,6 +85,11 @@
 		TweenMax.to(dialog_window, .212, {
 			boxShadow:  "0px 10px 20px rgba(0, 0, 0, 0.2)",
 			delay: 0.2
+		});
+		TweenMax.to(dialog_content, .212, {
+			autoAlpha: 1,
+			y: "0",
+			delay: .212
 		});
 		dialog_visible = true;
 	}
