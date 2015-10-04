@@ -14,6 +14,7 @@
 		speed_twice = document.getElementById("speed-twice"),
 		dialog_trigger = document.getElementById("keyboard-shortcuts"),
 		dialog_window = document.getElementById("keyboard-window"),
+		dialog_ink = document.getElementById("keyboard-window-ink"),
 
 		//Timers
 		debounce_resize,
@@ -59,19 +60,26 @@
 
 	position_dialog = function(){
 		query_window_dimensions();
-		dialog_window.style.left = (window_w - dialog_window.offsetWidth - (drawer_open ? 300 : 0)) / 2 + "px"
+		dialog_window.style.left = (window_w - dialog_window.offsetWidth + (drawer_open ? 300 : 0)) / 2 + "px"
 		dialog_window.style.top = (window_h - dialog_window.offsetHeight) / 2 + "px"
 	},
 
 	open_dialog = function(){
+		position_dialog();
 		dialog_trigger.className = 'active'
+		TweenMax.set(dialog_ink, {
+			scale: 0
+		})
 		TweenMax.to(dialog_window, .212, {
 			autoAlpha: 1,
 			marginTop: -20,
 		});
+		TweenMax.to(dialog_ink, .212, {
+			scale: 1
+		});
 		TweenMax.to(dialog_window, .212, {
 			boxShadow:  "0px 10px 20px rgba(0, 0, 0, 0.2)",
-			delay: 0.05
+			delay: 0.2
 		});
 		dialog_visible = true;
 	}
