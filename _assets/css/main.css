@@ -138,13 +138,15 @@ body {
     letter-spacing: 3px;
     padding: 14px 24px 24px 0; }
   #time:hover #time-clock, #time:hover #hours, #time:hover #minutes {
-    border-color: white; }
+    border-color: white;
+    transition: border-color 200ms linear; }
 
 #time-clock {
   float: right;
   width: 32px;
   height: 32px;
   border: 2px #979797 solid;
+  transition: border-color 200ms linear;
   border-radius: 32px;
   margin: 4px 0 0 -8px;
   position: relative;
@@ -155,6 +157,7 @@ body {
   width: 0px;
   height: 10px;
   border-left: 1px #979797 solid;
+  transition: border-color 200ms linear;
   position: absolute;
   left: 16px;
   top: 16px; }
@@ -163,6 +166,7 @@ body {
   width: 0px;
   height: 12px;
   border-left: 1px #979797 solid;
+  transition: border-color 200ms linear;
   position: absolute;
   left: 16px;
   top: 16px; }
