@@ -4,6 +4,8 @@ function initialize(){
 
     ctx = c.getContext("2d");
 
+    speed_multiplier = 1;
+
     lastframe = Date.now();
     starttime = Date.now();
     frames = 0;
@@ -38,9 +40,12 @@ function force( p, planets ){
 }
 
 function loop(){
-    now = Date.now()
+    now = Date.now();
     dt = (now - lastframe)/1000;
     lastframe = now;
+
+    dt *= speed_multiplier;
+
 
     if (dt > 0.1)
         return;
