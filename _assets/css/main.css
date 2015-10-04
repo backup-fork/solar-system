@@ -148,7 +148,7 @@ body {
   border: 2px #979797 solid;
   transition: border-color 200ms linear;
   border-radius: 32px;
-  margin: 4px 0 0 -8px;
+  margin: 4px 16px 0 -8px;
   position: relative;
   transform: rotate(180deg);
   pointer-events: none; }
