@@ -138,7 +138,7 @@ function Planet(x, y, vx, vy, m){
     // -1 = not frozen, 1 = frozen
     this.frozen = -1; 
 
-    this.tail = 200;
+    this.tail = 200; // length of the particle tail
 
     this.count = 0;
 
@@ -147,7 +147,7 @@ function Planet(x, y, vx, vy, m){
 
     this.draw = function(){
         draw_circ(this.x, this.y, radius( this.m ));
-        draw_curve(this.prev_x, this.prev_y);
+        draw_trail(this.prev_x, this.prev_y);
     };
 }
 
@@ -163,15 +163,32 @@ function draw_circ(x, y, r){
     ctx.closePath();
 }
 
-function draw_curve(xs, ys){
-    var a = 0.2;
-    da = 0.001;
-    var rgb = "rgba(255, 255, 255, ";
+function draw_trail(xs, ys){
+    var n_steps = 40; // number of segments to draw for the tail
 
-    ctx.strokeStyle = rgb + a;
-    //ctx.lineCap = "round";
+    var a = 0.2; // initial opacity
+
+    var di = Math.max(1,  Math.floor(xs.length / n_steps));
+    var da = a / (xs.length / di);
+
+    var rgb = "rgba(255, 255, 255, ";
     ctx.lineWidth = 2;
 
+    for (var i = xs.length - 1; i > di; i -= di){
+        ctx.strokeStyle = rgb + a;
+
+        ctx.beginPath();
+
+        ctx.moveTo(xs[i], ys[i]);
+        ctx.lineTo(xs[i - di], ys[i - di]);
+
+        ctx.stroke();
+        ctx.closePath();
+
+        a -= da;
+    }
+
+    /*
     //ctx.beginPath();
     var n = xs.length - 1;
     //ctx.moveTo(xs[n], ys[n]);
@@ -186,6 +203,7 @@ function draw_curve(xs, ys){
     }
     //ctx.stroke();
     //ctx.closePath();
+    */
 
 }
 
