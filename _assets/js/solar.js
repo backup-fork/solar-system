@@ -21,7 +21,10 @@ function initialize(){
 
     mode = "sim";
 
-    sim_loop = setInterval(function(){loop()}, 16);
+    fps = 30; // frames/sec
+    mspf = 1 / fps * 1000; // ms per frame
+
+    sim_loop = setInterval(function(){loop()}, mspf);
 }
 
 function force( p, planets ){
@@ -57,7 +60,7 @@ function loop(){
         return;
     }
 
-    if (dt > 0.1)
+    if (dt > 0.2)
         return;
 
     //G = 10000;
@@ -234,12 +237,12 @@ function mouseDown(e){
 
         mode = "mass";
         mass_timer = setInterval(function(){
-            mass_loop()}, 16);
+            mass_loop()}, mspf);
     }
     if (mode == "vec"){
 
         mode = "sim";
-        sim_loop = setInterval(function(){loop()}, 16);
+        sim_loop = setInterval(function(){loop()}, mspf);
     }
 }
 
@@ -364,7 +367,7 @@ function keyDown(e){
             p.vx = 0;
             p.vy = 0;
             mode = "sim";
-            sim_loop = setInterval(function(){loop()}, 16);
+            sim_loop = setInterval(function(){loop()}, mspf);
         }
     }
 }
