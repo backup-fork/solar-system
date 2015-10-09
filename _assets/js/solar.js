@@ -9,6 +9,7 @@ function initialize(){
 
     speed_multiplier = 1;
     paused = -1; // -1 = not paused, 1 = paused
+    collisions = -1;
 
     trail_length = 200;
 
@@ -69,7 +70,7 @@ function loop(){
     if (dt > 0.2)
         return;
 
-    //G = 10000;
+    // compute the force
     G = 4 * Math.pi^2; // AU^3 yr^-2 Ms^-1
     a = 10;
     for (var i = 0; i < planets.length; i++){
@@ -86,6 +87,7 @@ function loop(){
         }
     }
 
+    // save old positions
     for (var i = 0; i < planets.length; i++){
         p = planets[i];
         p.x += p.vx*dt;
@@ -99,6 +101,56 @@ function loop(){
             p.prev_y.shift();
         }
     }
+
+    // collide planets
+    if (collisions == 1){
+        var temp_length = planets.length;
+        for (var i = 0; i < temp_length-1; i++){
+            for (var j = i+1; j < temp_length; j++){
+                p1 = planets[i];
+                p2 = planets[j];
+
+                if (p1.destroyed || p2.destroyed)
+                    continue;
+
+                r1 = radius( p1.m );
+                r2 = radius( p2.m );
+                pos1 = [p1.x, p1.y];
+                pos2 = [p2.x, p2.y];
+
+                v = vec_sub( pos1, pos2 );
+                norm = vec_norm( v );
+
+                if (norm < r1 + r2){
+                    // new particle at the center of mass
+                    x = (p1.x * p1.m + p2.x * p2.m)/ (p1.m + p2.m);
+                    y = (p1.y * p1.m + p2.y * p2.m)/ (p1.m + p2.m);
+
+                    m = p1.m + p2.m;
+
+                    // conserve momentum
+                    vx = (p1.vx * p1.m + p2.vx * p2.m)/ m;
+                    vy = (p1.vy * p1.m + p2.vy * p2.m)/ m;
+
+                    p = new Planet( x, y, vx, vy, m);
+                    planets.push( p );
+
+                    p1.destroyed = true;
+                    p2.destroyed = true;
+                }
+
+            }
+        }
+    }
+
+    // get rid of destroyed planets
+    new_planets = [];
+    for (var i = 0; i < planets.length; i++){
+        p = planets[i];
+        if ( p.destroyed == false )
+            new_planets.push( p );
+    }
+    planets = new_planets;
 
 
 
@@ -145,6 +197,8 @@ function Planet(x, y, vx, vy, m){
     // -1 = not frozen, 1 = frozen
     this.frozen = -1; 
 
+    this.destroyed = false;
+
     this.count = 0;
 
     this.prev_x = [];
@@ -154,6 +208,40 @@ function Planet(x, y, vx, vy, m){
         draw_circ(this.x, this.y, radius( this.m ));
         draw_trail(this.prev_x, this.prev_y);
     };
+}
+
+function vec_add( v1, v2 ){
+    var v3 = [];
+    for (var i = 0; i < v1.length; i++)
+        v3.push( v1[i] + v2[i] );
+    return v3;
+}
+
+function vec_sub( v1, v2 ){
+    var v3 = [];
+    for (var i = 0; i < v1.length; i++)
+        v3.push( v1[i] - v2[i] );
+    return v3;
+}
+
+function vec_dot( v1, v2 ){
+    var sum = 0;
+    for (var i = 0; i < v1.length; i++)
+        sum += v1[i]*v2[i];
+    return sum;
+}
+
+function vec_mul( a, v ){
+    var v2 = [];
+    for (var i = 0; i < v.length; i++)
+        v2.push( a * v[i] );
+    return v2;
+}
+
+function vec_norm( v ){
+    var norm = vec_dot( v, v );
+    norm = Math.sqrt( norm );
+    return norm;
 }
 
 function radius(m){
@@ -382,6 +470,11 @@ function keyDown(e){
         if (keys[17]){
             planets = [];
         }
+    }
+
+    // k
+    if (kc == 75){
+        collisions *= -1;
     }
 
     // escape
