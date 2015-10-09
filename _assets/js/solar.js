@@ -171,6 +171,7 @@ function draw_circ(x, y, r){
 function draw_trail(xs, ys){
     var n_steps = 40; // number of segments to draw for the tail
 
+
     var a = 0.2; // initial opacity
 
     var di = Math.max(1,  Math.floor(xs.length / n_steps));
@@ -179,6 +180,21 @@ function draw_trail(xs, ys){
     var rgb = "rgba(255, 255, 255, ";
     ctx.lineWidth = 2;
 
+
+    // if it's an infinite trail, just draw it all at one opacity
+    if (trail_length == Number.MAX_VALUE){
+        ctx.strokeStyle = rgb + a;
+
+        ctx.beginPath();
+        ctx.moveTo(xs[0], ys[0]);
+        for (var i = 1; i < xs.length; i++){
+            ctx.lineTo(xs[i], ys[i]);
+        }
+        ctx.stroke();
+        ctx.closePath();
+    }
+
+    // otherwise draw a fading trail
     for (var i = xs.length - 1; i > di; i -= di){
         ctx.strokeStyle = rgb + a;
 
@@ -192,24 +208,6 @@ function draw_trail(xs, ys){
 
         a -= da;
     }
-
-    /*
-    //ctx.beginPath();
-    var n = xs.length - 1;
-    //ctx.moveTo(xs[n], ys[n]);
-    for (var i = n; i > 1; i--){
-        ctx.strokeStyle = rgb + a;
-        ctx.beginPath();
-        ctx.moveTo(xs[i], ys[i]);
-        ctx.lineTo(xs[i-1], ys[i-1]);
-        ctx.stroke();
-        ctx.closePath();
-        a -= da;
-    }
-    //ctx.stroke();
-    //ctx.closePath();
-    */
-
 }
 
 function mass_loop(){
