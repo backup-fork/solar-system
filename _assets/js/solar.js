@@ -192,6 +192,7 @@ function draw_trail(xs, ys){
         }
         ctx.stroke();
         ctx.closePath();
+        return;
     }
 
     // otherwise draw a fading trail
