@@ -180,7 +180,6 @@ function draw_trail(xs, ys){
     var rgb = "rgba(255, 255, 255, ";
     ctx.lineWidth = 2;
 
-
     // if it's an infinite trail, just draw it all at one opacity
     if (trail_length == Number.MAX_VALUE){
         ctx.strokeStyle = rgb + a;
@@ -196,13 +195,16 @@ function draw_trail(xs, ys){
     }
 
     // otherwise draw a fading trail
+    // (update with better tails)
     for (var i = xs.length - 1; i > di; i -= di){
         ctx.strokeStyle = rgb + a;
 
         ctx.beginPath();
 
         ctx.moveTo(xs[i], ys[i]);
-        ctx.lineTo(xs[i - di], ys[i - di]);
+        for (var j = i-1; j >= i - di; j--){
+            ctx.lineTo(xs[j], ys[j]);
+        }
 
         ctx.stroke();
         ctx.closePath();
