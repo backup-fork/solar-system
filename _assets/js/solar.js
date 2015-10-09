@@ -21,7 +21,7 @@ function initialize(){
 
     mode = "sim";
 
-    fps = 30; // frames/sec
+    fps = 60; // frames/sec
     mspf = 1 / fps * 1000; // ms per frame
 
     sim_loop = setInterval(function(){loop()}, mspf);
@@ -55,6 +55,12 @@ function loop(){
 
     dt *= speed_multiplier;
 
+    trail_length = 4 * trails_slider.value;
+
+    if (trails_slider.value == 100){
+        trail_length = Number.MAX_VALUE;
+    }
+
     if (paused == 1){
         draw();
         return;
@@ -87,7 +93,8 @@ function loop(){
 
         p.prev_x.push(p.x);
         p.prev_y.push(p.y);
-        if (p.prev_x.length > trail_length){
+
+        while (p.prev_x.length > trail_length){
             p.prev_x.shift();
             p.prev_y.shift();
         }
@@ -137,8 +144,6 @@ function Planet(x, y, vx, vy, m){
 
     // -1 = not frozen, 1 = frozen
     this.frozen = -1; 
-
-    this.tail = 200; // length of the particle tail
 
     this.count = 0;
 
