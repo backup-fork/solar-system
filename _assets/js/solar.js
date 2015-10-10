@@ -12,7 +12,7 @@ function initialize(){
 
     speed_multiplier = 1;
     paused = -1; // -1 = not paused, 1 = paused
-    collisions = -1;
+    collisions = 1;
 
     trail_length = 200;
 
@@ -518,5 +518,12 @@ function reverse_particles(){
     for (var i = 0; i < planets.length; i++){
         planets[i].vx *= -1;
         planets[i].vy *= -1;
+    }
+}
+
+function planets2string(){
+    str = "";
+    for (var i = 0; i < planets.length; i++){
+        continue;
     }
 }
