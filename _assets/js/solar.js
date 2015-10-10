@@ -312,6 +312,9 @@ function draw_circ(x, y, r){
 }
 
 function draw_trail(xs, ys){
+    if (xs.length == 0)
+        return;
+
     var n_steps = 40; // number of segments to draw for the tail
 
 
