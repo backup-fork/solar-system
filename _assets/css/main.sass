@@ -477,14 +477,15 @@ body
 	bottom: 24px
 	left: 30px
 	height: 50px
-	width: 200px
+	width: 250px
+	padding-left: 4px
 	overflow: hidden
 	border-radius: 4px
 	box-shadow: 0px 0px 0px rgba(0, 0, 0, 0)
 
 #evaporate
 	position: absolute
-	left: -150px
+	left: -125px
 	top: -230px
 	border: 200px #212121 solid
 	width: 100px
@@ -495,10 +496,10 @@ body
 
 #splash
 	position: absolute
-	width: 200px
-	height: 200px
+	width: 250px
+	height: 250px
 	z-index: 50
-	top: -70px
+	top: -80px
 	border-radius: 200px
 	background: #212121
 	transform: scale(0)
@@ -516,3 +517,48 @@ body
 	font-weight: 200
 	span
 		color: $label-color
+
+#play_ico
+	position: absolute
+	left: 2px
+	top: 2px
+	z-index: 9999
+	transform: scale(.5)
+	width: 46px
+	height: 46px
+	#pause-left, #pause-right
+		width: 0
+		height: 0
+		position: relative
+		border-style: solid
+		transform: rotate(0)
+		border-color: transparent transparent #34587c transparent
+		border-width: 0 0 46px 0
+		border-radius: 0
+		width: 15px
+		+quantum-transition
+	#pause-right
+		position: absolute
+		left: 24px
+		top: 0
+		+quantum-transition
+	&.active
+		#pause-left
+			transform: rotate(90deg)
+			border-color: transparent transparent #4A90E2 transparent
+			border-width: 0 20px 30px 20px
+			border-radius: 0
+			margin-top: 8px
+			width: 0
+			height: 0
+			+quantum-transition
+		#pause-right
+			transform: rotate(90deg)
+			border-color: transparent transparent #4A90E2 transparent
+			border-width: 0 20px 30px 20px
+			border-radius: 0
+			margin-top: 8px
+			width: 0
+			height: 0
+			left: 0
+			+quantum-transition

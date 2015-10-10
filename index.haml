@@ -26,9 +26,12 @@
     %body{:onload => 'initialize()', :onkeydown => 'keyDown(event)', :onkeyup => 'keyUp(event)'}
         %canvas#solar_system{:onmousedown => 'mouseDown(event)', :onmouseup => 'mouseUp(event)', :onmousemove => 'mouseMove(event)'}
         #toast
+            #play_ico.active
+                #pause-left
+                #pause-right
             #evaporate
             #splash
-            %p#message paused
+            %p#message
         %a#settings 
             Settings
             %span#settings_top
@@ -74,7 +77,7 @@
                 #time-clock
                     #hours
                     #minutes
-                %p#time-message.selected Playing forward
+                %p#time-message.selected Forward
             #speed.control
                 %h2 Speed
                 #speed-half

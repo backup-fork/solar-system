@@ -26,9 +26,13 @@
   <body onkeydown='keyDown(event)' onkeyup='keyUp(event)' onload='initialize()'>
     <canvas id='solar_system' onmousedown='mouseDown(event)' onmousemove='mouseMove(event)' onmouseup='mouseUp(event)'></canvas>
     <div id='toast'>
+      <div class='active' id='play_ico'>
+        <div id='pause-left'></div>
+        <div id='pause-right'></div>
+      </div>
       <div id='evaporate'></div>
       <div id='splash'></div>
-      <p id='message'>paused</p>
+      <p id='message'></p>
     </div>
     <a id='settings'>
       Settings
@@ -94,7 +98,7 @@
           <div id='hours'></div>
           <div id='minutes'></div>
         </div>
-        <p class='selected' id='time-message'>Playing forward</p>
+        <p class='selected' id='time-message'>Forward</p>
       </div>
       <div class='control' id='speed'>
         <h2>Speed</h2>

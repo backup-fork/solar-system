@@ -24,6 +24,7 @@
 	var space_key = document.getElementById("spacekey");
 	var toast = document.getElementById("toast");
 	var toast_message = document.getElementById("message");
+	var play_ico = document.getElementById("play_ico");
 
 	//Timers
 	var debounce_resize;
@@ -247,6 +248,10 @@
 		animate_clock.pause();
 		drawer_open = false;
 		position_message();
+
+		if(dialog_visible){
+			close_dialog();
+		}
 	};
 
 	function position_message(){
@@ -317,6 +322,10 @@
 		y: "50px"
 	});
 
+	animate_toast.set(play_ico, {
+		autoAlpha: 0
+	});
+
 	animate_toast.set("#message", {
 		autoAlpha: 0,
 		y: 0
@@ -342,6 +351,10 @@
 		scale: 1.2
 	}, "-=.5");
 
+	animate_toast.to(play_ico, .5, {
+		autoAlpha: 1
+	}, "-=.5");
+
 	animate_toast.to("#message", .5, {
 		autoAlpha: 1,
 		y: 0,
@@ -359,6 +372,10 @@
 			system_message_visible = false;
 		}
 	});
+
+	animate_toast.to(play_ico, .5, {
+		autoAlpha: 0
+	}, "-=.5");
 
 	animate_toast.to("#message", .5, {
 		autoAlpha: 0,
@@ -386,7 +403,7 @@
 		autoAlpha: 0
 	})
 
-	TweenMax.set(dialog_trigger, {
+	TweenMax.set(".hud", {
 		autoAlpha: 0
 	})
 
@@ -464,22 +481,25 @@
 				time_toggle.click();
 				send_toast(check_message());
 				break;
+
 			case 32:
 				//space key
 				flash_key(space_key);
                 if (simulation_paused == false){
                 	//pause the simulation
                     animate_clock.pause();
-                    time_message.innerHTML = "Paused";
+                    play_ico.className = '';
                 }
                 if (simulation_paused == true){
                 	//play the simulation, reset UI
                     if (traveling_forward){
-                        time_message.innerHTML = "Playing forward";
+                        time_message.innerHTML = "Forward";
                         animate_clock.play();
+                        play_ico.className = 'active';
                     } else {
-                        time_message.innerHTML = "playing backward";
+                        time_message.innerHTML = "Backward";
                     	animate_clock.reverse();
+                    	play_ico.className = 'active';
                     };
                 }
                 simulation_paused = !simulation_paused;
@@ -499,14 +519,14 @@
 	time_toggle.onclick = function(){
         reverse_particles();
 		if(traveling_forward){
+			time_message.innerHTML = "Backward";
 			if(!simulation_paused){
-				time_message.innerHTML = "Playing backward";
 				animate_clock.reverse();
 			}
 			traveling_forward = false;
 		} else {
+			time_message.innerHTML = "Forward";
 			if(!simulation_paused){
-				time_message.innerHTML = "playing forward";
 				animate_clock.play();
 			}
 			traveling_forward = true;
