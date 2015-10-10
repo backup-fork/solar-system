@@ -252,9 +252,16 @@
 	function position_message(){
 		query_window_dimensions();
 		var toast_w = toast.offsetWidth;
-		TweenMax.to(toast, .3, {
-			left: ((window_w / 2) - (toast_w / 2) + (drawer_open ? 150 : 0) + "px")
-		})
+		if(drawer_open){
+			TweenMax.to(toast, .3, {
+				left: ((window_w / 2) - (toast_w / 2) + 150 + "px")
+			})			
+		} else {
+			TweenMax.to(toast, .3, {
+				left: 30
+			})			
+		}
+
 	};
 
 	function send_toast(message){
