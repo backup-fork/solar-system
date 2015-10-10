@@ -317,6 +317,9 @@ body {
     transition: color 200ms linear; }
   #keyboard-shortcuts.active {
     color: #4A90E2; }
+    #keyboard-shortcuts.active span#kb_ico {
+      background: url("../static/keyboard_icon_active@2x.png") top left no-repeat;
+      background-size: 100%; }
 
 #keyboard-window {
   position: fixed;
