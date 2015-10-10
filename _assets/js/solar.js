@@ -100,18 +100,9 @@ function loop(){
     else
         speed_multiplier = 3;
 
-    /*
-    if (speed_var == 1)
-        speed_multiplier = 0.25;
-    else if (speed_var == 2)
-        speed_multiplier = 1;
-    else
-        speed_multiplier = 4;
-    */
-
     dt *= speed_multiplier;
 
-    trail_length = 4 * trails_slider.value;
+    trail_length = 16 * trails_slider.value;
 
     if (trails_slider.value == 100){
         trail_length = Number.MAX_VALUE;
@@ -125,35 +116,12 @@ function loop(){
     if (dt > 0.2)
         return;
 
-    // compute the force
-    for (var i = 0; i < planets.length; i++){
-        p = planets[i];
-        f = force( p, planets);
-        fx = f[0];
-        fy = f[1];
-        p.vx += fx * dt / p.m;
-        p.vy += fy * dt / p.m;
-
-        if (p.frozen == 1){
-            p.vx = 0;
-            p.vy = 0;
-        }
+    // compute the new positions
+    var n_steps = 16;
+    for (var i = 0; i < n_steps; i++){
+        step_particles(dt / n_steps);
     }
 
-    // save old positions
-    for (var i = 0; i < planets.length; i++){
-        p = planets[i];
-        p.x += p.vx*dt;
-        p.y += p.vy*dt;
-
-        p.prev_x.push(p.x);
-        p.prev_y.push(p.y);
-
-        while (p.prev_x.length > trail_length){
-            p.prev_x.shift();
-            p.prev_y.shift();
-        }
-    }
 
     // collide planets
     if (collisions == 1){
@@ -238,6 +206,38 @@ function draw(){
     ctx.fillStyle = "#4A90E2";
     ctx.font="13px Helvetica";
     ctx.fillText(fps + " FPS", c.width - 50, c.height - 6);
+}
+
+function step_particles(dt){
+    // compute the force
+    for (var i = 0; i < planets.length; i++){
+        p = planets[i];
+        f = force( p, planets);
+        fx = f[0];
+        fy = f[1];
+        p.vx += fx * dt / p.m;
+        p.vy += fy * dt / p.m;
+
+        if (p.frozen == 1){
+            p.vx = 0;
+            p.vy = 0;
+        }
+    }
+
+    // save position data
+    for (var i = 0; i < planets.length; i++){
+        p = planets[i];
+        p.x += p.vx*dt;
+        p.y += p.vy*dt;
+
+        p.prev_x.push(p.x);
+        p.prev_y.push(p.y);
+
+        while (p.prev_x.length > trail_length){
+            p.prev_x.shift();
+            p.prev_y.shift();
+        }
+    }
 }
 
 function Planet(x, y, vx, vy, m){
