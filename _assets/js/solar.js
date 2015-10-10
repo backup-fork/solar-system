@@ -102,7 +102,7 @@ function loop(){
 
     dt *= speed_multiplier;
 
-    trail_length = 16 * trails_slider.value;
+    trail_length = 8 * 4 * trails_slider.value;
 
     if (trails_slider.value == 100){
         trail_length = Number.MAX_VALUE;
