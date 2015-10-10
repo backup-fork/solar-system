@@ -53,10 +53,10 @@
 	var st_p_backward = "<span>Paused:</span> backward";
 
 	//Animation timelines
-	var animate_clock_forward = new TimelineMax({
+	var animate_clock = new TimelineMax({
 		repeat:-1,
 		onReverseComplete: function(){
-			animate_clock_forward.seek(360);
+			animate_clock.seek(360);
 		}
 	});
 
@@ -179,13 +179,13 @@
 	}
 
 	//ANIMATIONS
-	animate_clock_forward.to(hours, 360, {
+	animate_clock.to(hours, 360, {
 		rotation: 360,
 		transformOrigin:'0px 0px',
 		ease: Linear.easeNone
 	});
 
-	animate_clock_forward.to(minutes, 360, {
+	animate_clock.to(minutes, 360, {
 		rotation: 21600,
 		transformOrigin:'0px 0px',
 		ease: Linear.easeNone
@@ -305,10 +305,10 @@
 				// 1 key			
 				flash_key(one_key);
 				speed_half.getElementsByTagName("input")[0].checked = true;
-				animate_clock_forward.timeScale(0.3);
+				animate_clock.timeScale(0.3);
 				if(simulation_paused){
 					send_toast(st_p_quarter);
-					animate_clock_forward.pause()
+					animate_clock.pause()
 				} else {
 					send_toast(st_quarter);
 				}
@@ -317,10 +317,10 @@
 				// 2 key
 				flash_key(two_key);
 				speed_normal.getElementsByTagName("input")[0].checked = true;
-				animate_clock_forward.timeScale(1);
+				animate_clock.timeScale(1);
 				if(simulation_paused){
 					send_toast(st_p_normal);
-					animate_clock_forward.pause()
+					animate_clock.pause()
 				} else{
 					send_toast(st_normal);					
 				};
@@ -329,10 +329,10 @@
 				// 3 key
 				flash_key(three_key);
 				speed_twice.getElementsByTagName("input")[0].checked = true;
-				animate_clock_forward.timeScale(2.5);
+				animate_clock.timeScale(2.5);
 				if(simulation_paused){
 					send_toast(st_p_twice);
-					animate_clock_forward.pause()
+					animate_clock.pause()
 				} else {
 					send_toast(st_twice);
 				};
@@ -362,7 +362,7 @@
                 if (simulation_paused == false){
                 	//pause the simulation
                 	send_toast("Paused");
-                    animate_clock_forward.pause();
+                    animate_clock.pause();
                     time_message.innerHTML = "Paused";
                 }
                 if (simulation_paused == true){
@@ -370,26 +370,26 @@
 
                 	switch(check_speed()){
                 		case 0.5:
-		                    animate_clock_forward.timeScale(0.3);
+		                    animate_clock.timeScale(0.3);
                 			break;
 
                 		case 1:
-		                    animate_clock_forward.timeScale(1);
+		                    animate_clock.timeScale(1);
                 			break;
 
                 		case 2:
-		                    animate_clock_forward.timeScale(2.5);
+		                    animate_clock.timeScale(2.5);
                 			break;
                 	};
 
                     if (traveling_forward){
                         time_message.innerHTML = "Playing forward";
                         send_toast(st_forward);
-                        animate_clock_forward.play();
+                        animate_clock.play();
                     } else {
                         time_message.innerHTML = "playing backward";
                         send_toast(st_backward);
-                    	animate_clock_forward.reverse();
+                    	animate_clock.reverse();
                     };
 
                 }
@@ -405,7 +405,7 @@
 			controlpanel.className = '';
 			animate_drawer.timeScale(1.5);
 			animate_drawer.reverse();
-			animate_clock_forward.pause();
+			animate_clock.pause();
 			drawer_open = false;
 			position_message();
 		} else {
@@ -413,9 +413,9 @@
 			controlpanel.className = 'active'
 			if(!simulation_paused){
 				if(traveling_forward){
-					animate_clock_forward.play();
+					animate_clock.play();
 				} else {
-					animate_clock_forward.reverse();
+					animate_clock.reverse();
 				}
 			}
 
@@ -431,13 +431,13 @@
 		if(traveling_forward){
 			if(!simulation_paused){
 				time_message.innerHTML = "Playing backward";
-				animate_clock_forward.reverse();
+				animate_clock.reverse();
 			}
 			traveling_forward = false;
 		} else {
 			if(!simulation_paused){
 				time_message.innerHTML = "playing forward";
-				animate_clock_forward.play();
+				animate_clock.play();
 			}
 			traveling_forward = true;
 		}
@@ -455,15 +455,15 @@
 		}
 	};
 	speed_half.onmouseup = function(){
-		animate_clock_forward.timeScale(0.3);
+		animate_clock.timeScale(0.3);
 	}
 
 	speed_normal.onmouseup = function(){
-		animate_clock_forward.timeScale(1);
+		animate_clock.timeScale(1);
 	}
 	
 	speed_twice.onmouseup = function(){
-		animate_clock_forward.timeScale(2.5);
+		animate_clock.timeScale(2.5);
 	}
 
 	dialog_trigger.onclick = function(){
