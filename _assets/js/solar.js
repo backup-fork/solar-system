@@ -119,7 +119,7 @@ function loop(){
     // compute the new positions
     var n_steps = 16;
     for (var i = 0; i < n_steps; i++){
-        step_particles(dt / n_steps);
+        semi_implicit_euler_step(dt / n_steps);
     }
 
 
@@ -208,7 +208,7 @@ function draw(){
     ctx.fillText(fps + " FPS", c.width - 50, c.height - 6);
 }
 
-function step_particles(dt){
+function semi_implicit_euler_step(dt){
     // compute the force
     for (var i = 0; i < planets.length; i++){
         p = planets[i];
