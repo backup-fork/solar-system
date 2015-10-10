@@ -49,9 +49,6 @@
 	//playing backward
 	var st_backward = "<span>Playing:</span> backward";
 
-	//paused forward
-	var st_p_forward = "<span>Paused:</span> forward";
-
 	//paused backward
 	var st_p_backward = "<span>Paused:</span> backward";
 
@@ -178,18 +175,52 @@
 	    }
 	};
 
-	function check_forward_message(){
-		switch(check_speed()){
-			case "0.5":
-				return st_f_slow;
-				break;
-			case "1":
-				return st_f_norm;
-				break;
-			case "2":
-				return st_f_fast;
-				break;
+	function check_message(key){
+		if(traveling_forward){
+			//arrow of time forward
+			if(simulation_paused){
+				//simulation paused
+				if(key == "space"){
+					return "Paused"
+				} else {
+					switch(check_speed()){
+						case "0.5":
+							return st_p_slow;
+							break;
+						case "1":
+							return st_p_norm;
+							break;
+						case "2":
+							return st_p_fast;
+							break;
+					}
+				}
+			} else { 
+				//simulation playing
+				switch(check_speed()){
+					case "0.5":
+						return st_f_slow;
+						break;
+					case "1":
+						return st_f_norm;
+						break;
+					case "2":
+						return st_f_fast;
+						break;
+				}
+			}
+		} else {
+			//arrow of time backward
+			if(simulation_paused){
+				//simulation paused
+				return st_p_backward 
+
+			} else {
+				//simulation playing
+				return st_backward
+			}
 		}
+
 	};
 
 	function open_drawer(){
@@ -405,45 +436,28 @@
 				// R key
 				flash_key(r_key);
 				time_toggle.click();
-				if(traveling_forward){
-					if(simulation_paused){
-						send_toast(st_p_forward);
-					} else {
-						send_toast(check_forward_message());
-					}
-				} else {
-					if(simulation_paused){
-						send_toast(st_p_backward);
-					} else {
-						send_toast(st_backward)
-					}
-				}
+				send_toast(check_message());
 				break;
 			case 32:
 				//space key
 				flash_key(space_key);
                 if (simulation_paused == false){
                 	//pause the simulation
-                	send_toast("Paused");
                     animate_clock.pause();
                     time_message.innerHTML = "Paused";
                 }
                 if (simulation_paused == true){
                 	//play the simulation, reset UI
-
                     if (traveling_forward){
                         time_message.innerHTML = "Playing forward";
-                        send_toast(check_forward_message());
                         animate_clock.play();
                     } else {
                         time_message.innerHTML = "playing backward";
-                        send_toast(st_backward);
                     	animate_clock.reverse();
                     };
-
                 }
-
                 simulation_paused = !simulation_paused;
+                send_toast(check_message("space"));
 				break;
 		}
 	}
