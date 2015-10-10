@@ -1,0 +1,125 @@
+@mixin standard-type
+	font-family: Roboto, sans-serif
+	font-size: 1em
+	line-height: 1em
+
+@mixin card-styles($color: white)
+	border: 1px #ccc solid
+	box-shadow: 0 2px 4px 0 #cccccc
+	background: white
+	border-radius: 4px
+
+@mixin reset-all-boxes
+	*
+		margin: 0
+		padding: 0
+
+@mixin card-padding($bottom, $top: 0)
+	padding: $top $standard-unit $bottom $standard-unit
+
+@mixin browser-prefix($attr, $value)
+	-webkit-#{$attr}: $value
+	-moz-#{$attr}: $value
+	-ms-#{$attr}: $value
+	-o-#{$attr}: $value
+	#{$attr}: $value
+
+@mixin quantum-transition($type: all, $time: $quantum-time, $transition: $quantum-transition)
+	@include browser-prefix(transition, $type $time $transition)
+
+@mixin quantum-translate($x, $y, $value-1:"", $value-2:"", $value-3:"", $value-4:"", $value-5:"")
+	-webkit-transform: translate($x, $y), $value-1, $value-2, $value-3, $value-4, $value-5
+	-moz-transform: translate($x, $y), $value-1, $value-2, $value-3, $value-4, $value-5
+	-ms-transform: translate($x, $y), $value-1, $value-2, $value-3, $value-4, $value-5
+	-o-transform: translate($x, $y), $value-1, $value-2, $value-3, $value-4, $value-5
+	transform: translate($x, $y), $value-1, $value-2, $value-3, $value-4, $value-5
+	@include quantum-transition
+
+// Typography
+// http://www.google.com/design/spec/style/typography.html#typography-standard-styles
+// Todo: Where there is a mode we should just use a media query
+
+@mixin display-4($color: inherit)
+	color: $color
+	font-weight: 200
+	font-size: 112px
+
+@mixin display-3($color: inherit)
+	color: $color
+	font-weight: 400
+	font-size: 56px
+
+@mixin display-2($color: inherit)
+	color: $color
+	font-weight: 400
+	font-size: 45px
+	line-height: 48px
+
+@mixin display-1($color: inherit)
+	color: $color
+	font-weight: 400
+	font-size: 34px
+	line-height: 40px
+
+@mixin headline($color: inherit)
+	color: $color
+	font-weight: 300
+	font-size: 24px
+	line-height: 32px
+
+@mixin title($color: inherit)
+	color: $color
+	font-weight: 600
+	font-size: 20px
+
+@mixin subhead($mode:"desktop", $color: inherit)
+	color: $color
+	font-weight: 400
+	@if $mode == "desktop"
+		font-size: 15px
+		line-height: 24px
+	@if $mode == "device"
+		font-size: 16px
+		line-height: 28px
+
+@mixin body-2($mode:"desktop", $color: inherit)
+	color: $color
+	font-weight: 600
+	@if $mode == "desktop"
+		font-size: 13px
+		line-height: 20px
+	@if $mode == "device"
+		font-size: 14px
+		line-height: 24px
+
+@mixin body-1($mode:"desktop", $color: inherit)
+	color: $color
+	font-weight: 400
+	@if $mode == "desktop"
+		font-size: 13px
+		line-height: 20px
+	@if $mode == "device"
+		font-size: 14px
+		line-height: 24px
+
+@mixin caption($color: inherit)
+	color: $color
+	font-weight: 400
+	font-size: 12px
+
+@mixin menu($color: inherit)
+	color: $color
+	font-weight: 600
+	@if $mode == "desktop"
+		font-size: 13px
+	@if $mode == "device"
+		font-size: 14px
+
+@mixin button($color: inherit)
+	color: $color
+	font-weight: 600
+	text-transform: uppercase
+	@if $mode == "desktop"
+		font-size: 13px
+	@if $mode == "device"
+		font-size: 14px

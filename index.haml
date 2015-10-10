@@ -7,6 +7,10 @@
         %link{:href => 'https://fonts.googleapis.com/css?family=Overlock', :rel => 'stylesheet', :type => 'text/css'}
     %body{:onload => 'initialize()', :onkeydown => 'keyDown(event)', :onkeyup => 'keyUp(event)'}
         %canvas#solar_system{:onmousedown => 'mouseDown(event)', :onmouseup => 'mouseUp(event)', :onmousemove => 'mouseMove(event)'}
+        #toast
+            #evaporate
+            #splash
+            %p#message paused
         %a#settings 
             Settings
             %span#settings_top
@@ -54,7 +58,7 @@
                 %h2 Speed
                 #speed-half
                     %input{:type => 'radio', :name => 'speed_control', :value => '0.5'}
-                    %a 1/2
+                    %a 1/4
                 #speed-normal
                     %input{:type => 'radio', :name => 'speed_control', :value => '1', :checked => "true"}
                     %a normal

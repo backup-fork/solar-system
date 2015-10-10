@@ -8,6 +8,11 @@
   </head>
   <body onkeydown='keyDown(event)' onkeyup='keyUp(event)' onload='initialize()'>
     <canvas id='solar_system' onmousedown='mouseDown(event)' onmousemove='mouseMove(event)' onmouseup='mouseUp(event)'></canvas>
+    <div id='toast'>
+      <div id='evaporate'></div>
+      <div id='splash'></div>
+      <p id='message'>paused</p>
+    </div>
     <a id='settings'>
       Settings
       <span id='settings_top'></span>
@@ -74,7 +79,7 @@
         <h2>Speed</h2>
         <div id='speed-half'>
           <input name='speed_control' type='radio' value='0.5'>
-          <a>1/2</a>
+          <a>1/4</a>
         </div>
         <div id='speed-normal'>
           <input checked='true' name='speed_control' type='radio' value='1'>

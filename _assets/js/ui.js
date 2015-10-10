@@ -22,6 +22,8 @@
 	var r_key = document.getElementById("rkey");
 	var ctrl_key = document.getElementById("ctrlkey");
 	var space_key = document.getElementById("spacekey");
+	var toast = document.getElementById("toast");
+	var toast_message = document.getElementById("message");
 
 	//Timers
 	var debounce_resize;
@@ -36,6 +38,7 @@
     var simulation_paused = false;
 	var drawer_open = false;
 	var dialog_visible = false;
+	var system_message_visible = true;
 
 	//Animation timelines
 	var animate_clock_forward = new TimelineMax({
@@ -46,6 +49,7 @@
 	});
 
 	var animate_drawer = new TimelineMax();
+	var animate_toast = new TimelineMax();
 
 	//Functions
 	function query_window_dimensions(){
@@ -146,6 +150,20 @@
 	            break;
 	        }
 	    }
+	};
+
+	function position_message(){
+		query_window_dimensions();
+		var toast_w = toast.offsetWidth;
+		TweenMax.to(toast, .3, {
+			left: ((window_w / 2) - (toast_w / 2) + (drawer_open ? 150 : 0) + "px")
+		})
+	}
+
+	function send_toast(message){
+		animate_toast.seek(0);
+		toast_message.innerHTML = message;
+		animate_toast.play();
 	}
 
 	//ANIMATIONS
@@ -179,10 +197,71 @@
 	
 	animate_drawer.pause();
 
+	//toast
+	animate_toast.timeScale(3)
+	animate_toast.set("#toast", {
+		background: "rgba(0, 0, 0, 0)",
+		y: "50px"
+	});
+
+	animate_toast.set("#message", {
+		autoAlpha: 0,
+		y: 0
+	});
+
+	animate_toast.set("#splash", {
+		scale: 0,
+		autoAlpha: 1
+	});
+
+	animate_toast.set("#evaporate", {
+		scale: 0,
+		autoAlpha: 1,
+	});
+
+	animate_toast.to("#toast", .5, {
+		y: 0,
+		boxShadow: "0px 2px 15px rgba(0, 0, 0, .2)"
+	});
+
+
+	animate_toast.to("#splash", .5, {
+		scale: 1.2
+	}, "-=.5");
+
+	animate_toast.to("#message", .5, {
+		autoAlpha: 1,
+		y: 0
+	}, "-=.25");
+
+	animate_toast.to("#evaporate", 1, {
+		scale: 2.2,
+		autoAlpha: 0,
+		ease: Linear.easeNone, 
+		delay: 5
+	});
+
+	animate_toast.to("#message", .5, {
+		autoAlpha: 0,
+		y: 0
+	}, "-=1");
+
+	animate_toast.to("#splash", .6, {
+		autoAlpha: 0
+	}, "-=.9");
+
+	animate_toast.to("#toast", .6, {
+		boxShadow: "0px 0px 0px rgba(0, 0, 0, 0)"
+		
+	}, "-=.6");
+
+	animate_toast.pause();
+
 	//init
 	size_canvas();
 	init_controlpanel();
 	position_dialog();
+	position_message();
 
 	TweenMax.set(dialog_window, {
 		autoAlpha: 0
@@ -195,6 +274,9 @@
 			size_canvas();
 			if(dialog_visible){
 				position_dialog();			
+			}
+			if(system_message_visible){
+				position_message();
 			}
 		}, 100);
 	};
@@ -213,8 +295,11 @@
 				speed_half.getElementsByTagName("input")[0].checked = true;
 				animate_clock_forward.timeScale(0.3);
 				if(simulation_paused){
+					send_toast("Paused: 1/4");
 					animate_clock_forward.pause()
-				};
+				} else {
+					send_toast("Speed: 1/4");
+				}
 				break;
 			case 50:
 				// 2 key
@@ -222,7 +307,10 @@
 				speed_normal.getElementsByTagName("input")[0].checked = true;
 				animate_clock_forward.timeScale(1);
 				if(simulation_paused){
+					send_toast("Paused: normal");
 					animate_clock_forward.pause()
+				} else{
+					send_toast("Speed: normal");					
 				};
 				break;
 			case 51:
@@ -231,19 +319,37 @@
 				speed_twice.getElementsByTagName("input")[0].checked = true;
 				animate_clock_forward.timeScale(2.5);
 				if(simulation_paused){
+					send_toast("Paused: 2x");
 					animate_clock_forward.pause()
+				} else {
+					send_toast("Speed: 2x");
 				};
 				break;
 			case 82:
 				// R key
 				flash_key(r_key);
 				time_toggle.click();
+				if(traveling_forward){
+					if(simulation_paused){
+						send_toast("Paused: forward");
+					} else {
+						send_toast("Playing: forward")
+					}
+				} else {
+					if(simulation_paused){
+						send_toast("Paused: backward");
+					} else {
+						send_toast("Playing: backward")
+					}
+				}
 				break;
 			case 32:
 				//space key
+
 				flash_key(space_key);
                 if (simulation_paused == false){
                 	//pause the simulation
+                	send_toast("Paused");
                     animate_clock_forward.pause();
                     time_message.innerHTML = "Paused";
                 }
@@ -265,10 +371,12 @@
                 	};
 
                     if (traveling_forward){
-                        time_message.innerHTML = "playing forward";
+                        time_message.innerHTML = "Playing forward";
+                        send_toast("Playing: forward");
                         animate_clock_forward.play();
                     } else {
                         time_message.innerHTML = "playing backward";
+                        send_toast("Playing: backward");
                     	animate_clock_forward.reverse();
                     };
 
@@ -287,6 +395,7 @@
 			animate_drawer.reverse();
 			animate_clock_forward.pause();
 			drawer_open = false;
+			position_message();
 		} else {
 			settings.className = 'active'
 			controlpanel.className = 'active'
@@ -301,18 +410,23 @@
 			animate_drawer.timeScale(.5)
 			animate_drawer.play();
 			drawer_open = true;
+			position_message();
 		}
 	};
 
 	time_toggle.onclick = function(){
         reverse_particles();
 		if(traveling_forward){
-			time_message.innerHTML = "playing backward";
-			animate_clock_forward.reverse();
+			if(!simulation_paused){
+				time_message.innerHTML = "Playing backward";
+				animate_clock_forward.reverse();
+			}
 			traveling_forward = false;
 		} else {
-			time_message.innerHTML = "playing forward";
-			animate_clock_forward.play();
+			if(!simulation_paused){
+				time_message.innerHTML = "playing forward";
+				animate_clock_forward.play();
+			}
 			traveling_forward = true;
 		}
 	};
