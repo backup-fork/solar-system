@@ -40,6 +40,18 @@
 	var dialog_visible = false;
 	var system_message_visible = true;
 
+	//Strings
+	var st_forward = "<span>Playing:</span> forward";
+	var st_backward = "<span>Playing:</span> backward";
+	var st_quarter = "<span>Speed:</span> 1/4";
+	var st_normal = "<span>Speed:</span> normal";
+	var st_twice = "<span>Speed:</span> 2X";
+	var st_p_quarter = "<span>Paused:</span> 1/4";
+	var st_p_normal = "<span>Paused:</span> normal";
+	var st_p_twice = "<span>Paused:</span> 2X";
+	var st_p_forward = "<span>Paused:</span> forward";
+	var st_p_backward = "<span>Paused:</span> backward";
+
 	//Animation timelines
 	var animate_clock_forward = new TimelineMax({
 		repeat:-1,
@@ -295,10 +307,10 @@
 				speed_half.getElementsByTagName("input")[0].checked = true;
 				animate_clock_forward.timeScale(0.3);
 				if(simulation_paused){
-					send_toast("Paused: 1/4");
+					send_toast(st_p_quarter);
 					animate_clock_forward.pause()
 				} else {
-					send_toast("Speed: 1/4");
+					send_toast(st_quarter);
 				}
 				break;
 			case 50:
@@ -307,10 +319,10 @@
 				speed_normal.getElementsByTagName("input")[0].checked = true;
 				animate_clock_forward.timeScale(1);
 				if(simulation_paused){
-					send_toast("Paused: normal");
+					send_toast(st_p_normal);
 					animate_clock_forward.pause()
 				} else{
-					send_toast("Speed: normal");					
+					send_toast(st_normal);					
 				};
 				break;
 			case 51:
@@ -319,10 +331,10 @@
 				speed_twice.getElementsByTagName("input")[0].checked = true;
 				animate_clock_forward.timeScale(2.5);
 				if(simulation_paused){
-					send_toast("Paused: 2x");
+					send_toast(st_p_twice);
 					animate_clock_forward.pause()
 				} else {
-					send_toast("Speed: 2x");
+					send_toast(st_twice);
 				};
 				break;
 			case 82:
@@ -331,15 +343,15 @@
 				time_toggle.click();
 				if(traveling_forward){
 					if(simulation_paused){
-						send_toast("Paused: forward");
+						send_toast(st_p_forward);
 					} else {
-						send_toast("Playing: forward")
+						send_toast(st_forward)
 					}
 				} else {
 					if(simulation_paused){
-						send_toast("Paused: backward");
+						send_toast(st_p_backward);
 					} else {
-						send_toast("Playing: backward")
+						send_toast(st_backward)
 					}
 				}
 				break;
@@ -372,11 +384,11 @@
 
                     if (traveling_forward){
                         time_message.innerHTML = "Playing forward";
-                        send_toast("Playing: forward");
+                        send_toast(st_forward);
                         animate_clock_forward.play();
                     } else {
                         time_message.innerHTML = "playing backward";
-                        send_toast("Playing: backward");
+                        send_toast(st_backward);
                     	animate_clock_forward.reverse();
                     };
 
