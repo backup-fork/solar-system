@@ -41,16 +41,30 @@
 	var system_message_visible = true;
 
 	//Strings
-	var st_forward = "<span>Playing:</span> forward";
+	//playing forward
+	var st_f_slow = "<span>Playing:</span> slow motion";
+	var st_f_norm = "<span>Playing:</span> forward";
+	var st_f_fast = "<span>Playing:</span> fast forward";
+
+	//playing backward
 	var st_backward = "<span>Playing:</span> backward";
-	var st_quarter = "<span>Speed:</span> slow motion";
-	var st_normal = "<span>Speed:</span> normal";
-	var st_twice = "<span>Speed:</span> fast forward";
-	var st_p_quarter = "<span>Paused:</span> slow motion";
-	var st_p_normal = "<span>Paused:</span> normal";
-	var st_p_twice = "<span>Paused:</span> fast forward";
+
+	//paused forward
 	var st_p_forward = "<span>Paused:</span> forward";
+
+	//paused backward
 	var st_p_backward = "<span>Paused:</span> backward";
+
+	//Speed
+	var st_slow = "<span>Speed:</span> slow motion";
+	var st_norm = "<span>Speed:</span> normal";
+	var st_fast = "<span>Speed:</span> fast forward";
+	
+	//Paused speed
+	var st_p_slow = "<span>Paused:</span> slow motion";
+	var st_p_norm = "<span>Paused:</span> normal";
+	var st_p_fast = "<span>Paused:</span> fast forward";
+	
 
 	//Animation timelines
 	var animate_clock = new TimelineMax({
@@ -162,6 +176,20 @@
 	            break;
 	        }
 	    }
+	};
+
+	function check_forward_message(){
+		switch(check_speed()){
+			case "0.5":
+				return st_f_slow;
+				break;
+			case "1":
+				return st_f_norm;
+				break;
+			case "2":
+				return st_f_fast;
+				break;
+		}
 	};
 
 	function open_drawer(){
@@ -333,10 +361,10 @@
 				speed_half.getElementsByTagName("input")[0].checked = true;
 				animate_clock.timeScale(0.3);
 				if(simulation_paused){
-					send_toast(st_p_quarter);
+					send_toast(st_p_slow);
 					animate_clock.pause()
 				} else {
-					send_toast(st_quarter);
+					send_toast(st_slow);
 				}
 				break;
 			case 50:
@@ -345,10 +373,10 @@
 				speed_normal.getElementsByTagName("input")[0].checked = true;
 				animate_clock.timeScale(1);
 				if(simulation_paused){
-					send_toast(st_p_normal);
+					send_toast(st_p_norm);
 					animate_clock.pause()
 				} else{
-					send_toast(st_normal);					
+					send_toast(st_norm);					
 				};
 				break;
 			case 51:
@@ -357,10 +385,10 @@
 				speed_twice.getElementsByTagName("input")[0].checked = true;
 				animate_clock.timeScale(2.5);
 				if(simulation_paused){
-					send_toast(st_p_twice);
+					send_toast(st_p_fast);
 					animate_clock.pause()
 				} else {
-					send_toast(st_twice);
+					send_toast(st_fast);
 				};
 				break;
 
@@ -381,7 +409,7 @@
 					if(simulation_paused){
 						send_toast(st_p_forward);
 					} else {
-						send_toast(st_forward)
+						send_toast(check_forward_message());
 					}
 				} else {
 					if(simulation_paused){
@@ -403,23 +431,9 @@
                 if (simulation_paused == true){
                 	//play the simulation, reset UI
 
-                	switch(check_speed()){
-                		case 0.5:
-		                    animate_clock.timeScale(0.3);
-                			break;
-
-                		case 1:
-		                    animate_clock.timeScale(1);
-                			break;
-
-                		case 2:
-		                    animate_clock.timeScale(2.5);
-                			break;
-                	};
-
                     if (traveling_forward){
                         time_message.innerHTML = "Playing forward";
-                        send_toast(st_forward);
+                        send_toast(check_forward_message());
                         animate_clock.play();
                     } else {
                         time_message.innerHTML = "playing backward";
