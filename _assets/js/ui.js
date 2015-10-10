@@ -33,7 +33,7 @@
 
 	//Bool
 	var traveling_forward = true;
-    var spacebar_toggle = -1;
+    var simulation_paused = false;
 	var drawer_open = false;
 	var dialog_visible = false;
 
@@ -212,18 +212,27 @@
 				flash_key(one_key);
 				speed_half.getElementsByTagName("input")[0].checked = true;
 				animate_clock_forward.timeScale(0.3);
+				if(simulation_paused){
+					animate_clock_forward.pause()
+				};
 				break;
 			case 50:
 				// 2 key
 				flash_key(two_key);
 				speed_normal.getElementsByTagName("input")[0].checked = true;
 				animate_clock_forward.timeScale(1);
+				if(simulation_paused){
+					animate_clock_forward.pause()
+				};
 				break;
 			case 51:
 				// 3 key
 				flash_key(three_key);
 				speed_twice.getElementsByTagName("input")[0].checked = true;
 				animate_clock_forward.timeScale(2.5);
+				if(simulation_paused){
+					animate_clock_forward.pause()
+				};
 				break;
 			case 82:
 				// R key
@@ -233,26 +242,39 @@
 			case 32:
 				//space key
 				flash_key(space_key);
-                if (spacebar_toggle == -1){
-                    animate_clock_forward.timeScale(0);
-                    time_message.innerHTML = "paused";
+                if (simulation_paused == false){
+                	//pause the simulation
+                    animate_clock_forward.pause();
+                    time_message.innerHTML = "Paused";
                 }
-                if (spacebar_toggle == 1){
-                	check_speed();
-	                if (check_speed() == 0.5)
-	                    animate_clock_forward.timeScale(0.3);
-	                if (check_speed() == 1)
-	                    animate_clock_forward.timeScale(1.);
-	                if (check_speed() == 2)
-	                    animate_clock_forward.timeScale(2.5);
+                if (simulation_paused == true){
+                	//play the simulation, reset UI
 
-                    if (traveling_forward)
+                	switch(check_speed()){
+                		case 0.5:
+		                    animate_clock_forward.timeScale(0.3);
+                			break;
+
+                		case 1:
+		                    animate_clock_forward.timeScale(1);
+                			break;
+
+                		case 2:
+		                    animate_clock_forward.timeScale(2.5);
+                			break;
+                	};
+
+                    if (traveling_forward){
                         time_message.innerHTML = "playing forward";
-                    else
+                        animate_clock_forward.play();
+                    } else {
                         time_message.innerHTML = "playing backward";
+                    	animate_clock_forward.reverse();
+                    };
+
                 }
 
-                spacebar_toggle *= -1;
+                simulation_paused = !simulation_paused;
 				break;
 		}
 	}
