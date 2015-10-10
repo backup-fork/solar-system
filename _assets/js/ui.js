@@ -37,6 +37,7 @@
         spacebar_toggle = -1;
 		drawer_open = false,
 		dialog_visible = false,
+        speed_var = 2;
 
 		//Animation timelines
 		animate_clock_forward = new TimelineMax({
@@ -204,21 +205,21 @@
 				flash_key(one_key);
 				speed_half.getElementsByTagName("input")[0].checked = true;
 				animate_clock_forward.timeScale(0.3);
-                speed_multiplier = 0.5;
+                speed_var = 1;
 				break;
 			case 50:
 				// 2 key
 				flash_key(two_key);
 				speed_normal.getElementsByTagName("input")[0].checked = true;
 				animate_clock_forward.timeScale(1);
-                speed_multiplier = 1.;
+                speed_var = 2;
 				break;
 			case 51:
 				// 3 key
 				flash_key(three_key);
 				speed_twice.getElementsByTagName("input")[0].checked = true;
 				animate_clock_forward.timeScale(2.5);
-                speed_multiplier = 2.;
+                speed_var = 3.;
 				break;
 			case 82:
 				// R key
@@ -233,11 +234,11 @@
                     time_message.innerHTML = "paused";
                 }
                 if (spacebar_toggle == 1){
-                    if (speed_multiplier == 0.5)
+                    if (speed_var == 1)
                         animate_clock_forward.timeScale(0.3);
-                    if (speed_multiplier == 1)
+                    if (speed_var == 2)
                         animate_clock_forward.timeScale(1.);
-                    if (speed_multiplier == 2)
+                    if (speed_var == 3)
                         animate_clock_forward.timeScale(2.5);
 
                     if (traveling_forward)
@@ -299,17 +300,17 @@
 	};
 	speed_half.onmouseup = function(){
 		animate_clock_forward.timeScale(0.3);
-        speed_multiplier = 0.5;
+        speed_var = 1;
 	}
 
 	speed_normal.onmouseup = function(){
 		animate_clock_forward.timeScale(1);
-        speed_multiplier = 1;
+        speed_var = 2;
 	}
 	
 	speed_twice.onmouseup = function(){
 		animate_clock_forward.timeScale(2.5);
-        speed_multiplier = 2;
+        speed_var = 3;
 	}
 
 	dialog_trigger.onclick = function(){
