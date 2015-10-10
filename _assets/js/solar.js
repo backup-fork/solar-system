@@ -1,3 +1,6 @@
+var speed_control = document.getElementsByName("speed_control");
+var speed_var;
+
 function initialize(){
     //alert("hello!");
     c = document.getElementById("solar_system");
@@ -28,6 +31,15 @@ function initialize(){
     sim_loop = setInterval(function(){loop()}, mspf);
 }
 
+function check_speed(){
+    for (var i = 0, length = speed_control.length; i < length; i++) {
+        if (speed_control[i].checked) {
+            return speed_control[i].value;
+            break;
+        }
+    }
+}
+
 function force( p, planets ){
     var fx = 0;
     var fy = 0;
@@ -54,9 +66,10 @@ function loop(){
     dt = (now - lastframe)/1000;
     lastframe = now;
 
-    if (speed_var == 1)
+    check_speed();
+    if (check_speed() == 0.5)
         speed_multiplier = 0.25;
-    else if (speed_var == 2)
+    else if (check_speed() == 1)
         speed_multiplier = 1;
     else
         speed_multiplier = 3;

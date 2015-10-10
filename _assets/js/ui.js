@@ -1,80 +1,78 @@
 (function(){
-	var canvas = document.getElementById("solar_system"),
-		settings_button = document.getElementById("settings"),
-		controlpanel = document.getElementById("control-panel"),
-		hours_hand = document.getElementById("hours"),
-		minutes_hand = document.getElementById("minutes"),
-		time_toggle = document.getElementById("time"),
-		time_message = document.getElementById("time-message"),
-		trails_slider = document.getElementById("trails_slider"),
-		trails_off = document.getElementById("options-off"),
-		trails_inf = document.getElementById("options-inf"),
-		speed_half = document.getElementById("speed-half"),
-		speed_normal = document.getElementById("speed-normal"),
-		speed_twice = document.getElementById("speed-twice"),
-		dialog_trigger = document.getElementById("keyboard-shortcuts"),
-		dialog_window = document.getElementById("keyboard-window"),
-		dialog_ink = document.getElementById("keyboard-window-ink"),
-		dialog_content = dialog_window.getElementsByClassName("content"),
-		one_key = document.getElementById("onekey"),
-		two_key = document.getElementById("twokey"),
-		three_key = document.getElementById("threekey"),
-		r_key = document.getElementById("rkey"),
-		ctrl_key = document.getElementById("ctrlkey"),
-		space_key = document.getElementById("spacekey"),
+	var canvas = document.getElementById("solar_system");
+	var settings_button = document.getElementById("settings");
+	var controlpanel = document.getElementById("control-panel");
+	var hours_hand = document.getElementById("hours");
+	var minutes_hand = document.getElementById("minutes");
+	var time_toggle = document.getElementById("time");
+	var time_message = document.getElementById("time-message");
+	var trails_slider = document.getElementById("trails_slider");
+	var trails_off = document.getElementById("options-off");
+	var trails_inf = document.getElementById("options-inf");
+	var speed_half = document.getElementById("speed-half");
+	var speed_normal = document.getElementById("speed-normal");
+	var speed_twice = document.getElementById("speed-twice");
+	var dialog_trigger = document.getElementById("keyboard-shortcuts");
+	var dialog_window = document.getElementById("keyboard-window");
+	var dialog_ink = document.getElementById("keyboard-window-ink");
+	var dialog_content = dialog_window.getElementsByClassName("content");
+	var one_key = document.getElementById("onekey");
+	var two_key = document.getElementById("twokey");
+	var three_key = document.getElementById("threekey");
+	var r_key = document.getElementById("rkey");
+	var ctrl_key = document.getElementById("ctrlkey");
+	var space_key = document.getElementById("spacekey");
 
+	//Timers
+	var debounce_resize;
 
-		//Timers
-		debounce_resize,
+	//Int
+	var window_w;
+	var window_h;
+	var timescale = 10;
 
-		//Int
-		window_w,
-		window_h,
-		timescale = 10,
+	//Bool
+	var traveling_forward = true;
+    var spacebar_toggle = -1;
+	var drawer_open = false;
+	var dialog_visible = false;
 
-		//Bool
-		traveling_forward = true,
-        spacebar_toggle = -1;
-		drawer_open = false,
-		dialog_visible = false,
-        speed_var = 2;
+	//Animation timelines
+	var animate_clock_forward = new TimelineMax({
+		repeat:-1,
+		onReverseComplete: function(){
+			animate_clock_forward.seek(360);
+		}
+	});
 
-		//Animation timelines
-		animate_clock_forward = new TimelineMax({
-			repeat:-1,
-			onReverseComplete: function(){
-				animate_clock_forward.seek(360);
-			}
-		}),
-
-		animate_drawer = new TimelineMax(),
+	var animate_drawer = new TimelineMax();
 
 	//Functions
-	query_window_dimensions = function(){
+	var query_window_dimensions = function(){
 		window_w = window.innerWidth || document.body.clientWidth;
 		window_h = window.innerHeight || document.body.clientHeight;
-	},
+	};
 
-	size_canvas = function(){
+	var size_canvas = function(){
 		query_window_dimensions();
 		canvas.width = window_w;
 		canvas.height = window_h;
-	},
+	};
 
-	init_controlpanel = function(){
+	var init_controlpanel = function(){
 		TweenMax.set(controlpanel, {
 			x: -300,
 			autoAlpha: 1
 		})
-	},
+	};
 
-	position_dialog = function(){
+	var position_dialog = function(){
 		query_window_dimensions();
 		dialog_window.style.left = (window_w - dialog_window.offsetWidth + (drawer_open ? 300 : 0)) / 2 + "px"
 		dialog_window.style.top = (window_h - dialog_window.offsetHeight) / 2 + "px"
-	},
+	};
 
-	open_dialog = function(){
+	var open_dialog = function(){
 		position_dialog();
 		dialog_trigger.className = 'active'
 		dialog_window.className = 'active'
@@ -102,9 +100,9 @@
 			delay: .212
 		});
 		dialog_visible = true;
-	}
+	};
 
-	close_dialog = function(){
+	var close_dialog = function(){
 		if(dialog_visible){
 			dialog_trigger.className = ''
 			dialog_window.className = ''
@@ -115,9 +113,9 @@
 			});
 			dialog_visible = false;
 		}
-	},
+	};
 
-	flash_key = function(object){
+	var flash_key = function(object){
 		if(dialog_visible){
 			TweenMax.to(object, .212, {
 				background: "#1f1f1f",
@@ -131,15 +129,24 @@
 				delay: .212
 			});
 		}
-	},
+	};
 
-	toggle_dialog = function(){
+	var toggle_dialog = function(){
 		if(dialog_visible){
 			close_dialog();
 		} else {
 			open_dialog();
 		};
 	};
+
+	var check_speed = function(){
+	    for (var i = 0, length = speed_control.length; i < length; i++) {
+	        if (speed_control[i].checked) {
+	            return speed_control[i].value;
+	            break;
+	        }
+	    }
+	}
 
 	//ANIMATIONS
 	animate_clock_forward.to(hours, 360, {
@@ -205,21 +212,18 @@
 				flash_key(one_key);
 				speed_half.getElementsByTagName("input")[0].checked = true;
 				animate_clock_forward.timeScale(0.3);
-                speed_var = 1;
 				break;
 			case 50:
 				// 2 key
 				flash_key(two_key);
 				speed_normal.getElementsByTagName("input")[0].checked = true;
 				animate_clock_forward.timeScale(1);
-                speed_var = 2;
 				break;
 			case 51:
 				// 3 key
 				flash_key(three_key);
 				speed_twice.getElementsByTagName("input")[0].checked = true;
 				animate_clock_forward.timeScale(2.5);
-                speed_var = 3.;
 				break;
 			case 82:
 				// R key
@@ -234,12 +238,13 @@
                     time_message.innerHTML = "paused";
                 }
                 if (spacebar_toggle == 1){
-                    if (speed_var == 1)
-                        animate_clock_forward.timeScale(0.3);
-                    if (speed_var == 2)
-                        animate_clock_forward.timeScale(1.);
-                    if (speed_var == 3)
-                        animate_clock_forward.timeScale(2.5);
+                	check_speed();
+	                if (check_speed() == 0.5)
+	                    animate_clock_forward.timeScale(0.3);
+	                if (check_speed() == 1)
+	                    animate_clock_forward.timeScale(1.);
+	                if (check_speed() == 2)
+	                    animate_clock_forward.timeScale(2.5);
 
                     if (traveling_forward)
                         time_message.innerHTML = "playing forward";
@@ -300,17 +305,14 @@
 	};
 	speed_half.onmouseup = function(){
 		animate_clock_forward.timeScale(0.3);
-        speed_var = 1;
 	}
 
 	speed_normal.onmouseup = function(){
 		animate_clock_forward.timeScale(1);
-        speed_var = 2;
 	}
 	
 	speed_twice.onmouseup = function(){
 		animate_clock_forward.timeScale(2.5);
-        speed_var = 3;
 	}
 
 	dialog_trigger.onclick = function(){
