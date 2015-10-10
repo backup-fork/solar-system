@@ -43,12 +43,12 @@
 	//Strings
 	var st_forward = "<span>Playing:</span> forward";
 	var st_backward = "<span>Playing:</span> backward";
-	var st_quarter = "<span>Speed:</span> 1/4";
+	var st_quarter = "<span>Speed:</span> slow motion";
 	var st_normal = "<span>Speed:</span> normal";
-	var st_twice = "<span>Speed:</span> 2X";
-	var st_p_quarter = "<span>Paused:</span> 1/4";
+	var st_twice = "<span>Speed:</span> fast forward";
+	var st_p_quarter = "<span>Paused:</span> slow motion";
 	var st_p_normal = "<span>Paused:</span> normal";
-	var st_p_twice = "<span>Paused:</span> 2X";
+	var st_p_twice = "<span>Paused:</span> fast forward";
 	var st_p_forward = "<span>Paused:</span> forward";
 	var st_p_backward = "<span>Paused:</span> backward";
 
