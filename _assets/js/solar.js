@@ -22,7 +22,7 @@ function initialize(){
 
     mode = "sim";
 
-    fps = 60; // frames/sec
+    fps = 100; // frames/sec
     mspf = 1 / fps * 1000; // ms per frame
 
     sim_loop = setInterval(function(){loop()}, mspf);
@@ -72,6 +72,7 @@ function loop(){
 
     // compute the force
     G = 4 * Math.pi^2; // AU^3 yr^-2 Ms^-1
+    G /= 100;
     a = 10;
     for (var i = 0; i < planets.length; i++){
         p = planets[i];
@@ -206,7 +207,9 @@ function Planet(x, y, vx, vy, m){
 
     this.draw = function(){
         draw_circ(this.x, this.y, radius( this.m ));
-        draw_trail(this.prev_x, this.prev_y);
+        if (trail_length != 0){
+            draw_trail(this.prev_x, this.prev_y);
+        }
     };
 }
 
@@ -245,7 +248,7 @@ function vec_norm( v ){
 }
 
 function radius(m){
-    return 2*Math.pow(m, 1./3);
+    return Math.pow(3*m / (4 * Math.PI), 1./3);
 }
 
 function draw_circ(x, y, r){
@@ -268,22 +271,10 @@ function draw_trail(xs, ys){
     var rgb = "rgba(255, 255, 255, ";
     ctx.lineWidth = 2;
 
-    // if it's an infinite trail, just draw it all at one opacity
-    if (trail_length == Number.MAX_VALUE){
-        ctx.strokeStyle = rgb + a;
-
-        ctx.beginPath();
-        ctx.moveTo(xs[0], ys[0]);
-        for (var i = 1; i < xs.length; i++){
-            ctx.lineTo(xs[i], ys[i]);
-        }
-        ctx.stroke();
-        ctx.closePath();
-        return;
-    }
+    if (trail_length == Number.MAX_VALUE)
+        di = xs.length - 2;
 
     // otherwise draw a fading trail
-    // (update with better tails)
     for (var i = xs.length - 1; i > di; i -= di){
         ctx.strokeStyle = rgb + a;
 
@@ -306,7 +297,7 @@ function mass_loop(){
 
     held = (now - start_planet)/100;
 
-    mass = held*held;
+    mass = 150*held*held;
 
     planets[planets.length - 1].m = mass;
 
@@ -376,7 +367,7 @@ function trajectory(){
     var xs = []
     var ys = []
 
-    for (var i = 1; i < 1000; i++){
+    for (var i = 1; i < 3000; i++){
         f = force(p, plans);
         fx = f[0];
         fy = f[1];
@@ -402,7 +393,7 @@ function dottedstroke(xs, ys){
     ctx.moveTo(xs[0], ys[0]);
     ctx.lineCap = "round";
     var count = 0;
-    var max_count = 3;
+    var max_count = 6;
     for (var i = 0; i < xs.length; i++){
         if ( count == 0 ){
             ctx.moveTo(xs[i], ys[i]);
