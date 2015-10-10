@@ -38,7 +38,7 @@
     var simulation_paused = false;
 	var drawer_open = false;
 	var dialog_visible = false;
-	var system_message_visible = true;
+	var system_message_visible = false;
 
 	//Strings
 	//playing forward
@@ -258,7 +258,11 @@
 	};
 
 	function send_toast(message){
-		animate_toast.seek(0);
+		if(system_message_visible){
+			animate_toast.seek(1);
+		} else {
+			animate_toast.seek(0);
+		}
 		toast_message.innerHTML = message;
 		animate_toast.play();
 	};
@@ -328,14 +332,20 @@
 
 	animate_toast.to("#message", .5, {
 		autoAlpha: 1,
-		y: 0
+		y: 0,
+		onComplete: function(){
+			system_message_visible = true;
+		}
 	}, "-=.25");
 
 	animate_toast.to("#evaporate", 1, {
 		scale: 2.2,
 		autoAlpha: 0,
 		ease: Linear.easeNone, 
-		delay: 5
+		delay: 5, 
+		onComplete: function(){
+			system_message_visible = false;
+		}
 	});
 
 	animate_toast.to("#message", .5, {
