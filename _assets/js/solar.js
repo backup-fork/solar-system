@@ -28,7 +28,16 @@ function initialize(){
     fps = 100; // frames/sec
     mspf = 1 / fps * 1000; // ms per frame
 
-    string2planets("&20#30#1#1#10&30#50#1#1#20");
+
+    // check for input planets
+    if (location.search){
+        var url = window.location.href;
+        url = url.split("?");
+        str = url[1];
+
+        string2planets( str );
+
+    }
 
     sim_loop = setInterval(function(){loop()}, mspf);
 
@@ -569,6 +578,11 @@ function planets2string(){
 
 function generate_url(){
     str = "";
+
+    var url = window.location.href;
+    url = url.split("?");
+
+    str += url[0] + "?";
     str += planets2string();
 
     return str;
