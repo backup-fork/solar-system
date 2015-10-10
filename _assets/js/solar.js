@@ -54,6 +54,22 @@ function loop(){
     dt = (now - lastframe)/1000;
     lastframe = now;
 
+    if (speed_var == 1)
+        speed_multiplier = 0.25;
+    else if (speed_var == 2)
+        speed_multiplier = 1;
+    else
+        speed_multiplier = 3;
+
+    /*
+    if (speed_var == 1)
+        speed_multiplier = 0.25;
+    else if (speed_var == 2)
+        speed_multiplier = 1;
+    else
+        speed_multiplier = 4;
+    */
+
     dt *= speed_multiplier;
 
     trail_length = 4 * trails_slider.value;
