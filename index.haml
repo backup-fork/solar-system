@@ -1,0 +1,73 @@
+!!!5
+%html{:lang => 'en'}
+    %head
+        %title Gravity Simulation
+        %meta{:charset => 'UTF-8'}
+        %link{:href => '_assets/css/main.css', :type => 'text/css', :rel => 'stylesheet'}
+        %link{:href => 'https://fonts.googleapis.com/css?family=Overlock', :rel => 'stylesheet', :type => 'text/css'}
+    %body{:onload => 'initialize()', :onkeydown => 'keyDown(event)', :onkeyup => 'keyUp(event)'}
+        %canvas#solar_system{:onmousedown => 'mouseDown(event)', :onmouseup => 'mouseUp(event)', :onmousemove => 'mouseMove(event)'}
+        %a#settings 
+            Settings
+            %span#settings_top
+            %span#settings_mid
+            %span#settings_bottom
+        #keyboard-window
+            #keyboard-window-ink
+            .content#keyboard-content
+                %h3 Keyboard shortcuts
+                .content-row
+                    .row-left
+                        %h4 Clear all
+                    .row-right
+                        %span#ctrlkey.key control
+                        %span.key C
+                .content-row
+                    .row-left
+                        %h4 Arrow of time
+                    .row-right
+                        %span#rkey.key R
+                .content-row
+                    .row-left
+                        %h4 Speed
+                    .row-right
+                        %span#onekey.key 1
+                        %span#twokey.key 2
+                        %span#threekey.key 3
+                .content-row
+                    .row-left
+                        %h4 Play | Pause
+                    .row-right
+                        %span#spacekey.key space
+                %button close
+        #control-panel
+            #brand
+                #logo
+                    %h1 Solar Simulator
+            #time.control
+                %h2 Arrow of time
+                #time-clock
+                    #hours
+                    #minutes
+                %p#time-message.selected Playing forward
+            #speed.control
+                %h2 Speed
+                #speed-half
+                    %input{:type => 'radio', :name => 'speed_control', :value => '0.5'}
+                    %a 1/2
+                #speed-normal
+                    %input{:type => 'radio', :name => 'speed_control', :value => '1', :checked => "true"}
+                    %a normal
+                #speed-twice
+                    %input{:type => 'radio', :name => 'speed_control', :value => '2'}
+                    %a 2X
+            #trails.control
+                %h2 Particle trails
+                %input#trails_slider{:type => 'range', :name => 'particle_trails', :min => '0', :max => '100'}
+                #trails-options
+                    %a#options-off off
+                    %a#options-inf &infin;
+            %a#keyboard-shortcuts Keyboard shortcuts
+        %script{:type => 'text/javascript', :src => 'vendor/greensock/TweenMax.min.js'}
+        %script{:type => 'text/javascript', :src => '_assets/js/ui.js'}
+        %script{:type => 'text/javascript', :src => '_assets/js/solar.js'}

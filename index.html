@@ -1,1 +1,102 @@
-<!DOCTYPE html><html lang="en"><head><title>Gravity Simulation</title><meta charset="UTF-8"><link href="_assets/css/main.css" type="text/css" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Overlock" rel="stylesheet" type="text/css"></head><body onload="initialize();" onkeydown="keyDown(event);" onkeyup="keyUp(event);"><canvas id="solar_system" onmousedown="mouseDown(event);" onmouseup="mouseUp(event);" onmousemove="mouseMove(event);"></canvas><a id="settings">Settings<span id="settings_top"></span><span id="settings_mid"></span><span id="settings_bottom"></span></a><div id="keyboard-window"><div id="keyboard-window-ink"></div><div id="keyboard-content" class="content"><h3>Keyboard shortcuts</h3><div class="content-row"><div class="row-left"><h4>Clear all</h4></div><div class="row-right"><span id="ctrlkey" class="key">control</span><span class="key">C</span></div></div><div class="content-row"><div class="row-left"><h4>Arrow of time</h4></div><div class="row-right"><span id="rkey" class="key">R</span></div></div><div class="content-row"><div class="row-left"><h4>Speed</h4></div><div class="row-right"><span id="onekey" class="key">1</span><span id="twokey" class="key">2</span><span id="threekey" class="key">3</span></div></div><div class="content-row"><div class="row-left"><h4>Play | Pause</h4></div><div class="row-right"><span id="spacekey" class="key">space</span></div></div><button>close</button></div></div><div id="control-panel"><div id="brand"><div id="logo"><h1>Solar Simulator</h1></div></div><div id="time" class="control"><h2>Arrow of time</h2><div id="time-clock"><div id="hours"></div><div id="minutes"></div></div><p id="time-message" class="selected">Playing forward</p></div><div id="speed" class="control"><h2>Speed</h2><div id="speed-half"><input type="radio" name="speed_control" value="0.5"><a>1/2</a></div><div id="speed-normal"><input type="radio" name="speed_control" value="1" checked><a>normal</a></div><div id="speed-twice"><input type="radio" name="speed_control" value="2"><a>2X</a></div></div><div id="trails" class="control"><h2>Particle trails</h2><input id="trails_slider" type="range" name="particle_trails" min="0" max="100"><div id="trails-options"><a id="options-off">off</a><a id="options-inf">&infin;</a></div></div><a id="keyboard-shortcuts">Keyboard shortcuts</a></div><script type="text/javascript" src="vendor/greensock/TweenMax.min.js"></script><script type="text/javascript" src="_assets/js/ui.js"></script><script type="text/javascript" src="_assets/js/solar.js"></script></body></html>
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <title>Gravity Simulation</title>
+    <meta charset='UTF-8'>
+    <link href='_assets/css/main.css' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Overlock' rel='stylesheet' type='text/css'>
+  </head>
+  <body onkeydown='keyDown(event)' onkeyup='keyUp(event)' onload='initialize()'>
+    <canvas id='solar_system' onmousedown='mouseDown(event)' onmousemove='mouseMove(event)' onmouseup='mouseUp(event)'></canvas>
+    <a id='settings'>
+      Settings
+      <span id='settings_top'></span>
+      <span id='settings_mid'></span>
+      <span id='settings_bottom'></span>
+    </a>
+    <div id='keyboard-window'>
+      <div id='keyboard-window-ink'></div>
+      <div class='content' id='keyboard-content'>
+        <h3>Keyboard shortcuts</h3>
+        <div class='content-row'>
+          <div class='row-left'>
+            <h4>Clear all</h4>
+          </div>
+          <div class='row-right'>
+            <span class='key' id='ctrlkey'>control</span>
+            <span class='key'>C</span>
+          </div>
+        </div>
+        <div class='content-row'>
+          <div class='row-left'>
+            <h4>Arrow of time</h4>
+          </div>
+          <div class='row-right'>
+            <span class='key' id='rkey'>R</span>
+          </div>
+        </div>
+        <div class='content-row'>
+          <div class='row-left'>
+            <h4>Speed</h4>
+          </div>
+          <div class='row-right'>
+            <span class='key' id='onekey'>1</span>
+            <span class='key' id='twokey'>2</span>
+            <span class='key' id='threekey'>3</span>
+          </div>
+        </div>
+        <div class='content-row'>
+          <div class='row-left'>
+            <h4>Play | Pause</h4>
+          </div>
+          <div class='row-right'>
+            <span class='key' id='spacekey'>space</span>
+          </div>
+        </div>
+        <button>close</button>
+      </div>
+    </div>
+    <div id='control-panel'>
+      <div id='brand'>
+        <div id='logo'>
+          <h1>Solar Simulator</h1>
+        </div>
+      </div>
+      <div class='control' id='time'>
+        <h2>Arrow of time</h2>
+        <div id='time-clock'>
+          <div id='hours'></div>
+          <div id='minutes'></div>
+        </div>
+        <p class='selected' id='time-message'>Playing forward</p>
+      </div>
+      <div class='control' id='speed'>
+        <h2>Speed</h2>
+        <div id='speed-half'>
+          <input name='speed_control' type='radio' value='0.5'>
+          <a>1/2</a>
+        </div>
+        <div id='speed-normal'>
+          <input checked='true' name='speed_control' type='radio' value='1'>
+          <a>normal</a>
+        </div>
+        <div id='speed-twice'>
+          <input name='speed_control' type='radio' value='2'>
+          <a>2X</a>
+        </div>
+      </div>
+      <div class='control' id='trails'>
+        <h2>Particle trails</h2>
+        <input id='trails_slider' max='100' min='0' name='particle_trails' type='range'>
+        <div id='trails-options'>
+          <a id='options-off'>off</a>
+          <a id='options-inf'>&infin;</a>
+        </div>
+      </div>
+      <a id='keyboard-shortcuts'>Keyboard shortcuts</a>
+    </div>
+    <script src='vendor/greensock/TweenMax.min.js' type='text/javascript'></script>
+    <script src='_assets/js/ui.js' type='text/javascript'></script>
+    <script src='_assets/js/solar.js' type='text/javascript'></script>
+  </body>
+</html>
