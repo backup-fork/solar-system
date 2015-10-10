@@ -290,11 +290,14 @@
 		} else {
 			settings.className = 'active'
 			controlpanel.className = 'active'
-			if(traveling_forward){
-				animate_clock_forward.play();
-			} else {
-				animate_clock_forward.reverse();
+			if(!simulation_paused){
+				if(traveling_forward){
+					animate_clock_forward.play();
+				} else {
+					animate_clock_forward.reverse();
+				}
 			}
+
 			animate_drawer.timeScale(.5)
 			animate_drawer.play();
 			drawer_open = true;
