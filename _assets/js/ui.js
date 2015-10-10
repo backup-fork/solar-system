@@ -164,19 +164,45 @@
 	    }
 	};
 
+	function open_drawer(){
+		settings.className = 'active'
+		controlpanel.className = 'active'
+		if(!simulation_paused){
+			if(traveling_forward){
+				animate_clock.play();
+			} else {
+				animate_clock.reverse();
+			}
+		}
+		animate_drawer.timeScale(.5)
+		animate_drawer.play();
+		drawer_open = true;
+		position_message();
+	};
+
+	function close_drawer(){
+		settings.className = '';
+		controlpanel.className = '';
+		animate_drawer.timeScale(1.25);
+		animate_drawer.reverse();
+		animate_clock.pause();
+		drawer_open = false;
+		position_message();
+	};
+
 	function position_message(){
 		query_window_dimensions();
 		var toast_w = toast.offsetWidth;
 		TweenMax.to(toast, .3, {
 			left: ((window_w / 2) - (toast_w / 2) + (drawer_open ? 150 : 0) + "px")
 		})
-	}
+	};
 
 	function send_toast(message){
 		animate_toast.seek(0);
 		toast_message.innerHTML = message;
 		animate_toast.play();
-	}
+	};
 
 	//ANIMATIONS
 	animate_clock.to(hours, 360, {
@@ -337,6 +363,16 @@
 					send_toast(st_twice);
 				};
 				break;
+
+			case 77:
+				//M key for menu
+				if(!drawer_open){
+					open_drawer();
+				} else {
+					close_drawer();
+				}
+				break;
+
 			case 82:
 				// R key
 				flash_key(r_key);
@@ -357,7 +393,6 @@
 				break;
 			case 32:
 				//space key
-
 				flash_key(space_key);
                 if (simulation_paused == false){
                 	//pause the simulation
@@ -401,28 +436,9 @@
 
 	settings.onclick = function(){
 		if(drawer_open){
-			settings.className = '';
-			controlpanel.className = '';
-			animate_drawer.timeScale(1.5);
-			animate_drawer.reverse();
-			animate_clock.pause();
-			drawer_open = false;
-			position_message();
+			close_drawer();
 		} else {
-			settings.className = 'active'
-			controlpanel.className = 'active'
-			if(!simulation_paused){
-				if(traveling_forward){
-					animate_clock.play();
-				} else {
-					animate_clock.reverse();
-				}
-			}
-
-			animate_drawer.timeScale(.5)
-			animate_drawer.play();
-			drawer_open = true;
-			position_message();
+			open_drawer();
 		}
 	};
 
