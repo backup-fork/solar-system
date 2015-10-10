@@ -48,31 +48,31 @@
 	var animate_drawer = new TimelineMax();
 
 	//Functions
-	var query_window_dimensions = function(){
+	function query_window_dimensions(){
 		window_w = window.innerWidth || document.body.clientWidth;
 		window_h = window.innerHeight || document.body.clientHeight;
 	};
 
-	var size_canvas = function(){
+	function size_canvas(){
 		query_window_dimensions();
 		canvas.width = window_w;
 		canvas.height = window_h;
 	};
 
-	var init_controlpanel = function(){
+	function init_controlpanel(){
 		TweenMax.set(controlpanel, {
 			x: -300,
 			autoAlpha: 1
 		})
 	};
 
-	var position_dialog = function(){
+	function position_dialog(){
 		query_window_dimensions();
 		dialog_window.style.left = (window_w - dialog_window.offsetWidth + (drawer_open ? 300 : 0)) / 2 + "px"
 		dialog_window.style.top = (window_h - dialog_window.offsetHeight) / 2 + "px"
 	};
 
-	var open_dialog = function(){
+	function open_dialog(){
 		position_dialog();
 		dialog_trigger.className = 'active'
 		dialog_window.className = 'active'
@@ -102,7 +102,7 @@
 		dialog_visible = true;
 	};
 
-	var close_dialog = function(){
+	function close_dialog(){
 		if(dialog_visible){
 			dialog_trigger.className = ''
 			dialog_window.className = ''
@@ -115,7 +115,7 @@
 		}
 	};
 
-	var flash_key = function(object){
+	function flash_key(object){
 		if(dialog_visible){
 			TweenMax.to(object, .212, {
 				background: "#1f1f1f",
@@ -131,7 +131,7 @@
 		}
 	};
 
-	var toggle_dialog = function(){
+	function toggle_dialog(){
 		if(dialog_visible){
 			close_dialog();
 		} else {
@@ -139,7 +139,7 @@
 		};
 	};
 
-	var check_speed = function(){
+	function check_speed(){
 	    for (var i = 0, length = speed_control.length; i < length; i++) {
 	        if (speed_control[i].checked) {
 	            return speed_control[i].value;
