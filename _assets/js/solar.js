@@ -29,6 +29,11 @@ function initialize(){
     mspf = 1 / fps * 1000; // ms per frame
 
     sim_loop = setInterval(function(){loop()}, mspf);
+
+    p = new Planet(20, 30, 1, 1, 10);
+    planets.push(p);
+
+    console.log( planets2string() );
 }
 
 function check_speed(){
@@ -524,6 +529,10 @@ function reverse_particles(){
 function planets2string(){
     str = "";
     for (var i = 0; i < planets.length; i++){
-        continue;
+        p = planets[i];
+        str += "&"
+            + p.x + "#" + p.y + "#"
+            + p.vx + "#" + p.vy + "#" + p.m;
     }
+    return str;
 }
