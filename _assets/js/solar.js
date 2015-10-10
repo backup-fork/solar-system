@@ -509,6 +509,10 @@ function keyDown(e){
         collisions *= -1;
     }
 
+    // o
+    if (kc == 79)
+        console.log( generate_url() );
+
     // escape
     if (kc == 27){
         if (mode == "vec"){
@@ -544,6 +548,9 @@ function string2planets(str){
         }
 
         p = new Planet( vars[0], vars[1], vars[2], vars[3], vars[4] );
+        // check if frozen
+        if (vars[5] == 1)
+            p.frozen = 1;
         planets.push( p );
     }
 
@@ -555,7 +562,14 @@ function planets2string(){
         p = planets[i];
         str += "&"
             + p.x + "#" + p.y + "#"
-            + p.vx + "#" + p.vy + "#" + p.m;
+            + p.vx + "#" + p.vy + "#" + p.m + "#" + p.frozen;
     }
+    return str;
+}
+
+function generate_url(){
+    str = "";
+    str += planets2string();
+
     return str;
 }
