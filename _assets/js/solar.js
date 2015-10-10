@@ -62,6 +62,11 @@ function check_speed(){
 }
 
 function force( p, planets ){
+    G = 4 * Math.pi^2; // AU^3 yr^-2 Ms^-1
+    G /= 100;
+    //G *= 200;
+    a = 1; // smoothing parameter
+
     var fx = 0;
     var fy = 0;
     for (var j = 0; j < planets.length; j++){
@@ -121,9 +126,6 @@ function loop(){
         return;
 
     // compute the force
-    G = 4 * Math.pi^2; // AU^3 yr^-2 Ms^-1
-    G /= 100;
-    a = 10;
     for (var i = 0; i < planets.length; i++){
         p = planets[i];
         f = force( p, planets);
