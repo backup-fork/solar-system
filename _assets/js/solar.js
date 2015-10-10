@@ -28,12 +28,19 @@ function initialize(){
     fps = 100; // frames/sec
     mspf = 1 / fps * 1000; // ms per frame
 
+    string2planets("&20#30#1#1#10&30#50#1#1#20");
+
     sim_loop = setInterval(function(){loop()}, mspf);
 
+    /*
     p = new Planet(20, 30, 1, 1, 10);
     planets.push(p);
+    p = new Planet(30, 50, 1, 1, 20);
+    planets.push(p);
+
 
     console.log( planets2string() );
+    */
 }
 
 function check_speed(){
@@ -524,6 +531,22 @@ function reverse_particles(){
         planets[i].vx *= -1;
         planets[i].vy *= -1;
     }
+}
+
+function string2planets(str){
+    planet_strings = str.split("&");
+    for (var i = 1; i < planet_strings.length; i++){
+        planet_str = planet_strings[i];
+        vars = planet_str.split("#");
+
+        for (var j = 0; j < vars.length; j++){
+            vars[j] = parseFloat( vars[j] );
+        }
+
+        p = new Planet( vars[0], vars[1], vars[2], vars[3], vars[4] );
+        planets.push( p );
+    }
+
 }
 
 function planets2string(){
