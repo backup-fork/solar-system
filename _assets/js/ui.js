@@ -253,12 +253,14 @@
 		query_window_dimensions();
 		var toast_w = toast.offsetWidth;
 		if(drawer_open){
-			TweenMax.to(toast, .3, {
-				left: ((window_w / 2) - (toast_w / 2) + 150 + "px")
+			TweenMax.to(toast, .282, {
+				left: ((window_w / 2) - (toast_w / 2) + 150 + "px"),
+				ease:Cubic.easeInOut
 			})			
 		} else {
-			TweenMax.to(toast, .3, {
-				left: 30
+			TweenMax.to(toast, .282, {
+				left: 30,
+				ease:Cubic.easeInOut
 			})			
 		}
 
@@ -296,6 +298,9 @@
 		left: 300,
 		ease:Cubic.easeInOut
 	}, "-=.282");
+	animate_drawer.to(".hud", .282, {
+		autoAlpha: 1
+	}, "-=.282")
 	animate_drawer.to(settings, .282, {
 		left: 282,
 		top: 0,
@@ -378,6 +383,10 @@
 	position_message();
 
 	TweenMax.set(dialog_window, {
+		autoAlpha: 0
+	})
+
+	TweenMax.set(dialog_trigger, {
 		autoAlpha: 0
 	})
 

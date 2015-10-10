@@ -292,19 +292,29 @@ body
 		margin-top: -8px
 
 #keyboard-shortcuts
-	position: absolute
+	position: fixed
 	text-align: center
-	bottom: 0
-	color: $label-color
+	top: 0px
+	right: 20px
+	color: lighten($label-color, 10%)
 	text-transform: uppercase
 	font-size: 11px
 	letter-spacing: 2.5px
 	cursor: pointer
-	width: 300px
 	padding: 14px 0px 14px 0px
 	transition: color 200ms linear
+	vertical-align: middle
+	span#kb_ico
+		display: inline-block
+		width: 26px
+		height: 20px
+		background: url('../static/keyboard_icon@2x.png') top left no-repeat
+		background-size: 100%
+		vertical-align: middle
+		margin-right: 4px
+		margin-top: -3px
 	&:hover 
-		color: #999
+		color: lighten($label-color, 30%)
 		transition: color 200ms linear
 	&.active
 		color: #4A90E2
