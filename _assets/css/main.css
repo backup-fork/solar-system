@@ -179,7 +179,8 @@ body {
 
 #speed {
   overflow: auto;
-  padding: 12px; }
+  padding: 12px;
+  margin-bottom: 36px; }
   #speed h2 {
     margin: 0px 0px 6px 12px; }
   #speed div {
