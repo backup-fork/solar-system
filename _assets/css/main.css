@@ -70,7 +70,7 @@ body {
   width: 300px;
   height: 100vh;
   background: #212121;
-  box-shadow: inset -10px 0px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: inset -10px 0px 10px rgba(0, 0, 0, 0.1);
   opacity: 0;
   visibility: hidden;
   -moz-user-select: none;
@@ -79,7 +79,7 @@ body {
   user-select: none; }
 
 #brand {
-  height: 90px;
+  height: 100px;
   overflow: hidden;
   background: #222222;
   background: -moz-linear-gradient(top, #222222 80%, #1e1e1e 100%);
@@ -89,7 +89,8 @@ body {
   background: -ms-linear-gradient(top, #222222 80%, #1e1e1e 100%);
   background: linear-gradient(to bottom, #222222 80%, #1e1e1e 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#222222', endColorstr='#1e1e1e',GradientType=0 );
-  position: relative; }
+  position: relative;
+  border-bottom: 1px #282828 solid; }
   #brand:after {
     content: "";
     position: absolute;
@@ -119,7 +120,7 @@ body {
   height: 48px;
   background: url("../static/solar_logo.png") top left no-repeat;
   background-size: 100%;
-  margin: 20px 0 0 24px;
+  margin: 20px 0 0 66px;
   z-index: 5;
   position: relative; }
   #logo h1 {
@@ -130,7 +131,8 @@ body {
   cursor: pointer;
   overflow: auto;
   padding-bottom: 0;
-  position: relative; }
+  position: relative;
+  padding-top: 14px; }
   #time:hover #time-clock, #time:hover #hours, #time:hover #minutes {
     border-color: white;
     transition: border-color 200ms linear; }
@@ -538,7 +540,7 @@ body {
   height: 46px; }
 
 #time-play-ico {
-  top: 34px;
+  top: 24px;
   left: 8px;
   transform: scale(0.35); }
 
