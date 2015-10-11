@@ -252,11 +252,25 @@ function Planet(x, y, vx, vy, m){
     this.prev_y = [];
 
     this.draw = function(){
-        draw_circ(this.x, this.y, radius( this.m ));
+        this.draw_circ();
+
         if (trail_length != 0){
             draw_trail(this.prev_x, this.prev_y);
         }
     };
+
+    this.draw_circ = function(){
+        var r = radius(this.m);
+
+        ctx.beginPath();
+        if (this.frozen == -1)
+            ctx.fillStyle = "#FFFFFF";
+        else
+            ctx.fillStyle = "#ADD8E6";
+        ctx.arc(this.x, this.y, r, 0, 2*Math.PI);
+        ctx.fill();
+        ctx.closePath();
+}
 }
 
 function vec_add( v1, v2 ){
@@ -297,13 +311,6 @@ function radius(m){
     return Math.pow(3*m / (4 * Math.PI), 1./3);
 }
 
-function draw_circ(x, y, r){
-    ctx.beginPath();
-    ctx.fillStyle = "#FFFFFF";
-    ctx.arc(x, y, r, 0, 2*Math.PI);
-    ctx.fill();
-    ctx.closePath();
-}
 
 function draw_trail(xs, ys){
     if (xs.length == 0)
