@@ -267,12 +267,12 @@
 		query_window_dimensions();
 		var toast_w = toast.offsetWidth;
 		if(drawer_open){
-			TweenMax.to(toast, .282, {
-				left: ((window_w / 2) - (toast_w / 2) + 150 + "px"),
+			TweenMax.to(toast, .3, {
+				left: 330,
 				ease:Cubic.easeInOut
 			})			
 		} else {
-			TweenMax.to(toast, .282, {
+			TweenMax.to(toast, .3, {
 				left: 30,
 				ease:Cubic.easeInOut
 			})			
