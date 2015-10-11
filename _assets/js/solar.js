@@ -2,7 +2,6 @@ var speed_control = document.getElementsByName("speed_control");
 var speed_var;
 
 function initialize(){
-    //alert("hello!");
     c = document.getElementById("solar_system");
 
     ctx = c.getContext("2d");
@@ -33,13 +32,12 @@ function initialize(){
     if (location.search){
         var url = window.location.href;
         url = url.split("?");
-        str = url[1];
 
-        string2planets( str );
+        trails_slider.value = parseFloat( url[1] );
 
-        var trails_slider = document.getElementById("trails_slider");
-        trails_slider.value = 100;
+        string2planets( url[2] );
 
+        //trails_slider.value = 100;
     }
 
     sim_loop = setInterval(function(){loop()}, mspf);
@@ -598,6 +596,7 @@ function generate_url(){
     url = url.split("?");
 
     str += url[0] + "?";
+    str += trails_slider.value + "?";
     str += planets2string();
 
     return str;
