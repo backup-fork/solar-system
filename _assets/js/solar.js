@@ -37,6 +37,9 @@ function initialize(){
 
         string2planets( str );
 
+        var trails_slider = document.getElementById("trails_slider");
+        trails_slider.value = 100;
+
     }
 
     sim_loop = setInterval(function(){loop()}, mspf);
