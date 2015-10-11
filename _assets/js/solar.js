@@ -33,24 +33,18 @@ function initialize(){
         var url = window.location.href;
         url = url.split("?");
 
-        trails_slider.value = parseFloat( url[1] );
+        params = url[1].split("/");
 
-        string2planets( url[2] );
+        trails_slider.value = parseFloat( params[0] );
+        collisions = parseFloat( params[1] );
+
+        string2planets( params[2] );
 
         //trails_slider.value = 100;
     }
 
     sim_loop = setInterval(function(){loop()}, mspf);
 
-    /*
-    p = new Planet(20, 30, 1, 1, 10);
-    planets.push(p);
-    p = new Planet(30, 50, 1, 1, 20);
-    planets.push(p);
-
-
-    console.log( planets2string() );
-    */
 }
 
 function check_speed(){
@@ -65,7 +59,6 @@ function check_speed(){
 function force( p, planets ){
     G = 4 * Math.pi^2; // AU^3 yr^-2 Ms^-1
     G /= 100;
-    //G *= 200;
     a = 1; // smoothing parameter
 
     var fx = 0;
@@ -555,7 +548,7 @@ function reverse_particles(){
 function string2planets(str){
     planet_strings = str.split("&");
 
-    for (var i = 1; i < planet_strings.length; i++){
+    for (var i = 0; i < planet_strings.length; i++){
         planet_str = planet_strings[i];
         console.log(planet_str);
         vars = planet_str.split("#");
@@ -586,6 +579,9 @@ function planets2string(){
 
         str += p.frozen;
     }
+    // pop off the first &
+    str = str.slice(1);
+
     return str;
 }
 
@@ -596,7 +592,8 @@ function generate_url(){
     url = url.split("?");
 
     str += url[0] + "?";
-    str += trails_slider.value + "?";
+    str += trails_slider.value + "/";
+    str += collisions + "/";
     str += planets2string();
 
     return str;
