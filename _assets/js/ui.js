@@ -25,7 +25,8 @@
 	var toast = document.getElementById("toast");
 	var toast_message = document.getElementById("message");
 	var play_ico = document.getElementById("play_ico");
-
+	var copy_box = document.getElementById("copy-box");
+	var copy_wrapper = document.getElementById("input-wrapper");
 	//Timers
 	var debounce_resize;
 
@@ -176,6 +177,12 @@
 	    }
 	};
 
+	function update_share(){
+		var url = generate_url();
+		copy_box.value = url;
+	}
+
+
 	function check_message(key){
 		if(traveling_forward){
 			//arrow of time forward
@@ -238,6 +245,7 @@
 		animate_drawer.play();
 		drawer_open = true;
 		position_message();
+		update_share();
 	};
 
 	function close_drawer(){
@@ -544,6 +552,17 @@
 			trails_inf.className = "";
 		}
 	};
+
+	copy_box.onclick = function(e){
+		update_share();
+		this.select();
+		copy_wrapper.className = 'active';
+	}
+
+	copy_box.onblur = function(e){
+		copy_wrapper.className = '';
+	}
+
 	speed_half.onmouseup = function(){
 		animate_clock.timeScale(0.3);
 	}

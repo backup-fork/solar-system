@@ -7,6 +7,7 @@
 	user-select: none
 
 $label-color: #5f5f5f
+$teal: #263238
 
 *
 	margin: 0
@@ -562,3 +563,50 @@ body
 			height: 0
 			left: 0
 			+quantum-transition
+
+#share
+	position: absolute
+	bottom: 0
+	padding-bottom: 6px
+
+#input-wrapper
+	width: 263px
+	margin-left: -10px
+	position: relative
+	&:after
+		content: ''
+		position: absolute
+		left: 133px
+		right: 133px
+		bottom: 9px
+		border-bottom: 2px #4A90E2 solid
+		z-index: 99999
+		+quantum-transition
+	&.active:after
+		left: 8px
+		right: 0px
+		+quantum-transition
+
+#copy-box
+	width: calc(100% - 8px)
+	height: 42px
+	padding-left: 8px
+	background: #232323
+	border: 1px #1a1a1a solid
+	color:  #4A90E2
+	font-size: 12px
+	font-weight: 200 !important
+	letter-spacing: 1px
+	font-weight: 200
+	position: relative
+	border-radius: 2px
+	z-index: 20
+	margin-top: 8px
+	box-shadow: inset 0px 2px 3px rgba(0, 0, 0, .05)
+	&:focus
+		outline: none
+		color: lighten($teal, 18%) !important
+	&::selection
+		background: #888 !important
+	&::-moz-selection
+		background: #888 !important
