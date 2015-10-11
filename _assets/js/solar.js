@@ -528,6 +528,14 @@ function keyDown(e){
     if (kc == 79)
         console.log( generate_url() );
 
+    // z
+    if (kc == 90){
+        // control key already pressed
+        if (keys[17]){
+            planets.pop();
+        }
+    }
+
     // escape
     if (kc == 27){
         if (mode == "vec"){
