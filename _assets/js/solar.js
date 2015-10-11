@@ -33,7 +33,7 @@ function initialize(){
         var url = window.location.href;
         url = url.split("?");
 
-        params = url[1].split("/");
+        params = url[1].split("v");
 
         trails_slider.value = parseFloat( params[0] );
         collisions = parseFloat( params[1] );
@@ -551,7 +551,7 @@ function string2planets(str){
     for (var i = 0; i < planet_strings.length; i++){
         planet_str = planet_strings[i];
         console.log(planet_str);
-        vars = planet_str.split("#");
+        vars = planet_str.split("p");
 
         for (var j = 0; j < vars.length; j++){
             vars[j] = parseFloat( vars[j] );
@@ -575,7 +575,7 @@ function planets2string(){
 
         str += "&";
         for (var j = 0; j < vals.length; j++)
-            str += vals[j].toPrecision(4) + "#";
+            str += vals[j].toPrecision(4) + "p";
 
         str += p.frozen;
     }
@@ -592,8 +592,8 @@ function generate_url(){
     url = url.split("?");
 
     str += url[0] + "?";
-    str += trails_slider.value + "/";
-    str += collisions + "/";
+    str += trails_slider.value + "v";
+    str += collisions + "v";
     str += planets2string();
 
     return str;
