@@ -553,8 +553,10 @@ function reverse_particles(){
 
 function string2planets(str){
     planet_strings = str.split("&");
+
     for (var i = 1; i < planet_strings.length; i++){
         planet_str = planet_strings[i];
+        console.log(planet_str);
         vars = planet_str.split("#");
 
         for (var j = 0; j < vars.length; j++){
@@ -571,12 +573,17 @@ function string2planets(str){
 }
 
 function planets2string(){
-    str = "";
+    var str = "";
+
     for (var i = 0; i < planets.length; i++){
         p = planets[i];
-        str += "&"
-            + p.x + "#" + p.y + "#"
-            + p.vx + "#" + p.vy + "#" + p.m + "#" + p.frozen;
+        vals = [p.x, p.y, p.vx, p.vy, p.m];
+
+        str += "&";
+        for (var j = 0; j < vals.length; j++)
+            str += vals[j].toPrecision(4) + "#";
+
+        str += p.frozen;
     }
     return str;
 }
