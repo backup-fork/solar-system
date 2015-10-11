@@ -329,7 +329,9 @@ body {
   padding: 24px;
   box-shadow: 0px 0px 0px transparent;
   z-index: 99999;
-  overflow: hidden; }
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0; }
   #keyboard-window button {
     padding: 8px 24px 8px 24px;
     background: #222;
@@ -518,7 +520,7 @@ body {
   #message span {
     color: #5f5f5f; }
 
-#play_ico {
+#sys-message {
   position: absolute;
   left: 2px;
   top: 2px;
@@ -526,57 +528,60 @@ body {
   transform: scale(0.5);
   width: 46px;
   height: 46px; }
-  #play_ico #pause-left, #play_ico #pause-right {
-    width: 0;
-    height: 0;
-    position: relative;
-    border-style: solid;
-    transform: rotate(0);
-    border-color: transparent transparent #34587c transparent;
-    border-width: 0 0 46px 0;
-    border-radius: 0;
-    width: 15px;
-    -webkit-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
-    -moz-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
-    -ms-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
-    -o-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
-    transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1); }
-  #play_ico #pause-right {
-    position: absolute;
-    left: 24px;
-    top: 0;
-    -webkit-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
-    -moz-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
-    -ms-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
-    -o-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
-    transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1); }
-  #play_ico.active #pause-left {
-    transform: rotate(90deg);
-    border-color: transparent transparent #4A90E2 transparent;
-    border-width: 0 20px 30px 20px;
-    border-radius: 0;
-    margin-top: 8px;
-    width: 0;
-    height: 0;
-    -webkit-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
-    -moz-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
-    -ms-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
-    -o-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
-    transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1); }
-  #play_ico.active #pause-right {
-    transform: rotate(90deg);
-    border-color: transparent transparent #4A90E2 transparent;
-    border-width: 0 20px 30px 20px;
-    border-radius: 0;
-    margin-top: 8px;
-    width: 0;
-    height: 0;
-    left: 0;
-    -webkit-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
-    -moz-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
-    -ms-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
-    -o-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
-    transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1); }
+
+.play_ico .pause-left, .play_ico .pause-right {
+  width: 0;
+  height: 0;
+  position: relative;
+  border-style: solid;
+  transform: rotate(0);
+  border-color: transparent transparent #34587c transparent;
+  border-width: 0 0 46px 0;
+  border-radius: 0;
+  width: 15px;
+  z-index: 9999;
+  -webkit-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
+  -ms-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
+  -o-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1); }
+.play_ico .pause-right {
+  position: absolute;
+  left: 24px;
+  top: 0;
+  z-index: 9999;
+  -webkit-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
+  -ms-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
+  -o-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1); }
+.play_ico.active .pause-left {
+  transform: rotate(90deg);
+  border-color: transparent transparent #4A90E2 transparent;
+  border-width: 0 20px 30px 20px;
+  border-radius: 0;
+  margin-top: 8px;
+  width: 0;
+  height: 0;
+  -webkit-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
+  -ms-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
+  -o-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1); }
+.play_ico.active .pause-right {
+  transform: rotate(90deg);
+  border-color: transparent transparent #4A90E2 transparent;
+  border-width: 0 20px 30px 20px;
+  border-radius: 0;
+  margin-top: 8px;
+  width: 0;
+  height: 0;
+  left: 0;
+  -webkit-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
+  -ms-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
+  -o-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1); }
 
 #share {
   position: absolute;

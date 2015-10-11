@@ -24,7 +24,7 @@
 	var space_key = document.getElementById("spacekey");
 	var toast = document.getElementById("toast");
 	var toast_message = document.getElementById("message");
-	var play_ico = document.getElementById("play_ico");
+	var play_ico = document.getElementById("sys-message");
 	var copy_box = document.getElementById("copy-box");
 	var copy_wrapper = document.getElementById("input-wrapper");
 	//Timers
@@ -496,18 +496,18 @@
                 if (simulation_paused == false){
                 	//pause the simulation
                     animate_clock.pause();
-                    play_ico.className = '';
+                    play_ico.className = 'play_ico';
                 }
                 if (simulation_paused == true){
                 	//play the simulation, reset UI
                     if (traveling_forward){
                         time_message.innerHTML = "Forward";
                         animate_clock.play();
-                        play_ico.className = 'active';
+                        play_ico.className = 'play_ico active';
                     } else {
                         time_message.innerHTML = "Backward";
                     	animate_clock.reverse();
-                    	play_ico.className = 'active';
+                    	play_ico.className = 'play_ico active';
                     };
                 }
                 simulation_paused = !simulation_paused;

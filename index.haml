@@ -26,9 +26,9 @@
     %body{:onload => 'initialize()', :onkeydown => 'keyDown(event)', :onkeyup => 'keyUp(event)'}
         %canvas#solar_system{:onmousedown => 'mouseDown(event)', :onmouseup => 'mouseUp(event)', :onmousemove => 'mouseMove(event)'}
         #toast
-            #play_ico.active
-                #pause-left
-                #pause-right
+            #sys-message.play_ico.active
+                .pause-left
+                .pause-right
             #evaporate
             #splash
             %p#message
@@ -39,7 +39,7 @@
             %span#settings_bottom
         %a#keyboard-shortcuts.hud 
             %span#kb_ico
-            Keyboard shortcuts
+            keyboard shortcuts
         #keyboard-window
             #keyboard-window-ink
             .content#keyboard-content

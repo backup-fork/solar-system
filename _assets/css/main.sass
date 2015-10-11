@@ -331,6 +331,8 @@ body
 	box-shadow: 0px 0px 0px rgba(0, 0, 0, 0)
 	z-index: 99999
 	overflow: hidden
+	visibility: hidden
+	opacity: 0
 	button
 		padding: 8px 24px 8px 24px
 		background: #222
@@ -519,7 +521,7 @@ body
 	span
 		color: $label-color
 
-#play_ico
+#sys-message
 	position: absolute
 	left: 2px
 	top: 2px
@@ -527,7 +529,9 @@ body
 	transform: scale(.5)
 	width: 46px
 	height: 46px
-	#pause-left, #pause-right
+
+.play_ico
+	.pause-left, .pause-right
 		width: 0
 		height: 0
 		position: relative
@@ -537,14 +541,16 @@ body
 		border-width: 0 0 46px 0
 		border-radius: 0
 		width: 15px
+		z-index: 9999
 		+quantum-transition
-	#pause-right
+	.pause-right
 		position: absolute
 		left: 24px
 		top: 0
+		z-index: 9999
 		+quantum-transition
 	&.active
-		#pause-left
+		.pause-left
 			transform: rotate(90deg)
 			border-color: transparent transparent #4A90E2 transparent
 			border-width: 0 20px 30px 20px
@@ -553,7 +559,7 @@ body
 			width: 0
 			height: 0
 			+quantum-transition
-		#pause-right
+		.pause-right
 			transform: rotate(90deg)
 			border-color: transparent transparent #4A90E2 transparent
 			border-width: 0 20px 30px 20px
