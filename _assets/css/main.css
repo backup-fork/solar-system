@@ -310,12 +310,12 @@ body {
   vertical-align: middle; }
   #keyboard-shortcuts span#kb_ico {
     display: inline-block;
-    width: 26px;
-    height: 20px;
+    width: 28px;
+    height: 23px;
     background: url("../static/keyboard_icon@2x.png") top left no-repeat;
     background-size: 100%;
     vertical-align: middle;
-    margin-right: 4px;
+    margin-right: 8px;
     margin-top: -3px; }
   #keyboard-shortcuts:hover {
     color: #ababab;
