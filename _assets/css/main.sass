@@ -473,7 +473,7 @@ body
 .control
 	clear: both
 	padding: 24px
-	margin: 8px 0 24px 0
+	margin: 8px 0 32px 0
 	h2
 		color: $label-color
 		font-size: 11px
@@ -590,7 +590,8 @@ body
 #share
 	position: absolute
 	bottom: 0
-	padding-bottom: 6px
+	padding-bottom: 16px
+	margin-bottom: 0
 
 #input-wrapper
 	width: 263px
@@ -611,12 +612,13 @@ body
 		+quantum-transition
 
 #copy-box
+	$local-color: darken(#4A90E2, 10%)
 	width: calc(100% - 8px)
 	height: 42px
 	padding-left: 8px
 	background: #232323
 	border: 1px #1a1a1a solid
-	color:  #4A90E2
+	color:  desaturate($local-color, 30%)
 	font-size: 12px
 	font-weight: 200 !important
 	letter-spacing: 1px
@@ -626,6 +628,10 @@ body
 	z-index: 20
 	margin-top: 8px
 	box-shadow: inset 0px 2px 3px rgba(0, 0, 0, .05), inset -7px 0px 7px rgba(0, 0, 0, .05)
+	+quantum-transition
+	&:hover
+		color: #4A90E2
+		+quantum-transition
 	&:focus
 		outline: none
 		color: lighten($teal, 18%) !important
