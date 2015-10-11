@@ -653,6 +653,7 @@ body {
   border-radius: 2px;
   z-index: 20;
   margin-top: 8px;
+  cursor: pointer;
   box-shadow: inset 0px 2px 3px rgba(0, 0, 0, 0.05), inset -7px 0px 7px rgba(0, 0, 0, 0.05);
   -webkit-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
   -moz-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -667,6 +668,7 @@ body {
     -o-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
     transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1); }
   #copy-box:focus {
+    background: #202020;
     outline: none;
     color: #4b636f !important; }
   #copy-box::selection {
