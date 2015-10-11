@@ -120,7 +120,7 @@ body {
   height: 48px;
   background: url("../static/solar_logo.png") top left no-repeat;
   background-size: 100%;
-  margin: 20px 0 0 66px;
+  margin: 25px 0 0 66px;
   z-index: 5;
   position: relative; }
   #logo h1 {
