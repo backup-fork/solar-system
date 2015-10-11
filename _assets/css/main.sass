@@ -136,17 +136,25 @@ body
 	cursor: pointer
 	overflow: auto
 	padding-bottom: 0
-	p
-		float: left
-		font-size: 12px
-		color: #4A90E2
-		text-transform: lowercase
-		letter-spacing: 2px
-		padding: 14px 24px 24px 0
+	position: relative
 	&:hover
 		#time-clock, #hours, #minutes
 			border-color: white
 			transition: border-color 200ms linear
+
+
+#time-content
+	position: absolute
+	left: 50px
+	font-size: 12px
+	color: #4A90E2
+	text-transform: lowercase
+	letter-spacing: 2px
+	padding: 14px 24px 0 0
+
+
+#time-message
+	position: relative
 
 #time-clock
 	float: right
@@ -521,7 +529,7 @@ body
 	span
 		color: $label-color
 
-#sys-message
+#sys-message, #time-play-ico
 	position: absolute
 	left: 2px
 	top: 2px
@@ -530,7 +538,13 @@ body
 	width: 46px
 	height: 46px
 
+#time-play-ico
+	top: 34px
+	left: 8px
+	transform: scale(.35)
 .play_ico
+	position: relative
+	display: inline-block
 	.pause-left, .pause-right
 		width: 0
 		height: 0
@@ -540,16 +554,20 @@ body
 		border-color: transparent transparent #34587c transparent
 		border-width: 0 0 46px 0
 		border-radius: 0
+		margin-top: -2px
+		margin-right: 20px
 		width: 15px
+		left: 0
+		top: 0 !important
 		z-index: 9999
 		+quantum-transition
 	.pause-right
 		position: absolute
 		left: 24px
-		top: 0
 		z-index: 9999
 		+quantum-transition
 	&.active
+		margin-top: 0
 		.pause-left
 			transform: rotate(90deg)
 			border-color: transparent transparent #4A90E2 transparent

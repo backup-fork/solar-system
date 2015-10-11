@@ -5,7 +5,7 @@
 	var hours_hand = document.getElementById("hours");
 	var minutes_hand = document.getElementById("minutes");
 	var time_toggle = document.getElementById("time");
-	var time_message = document.getElementById("time-message");
+	var time_message = document.getElementById("time-content");
 	var trails_slider = document.getElementById("trails_slider");
 	var trails_off = document.getElementById("options-off");
 	var trails_inf = document.getElementById("options-inf");
@@ -27,6 +27,7 @@
 	var play_ico = document.getElementById("sys-message");
 	var copy_box = document.getElementById("copy-box");
 	var copy_wrapper = document.getElementById("input-wrapper");
+	var drawer_play_ico = document.getElementById("time-play-ico");
 	//Timers
 	var debounce_resize;
 
@@ -280,13 +281,16 @@
 	};
 
 	function send_toast(message){
-		if(system_message_visible){
-			animate_toast.seek(1);
-		} else {
-			animate_toast.seek(0);
+		if(!drawer_open){
+			if(system_message_visible){
+				animate_toast.seek(1);
+			} else {
+				animate_toast.seek(0);
+			}
+			toast_message.innerHTML = message;
+			animate_toast.play();
+
 		}
-		toast_message.innerHTML = message;
-		animate_toast.play();
 	};
 
 	//ANIMATIONS
@@ -497,6 +501,7 @@
                 	//pause the simulation
                     animate_clock.pause();
                     play_ico.className = 'play_ico';
+                    drawer_play_ico.className = 'play_ico';
                 }
                 if (simulation_paused == true){
                 	//play the simulation, reset UI
@@ -504,10 +509,12 @@
                         time_message.innerHTML = "Forward";
                         animate_clock.play();
                         play_ico.className = 'play_ico active';
+                        drawer_play_ico.className = 'play_ico active';
                     } else {
                         time_message.innerHTML = "Backward";
                     	animate_clock.reverse();
                     	play_ico.className = 'play_ico active';
+                        drawer_play_ico.className = 'play_ico active';
                     };
                 }
                 simulation_paused = !simulation_paused;
