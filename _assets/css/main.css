@@ -317,7 +317,9 @@ body {
     background-size: 100%;
     vertical-align: middle;
     margin-right: 8px;
-    margin-top: -3px; }
+    margin-top: -3px;
+    pointer-events: none;
+    user-select: none; }
   #keyboard-shortcuts:hover {
     color: #ababab;
     transition: color 200ms linear; }
