@@ -320,7 +320,7 @@
 	}, "-=.282")
 	animate_drawer.to(settings, .282, {
 		left: 282,
-		top: 0,
+		top: 5,
 		rotation: 90,
 		ease:Cubic.easeInOut
 	}, "-=.282");

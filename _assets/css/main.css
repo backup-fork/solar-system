@@ -13,7 +13,7 @@ body {
 
 #settings {
   position: fixed;
-  top: 0;
+  top: 4px;
   left: 0;
   width: 80px;
   height: 60px;
@@ -70,7 +70,7 @@ body {
   width: 300px;
   height: 100vh;
   background: #212121;
-  box-shadow: inset 0px 1px 6px rgba(0, 0, 0, 0.5);
+  box-shadow: inset -10px 0px 10px rgba(0, 0, 0, 0.15);
   opacity: 0;
   visibility: hidden;
   -moz-user-select: none;
