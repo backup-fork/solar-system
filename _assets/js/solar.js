@@ -1,10 +1,19 @@
 var speed_control = document.getElementsByName("speed_control");
 var speed_var;
+var draw_count = 0;
+var trail_cache = new Image();
 
 function initialize(){
     c = document.getElementById("solar_system");
 
     ctx = c.getContext("2d");
+
+    // I am going to attempt something crazy
+    cached_canvas = document.createElement('canvas');
+    cached_canvas.width = c.width;
+    cached_canvas.height = c.height;
+    cached_ctx = cached_canvas.getContext('2d');
+    trail_cache = cached_canvas.toDataURL("image/png")
 
     // boolean of keys currently pressed
     keys = [];
@@ -252,11 +261,21 @@ function Planet(x, y, vx, vy, m){
     this.prev_y = [];
 
     this.draw = function(){
-        this.draw_circ();
 
+        // This is important rendering the trails
         if (trail_length != 0){
             draw_trail(this.prev_x, this.prev_y);
+
+            //testing caching
+            trail_cache = cached_canvas;
         }
+
+
+
+        // I reversed the order, because ¯\_(ツ)_/¯ 
+        ctx.drawImage(trail_cache, 0, 0);
+        this.draw_circ();
+        draw_count ++;
     };
 
     this.draw_circ = function(){
@@ -325,24 +344,24 @@ function draw_trail(xs, ys){
     var da = a / (xs.length / di);
 
     var rgb = "rgba(255, 255, 255, ";
-    ctx.lineWidth = 2;
+    cached_ctx.lineWidth = 2;
 
     if (trail_length == Number.MAX_VALUE)
         di = xs.length - 2;
 
     // otherwise draw a fading trail
     for (var i = xs.length - 1; i > di; i -= di){
-        ctx.strokeStyle = rgb + a;
+        cached_ctx.strokeStyle = rgb + a;
 
-        ctx.beginPath();
+        cached_ctx.beginPath();
 
-        ctx.moveTo(xs[i], ys[i]);
+        cached_ctx.moveTo(xs[i], ys[i]);
         for (var j = i-1; j >= i - di; j--){
-            ctx.lineTo(xs[j], ys[j]);
+            cached_ctx.lineTo(xs[j], ys[j]);
         }
 
-        ctx.stroke();
-        ctx.closePath();
+        cached_ctx.stroke();
+        cached_ctx.closePath();
 
         a -= da;
     }
