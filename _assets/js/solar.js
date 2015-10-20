@@ -10,6 +10,8 @@ function initialize(){
     trail_canvas.height = c.height;
     trail_ctx = trail_canvas.getContext("2d");
 
+    prev_trail_slider_val = trails_slider.value;
+
 
     // boolean of keys currently pressed
     keys = [];
@@ -91,6 +93,31 @@ function loop(){
     dt = (now - lastframe)/1000;
     lastframe = now;
 
+    if (trails_slider.value == 100
+            && prev_trail_slider_value != 100){
+        // clear the screen
+        trail_ctx.clearRect(0, 0,
+                trail_canvas.width, trail_canvas.height);
+
+        // draw existing trails
+        trail_ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
+        trail_ctx.lineWidth = 2;
+        for (var i = 0; i < planets.length; i++){
+            p = planets[i];
+
+            trail_ctx.beginPath();
+            trail_ctx.moveTo(p.prev_x[0], p.prev_y[0]);
+
+            for (var j = 1; j < p.prev_x.length; j++)
+                trail_ctx.lineTo(p.prev_x[j], p.prev_y[j]);
+            trail_ctx.lineTo(p.x, p.y);
+            trail_ctx.stroke();
+            trail_ctx.closePath();
+
+        }
+    }
+    prev_trail_slider_value = trails_slider.value;
+
     check_speed();
     if (check_speed() == 0.5)
         speed_multiplier = 0.25;
@@ -101,11 +128,7 @@ function loop(){
 
     dt *= speed_multiplier;
 
-    trail_length = 8 * 4 * trails_slider.value;
-
-    if (trails_slider.value == 100){
-        trail_length = Number.MAX_VALUE;
-    }
+    trail_length = trails_slider.value;
 
     if (paused == 1){
         draw();
@@ -119,6 +142,13 @@ function loop(){
         p = planets[i];
         p.last_x = p.x;
         p.last_y = p.y;
+
+        p.prev_x.push(p.x);
+        p.prev_y.push(p.y);
+        while (p.prev_x.length > trail_length){
+            p.prev_x.shift();
+            p.prev_y.shift();
+        }
     }
 
     // compute the new positions
@@ -128,12 +158,6 @@ function loop(){
     }
 
     // update the trails cache
-    //trail_ctx.fillStyle = "rgba(38, 50, 56, 1.)";
-    trail_ctx.fillStyle = "#263238";
-    trail_ctx.globalAlpha = 0.;
-    trail_ctx.fillRect(0, 0, c.width, c.height);
-    trail_ctx.globalAlpha = 1.;
-
     trail_ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
     trail_ctx.lineWidth = 2;
     for (var i = 0; i < planets.length; i++){
@@ -224,7 +248,8 @@ function draw(){
     ctx.fillRect(0, 0, c.width, c.height);
 
 
-    ctx.drawImage(trail_canvas, 0, 0);
+    if (trails_slider.value == 100)
+        ctx.drawImage(trail_canvas, 0, 0);
 
     for (var i = 0; i < planets.length; i++)
         planets[i].draw();
@@ -257,8 +282,6 @@ function semi_implicit_euler_step(dt){
     /*
     for (var i = 0; i < planets.length; i++){
         p = planets[i];
-        p.x += p.vx*dt;
-        p.y += p.vy*dt;
 
         p.prev_x.push(p.x);
         p.prev_y.push(p.y);
@@ -294,11 +317,10 @@ function Planet(x, y, vx, vy, m){
     this.draw = function(){
         this.draw_circ();
 
-        /*
-        if (trail_length != 0){
+        if (trail_length != 0 && trails_slider.value != 100)
+
             draw_trail(this.prev_x, this.prev_y);
-        }
-        */
+
     };
 
     this.draw_circ = function(){
@@ -354,7 +376,6 @@ function radius(m){
 }
 
 
-/*
 function draw_trail(xs, ys){
     if (xs.length == 0)
         return;
@@ -370,9 +391,6 @@ function draw_trail(xs, ys){
     var rgb = "rgba(255, 255, 255, ";
     ctx.lineWidth = 2;
 
-    if (trail_length == Number.MAX_VALUE)
-        di = xs.length - 2;
-
     // otherwise draw a fading trail
     for (var i = xs.length - 1; i > di; i -= di){
         ctx.strokeStyle = rgb + a;
@@ -380,9 +398,9 @@ function draw_trail(xs, ys){
         ctx.beginPath();
 
         ctx.moveTo(xs[i], ys[i]);
-        for (var j = i-1; j >= i - di; j--){
+
+        for (var j = i-1; j >= i - di; j--)
             ctx.lineTo(xs[j], ys[j]);
-        }
 
         ctx.stroke();
         ctx.closePath();
@@ -390,7 +408,6 @@ function draw_trail(xs, ys){
         a -= da;
     }
 }
-*/
 
 function mass_loop(){
     now = Date.now();
