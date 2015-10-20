@@ -115,10 +115,34 @@ function loop(){
     if (dt > 0.2)
         return;
 
+    for (var i = 0; i < planets.length; i++){
+        p = planets[i];
+        p.last_x = p.x;
+        p.last_y = p.y;
+    }
+
     // compute the new positions
     var n_steps = 16;
     for (var i = 0; i < n_steps; i++){
         semi_implicit_euler_step(dt / n_steps);
+    }
+
+    // update the trails cache
+    //trail_ctx.fillStyle = "rgba(38, 50, 56, 1.)";
+    trail_ctx.fillStyle = "#263238";
+    trail_ctx.globalAlpha = 0.;
+    trail_ctx.fillRect(0, 0, c.width, c.height);
+    trail_ctx.globalAlpha = 1.;
+
+    trail_ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
+    trail_ctx.lineWidth = 2;
+    for (var i = 0; i < planets.length; i++){
+        var p = planets[i];
+        trail_ctx.beginPath();
+        trail_ctx.moveTo(p.last_x, p.last_y);
+        trail_ctx.lineTo(p.x, p.y);
+        trail_ctx.stroke();
+        trail_ctx.closePath();
     }
 
 
@@ -202,27 +226,9 @@ function draw(){
 
     ctx.drawImage(trail_canvas, 0, 0);
 
-    for (var i = 0; i < planets.length; i++){
-        var p = planets[i];
+    for (var i = 0; i < planets.length; i++)
+        planets[i].draw();
 
-        // update the trails cache
-        trail_ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
-
-        if (p.prev_x.length > 0){
-            var x_start = p.prev_x[ p.prev_x.length - 80 ];
-            var y_start = p.prev_y[ p.prev_y.length - 80 ];
-
-            trail_ctx.beginPath();
-            trail_ctx.moveTo(x_start, y_start);
-            trail_ctx.lineTo(p.x, p.y);
-            trail_ctx.stroke();
-
-            //trail_ctx.fillRect(p.x, p.y, 1, 1);
-        }
-        
-        // draw the new position
-        p.draw();
-    }
     ctx.fillStyle = "#4A90E2";
     ctx.font="13px Helvetica";
     ctx.fillText(fps + " FPS", c.width - 50, c.height - 6);
@@ -242,9 +248,13 @@ function semi_implicit_euler_step(dt){
             p.vx = 0;
             p.vy = 0;
         }
+
+        p.x += p.vx*dt;
+        p.y += p.vy*dt;
     }
 
     // save position data
+    /*
     for (var i = 0; i < planets.length; i++){
         p = planets[i];
         p.x += p.vx*dt;
@@ -258,6 +268,7 @@ function semi_implicit_euler_step(dt){
             p.prev_y.shift();
         }
     }
+    */
 }
 
 function Planet(x, y, vx, vy, m){
@@ -266,6 +277,9 @@ function Planet(x, y, vx, vy, m){
     this.vx = vx;
     this.vy = vy;
     this.m  = m;
+
+    this.last_x = 2;
+    this.last_y = 3;
 
     // -1 = not frozen, 1 = frozen
     this.frozen = -1; 
@@ -280,9 +294,11 @@ function Planet(x, y, vx, vy, m){
     this.draw = function(){
         this.draw_circ();
 
+        /*
         if (trail_length != 0){
             draw_trail(this.prev_x, this.prev_y);
         }
+        */
     };
 
     this.draw_circ = function(){
@@ -338,6 +354,7 @@ function radius(m){
 }
 
 
+/*
 function draw_trail(xs, ys){
     if (xs.length == 0)
         return;
@@ -373,6 +390,7 @@ function draw_trail(xs, ys){
         a -= da;
     }
 }
+*/
 
 function mass_loop(){
     now = Date.now();
