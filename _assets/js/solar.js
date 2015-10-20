@@ -1,19 +1,17 @@
 var speed_control = document.getElementsByName("speed_control");
 var speed_var;
-var draw_count = 0;
-var trail_cache = new Image();
+var lock_img = new Image();
+lock_img.src ="_assets/static/lock.png"
 
 function initialize(){
     c = document.getElementById("solar_system");
-
     ctx = c.getContext("2d");
 
-    // I am going to attempt something crazy
-    cached_canvas = document.createElement('canvas');
-    cached_canvas.width = c.width;
-    cached_canvas.height = c.height;
-    cached_ctx = cached_canvas.getContext('2d');
-    trail_cache = cached_canvas.toDataURL("image/png")
+    trail_canvas = document.createElement("canvas");
+    trail_canvas.width = c.width;
+    trail_canvas.height = c.height;
+    trail_ctx = trail_canvas.getContext("2d");
+
 
     // boolean of keys currently pressed
     keys = [];
@@ -203,8 +201,29 @@ function draw(){
     var da = 0.1;
     ctx.fillRect(0, 0, c.width, c.height);
 
+
+    ctx.drawImage(trail_canvas, 0, 0);
+
     for (var i = 0; i < planets.length; i++){
-        planets[i].draw();
+        var p = planets[i];
+
+        // update the trails cache
+        trail_ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
+
+        if (p.prev_x.length > 0){
+            var x_start = p.prev_x[ p.prev_x.length - 80 ];
+            var y_start = p.prev_y[ p.prev_y.length - 80 ];
+
+            trail_ctx.beginPath();
+            trail_ctx.moveTo(x_start, y_start);
+            trail_ctx.lineTo(p.x, p.y);
+            trail_ctx.stroke();
+
+            //trail_ctx.fillRect(p.x, p.y, 1, 1);
+        }
+        
+        // draw the new position
+        p.draw();
     }
     ctx.fillStyle = "#4A90E2";
     ctx.font="13px Helvetica";
@@ -261,35 +280,28 @@ function Planet(x, y, vx, vy, m){
     this.prev_y = [];
 
     this.draw = function(){
+        this.draw_circ();
 
-        // This is important rendering the trails
         if (trail_length != 0){
             draw_trail(this.prev_x, this.prev_y);
-
-            //testing caching
-            trail_cache = cached_canvas;
         }
-
-
-
-        // I reversed the order, because ¯\_(ツ)_/¯ 
-        ctx.drawImage(trail_cache, 0, 0);
-        this.draw_circ();
-        draw_count ++;
     };
 
     this.draw_circ = function(){
         var r = radius(this.m);
 
         ctx.beginPath();
-        if (this.frozen == -1)
-            ctx.fillStyle = "#FFFFFF";
-        else
-            ctx.fillStyle = "#ADD8E6";
+        ctx.fillStyle = "#FFFFFF";
         ctx.arc(this.x, this.y, r, 0, 2*Math.PI);
         ctx.fill();
         ctx.closePath();
-}
+        if (this.frozen == 1){
+            ctx.lineWidth = 4;
+            ctx.strokeStyle = "#BD10E0";
+            ctx.stroke();
+            ctx.drawImage(lock_img, (this.x - 6), (this.y - 8), 12, 16)
+        }
+    }
 }
 
 function vec_add( v1, v2 ){
@@ -344,24 +356,24 @@ function draw_trail(xs, ys){
     var da = a / (xs.length / di);
 
     var rgb = "rgba(255, 255, 255, ";
-    cached_ctx.lineWidth = 2;
+    ctx.lineWidth = 2;
 
     if (trail_length == Number.MAX_VALUE)
         di = xs.length - 2;
 
     // otherwise draw a fading trail
     for (var i = xs.length - 1; i > di; i -= di){
-        cached_ctx.strokeStyle = rgb + a;
+        ctx.strokeStyle = rgb + a;
 
-        cached_ctx.beginPath();
+        ctx.beginPath();
 
-        cached_ctx.moveTo(xs[i], ys[i]);
+        ctx.moveTo(xs[i], ys[i]);
         for (var j = i-1; j >= i - di; j--){
-            cached_ctx.lineTo(xs[j], ys[j]);
+            ctx.lineTo(xs[j], ys[j]);
         }
 
-        cached_ctx.stroke();
-        cached_ctx.closePath();
+        ctx.stroke();
+        ctx.closePath();
 
         a -= da;
     }
