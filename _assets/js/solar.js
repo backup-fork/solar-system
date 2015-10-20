@@ -3,8 +3,13 @@ var speed_var;
 
 function initialize(){
     c = document.getElementById("solar_system");
-
     ctx = c.getContext("2d");
+
+    trail_canvas = document.createElement("canvas");
+    trail_canvas.width = c.width;
+    trail_canvas.height = c.height;
+    trail_ctx = trail_canvas.getContext("2d");
+
 
     // boolean of keys currently pressed
     keys = [];
@@ -194,8 +199,29 @@ function draw(){
     var da = 0.1;
     ctx.fillRect(0, 0, c.width, c.height);
 
+
+    ctx.drawImage(trail_canvas, 0, 0);
+
     for (var i = 0; i < planets.length; i++){
-        planets[i].draw();
+        var p = planets[i];
+
+        // update the trails cache
+        trail_ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
+
+        if (p.prev_x.length > 0){
+            var x_start = p.prev_x[ p.prev_x.length - 80 ];
+            var y_start = p.prev_y[ p.prev_y.length - 80 ];
+
+            trail_ctx.beginPath();
+            trail_ctx.moveTo(x_start, y_start);
+            trail_ctx.lineTo(p.x, p.y);
+            trail_ctx.stroke();
+
+            //trail_ctx.fillRect(p.x, p.y, 1, 1);
+        }
+        
+        // draw the new position
+        p.draw();
     }
     ctx.fillStyle = "#4A90E2";
     ctx.font="13px Helvetica";
