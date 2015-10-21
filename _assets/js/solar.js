@@ -326,15 +326,17 @@ function Planet(x, y, vx, vy, m){
     this.draw_circ = function(){
         var r = radius(this.m);
 
-        ctx.beginPath();
-        if (this.frozen == -1)
-            ctx.fillStyle = "#FFFFFF";
-        else
-            ctx.fillStyle = "#ADD8E6";
+        ctx.beginPath();    
+        ctx.fillStyle = "#FFFFFF";
         ctx.arc(this.x, this.y, r, 0, 2*Math.PI);
         ctx.fill();
         ctx.closePath();
-}
+        if (this.frozen == 1){
+            ctx.lineWidth = 4;
+            ctx.strokeStyle ="#BD10E0";
+            ctx.stroke();
+        }   
+    }
 }
 
 function vec_add( v1, v2 ){
