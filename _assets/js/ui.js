@@ -28,6 +28,7 @@
 	var copy_box = document.getElementById("copy-box");
 	var copy_wrapper = document.getElementById("input-wrapper");
 	var drawer_play_ico = document.getElementById("time-play-ico");
+	var pause_button = document.getElementById("time-play-ico");
 	//Timers
 	var debounce_resize;
 
@@ -95,7 +96,7 @@
 
 	function init_controlpanel(){
 		TweenMax.set(controlpanel, {
-			x: -320,
+			x: -300,
 			autoAlpha: 1
 		})
 	};
@@ -325,14 +326,14 @@
 		ease:Cubic.easeInOut
 	});
 	animate_drawer.to(canvas, .282, {
-		left: 320,
+		left: 300,
 		ease:Cubic.easeInOut
 	}, "-=.282");
 	animate_drawer.to(".hud", .282, {
 		autoAlpha: 1
 	}, "-=.282")
 	animate_drawer.to(settings, .282, {
-		left: 302,
+		left: 276,
 		top: 12,
 		rotation: 90,
 		ease:Cubic.easeInOut
@@ -636,6 +637,31 @@
 			trails_inf.className = "";
 		}
 	};
+
+	pause_button.onclick = function(){
+		if (simulation_paused == false){
+			//pause the simulation
+		    animate_clock.pause();
+		    play_ico.className = 'play_ico';
+		    drawer_play_ico.className = 'play_ico';
+		}
+		if (simulation_paused == true){
+			//play the simulation, reset UI
+		    if (traveling_forward){
+		        time_message.innerHTML = "Forward";
+		        animate_clock.play();
+		        play_ico.className = 'play_ico active';
+		        drawer_play_ico.className = 'play_ico active';
+		    } else {
+		        time_message.innerHTML = "Backward";
+		    	animate_clock.reverse();
+		    	play_ico.className = 'play_ico active';
+		        drawer_play_ico.className = 'play_ico active';
+		    };
+		}
+        paused *= -1;
+		simulation_paused = !simulation_paused;
+	}
 
 	copy_box.onclick = function(e){
 		update_share();

@@ -79,7 +79,7 @@ body
 #control-panel
 	position: fixed
 	z-index: 10
-	width: 320px
+	width: 300px
 	height: 100vh
 	background: #202020
 	opacity: 0
@@ -87,7 +87,7 @@ body
 	+user-select
 
 #brand
-	height: 62px
+	height: 120px
 	overflow: visible
 	position: relative
 	&:after
@@ -117,28 +117,32 @@ body
 #logo
 	background-size: 100%
 	z-index: 5
-	line-height: 60px
+	line-height: 16px
 	vertical-align: middle
 	position: relative
 	h1
 		text-transform: uppercase
 		color: rgba(255, 255, 255, .85)
-		font-size: 15px
-		letter-spacing: 17px
+		font-size: 14px
+		letter-spacing: 12px
 		font-weight: 200
 		text-align: center
 
 #time
-	overflow: auto
+	overflow: visible
 	padding-bottom: 0
 	position: relative
 	padding-top: 16px
 	margin-top: 4px
+	width: 300px
+	h2
+		float: left
+		margin-left: 24px
 	&:hover
+		width: 346px
 		background: rgba(0, 0, 0, .1)
-		#time-clock, #hours, #minutes
-			border-color: white
-			transition: border-color 200ms linear
+		h2
+			color: #ccc
 		.learn-ico
 			display: block
 
@@ -146,6 +150,7 @@ body
 	cursor: pointer
 	position: absolute
 	left: 50px
+	top: 28px
 	font-size: 12px
 	color: #4A90E2
 	text-transform: lowercase
@@ -157,39 +162,44 @@ body
 	position: relative
 
 #time-clock
-	float: right
+	position: relative
 	width: 32px
 	height: 32px
-	border: 2px #979797 solid
+	border: 2px $blue solid
+	margin: 16px auto
 	transition: border-color 200ms linear
 	border-radius: 32px
-	margin: 4px 26px 0 -8px
 	position: relative
 	transform: rotate(180deg)
 	pointer-events: none
-#hours
-	width: 0px
-	height: 10px
-	border-left: 1px #979797 solid
-	transition: border-color 200ms linear
-	position: absolute
-	left: 16px
-	top: 16px
-#minutes
-	width: 0px
-	height: 12px
-	border-left: 1px #979797 solid
-	transition: border-color 200ms linear
-	position: absolute
-	left: 16px
-	top: 16px
+	z-index: 9999
+	#hours
+		width: 0px
+		height: 10px
+		border-left: 1px $blue solid
+		transition: border-color 200ms linear
+		position: absolute
+		left: 16px
+		top: 16px
+	#minutes
+		width: 0px
+		height: 12px
+		border-left: 1px $blue solid
+		transition: border-color 200ms linear
+		position: absolute
+		left: 16px
+		top: 16px
 
 #speed
-	overflow: auto
+	overflow: visible
 	position: relative
 	padding: 16px 12px 8px 12px
+	width: 300px
 	&:hover
+		width: 322px
 		background: rgba(0, 0, 0, .1)
+		h2
+			color: #ccc
 		.learn-ico
 			display: block
 	h2
@@ -479,8 +489,8 @@ body
 
 .control
 	clear: both
-	padding: 24px
 	height: 70px
+	overflow: visible
 	h2
 		color: $label-color
 		font-size: 11px
@@ -549,6 +559,8 @@ body
 #time-play-ico
 	top: 24px
 	left: 8px
+	cursor: pointer
+	pointer-events: auto
 	transform: scale(.35)
 .play_ico
 	position: relative
@@ -601,6 +613,8 @@ body
 	bottom: 0
 	padding-bottom: 16px
 	margin-bottom: 0
+	h2, input
+		margin-left: 24px
 
 #input-wrapper
 	width: 263px
