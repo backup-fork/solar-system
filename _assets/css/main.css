@@ -4,12 +4,13 @@
 
 body {
   overflow: hidden;
-  background: #263238;
+  background: #333;
   font-family: "Helvetica Neue", Arial, sans-serif; }
 
 #solar_system {
   position: fixed;
-  z-index: 0; }
+  z-index: 0;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3); }
 
 #settings {
   position: fixed;
@@ -30,17 +31,17 @@ body {
     #settings.active #settings_top {
       left: 14px;
       transform: rotate(-45deg) translate(0, 7px);
-      transition: all 200ms linear;
+      transition: all 300ms linear;
       transition-delay: 100ms; }
     #settings.active #settings_mid {
       left: 14px;
       opacity: 0;
-      transition: all 200ms linear;
+      transition: all 300ms linear;
       transition-delay: 100ms; }
     #settings.active #settings_bottom {
       left: 14px;
       transform: rotate(45deg) translate(0, -7px);
-      transition: all 200ms linear;
+      transition: all 300ms linear;
       transition-delay: 100ms; }
   #settings:hover {
     opacity: 1; }
@@ -67,10 +68,9 @@ body {
 #control-panel {
   position: fixed;
   z-index: 10;
-  width: 300px;
+  width: 320px;
   height: 100vh;
-  background: #212121;
-  box-shadow: inset -10px 0px 10px rgba(0, 0, 0, 0.1);
+  background: #202020;
   opacity: 0;
   visibility: hidden;
   -moz-user-select: none;
@@ -79,35 +79,26 @@ body {
   user-select: none; }
 
 #brand {
-  height: 100px;
-  overflow: hidden;
-  background: #222222;
-  background: -moz-linear-gradient(top, #222222 80%, #1e1e1e 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(80%, #222222), color-stop(100%, #1e1e1e));
-  background: -webkit-linear-gradient(top, #222222 80%, #1e1e1e 100%);
-  background: -o-linear-gradient(top, #222222 80%, #1e1e1e 100%);
-  background: -ms-linear-gradient(top, #222222 80%, #1e1e1e 100%);
-  background: linear-gradient(to bottom, #222222 80%, #1e1e1e 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#222222', endColorstr='#1e1e1e',GradientType=0 );
-  position: relative;
-  border-bottom: 1px #282828 solid; }
+  height: 62px;
+  overflow: visible;
+  position: relative; }
   #brand:after {
     content: "";
     position: absolute;
-    top: -100px;
+    top: -200px;
     left: -90px;
-    bottom: 45px;
+    bottom: -10px;
     right: 0;
     z-index: 0;
     opacity: 0;
     transition: opacity 600ms linear;
-    background: -moz-radial-gradient(center, ellipse cover, #2a4666 0%, #222222 60%);
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #2a4666), color-stop(60%, #222222));
-    background: -webkit-radial-gradient(center, ellipse cover, #2a4666 0%, #222222 60%);
-    background: -o-radial-gradient(center, ellipse cover, #2a4666 0%, #222222 60%);
-    background: -ms-radial-gradient(center, ellipse cover, #2a4666 0%, #222222 60%);
-    background: radial-gradient(ellipse at center, #2a4666 0%, #222222 60%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a4666', endColorstr='#222222',GradientType=1 ); }
+    background: -moz-radial-gradient(center, ellipse cover, #2a4666 0%, #202020 60%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #2a4666), color-stop(60%, #202020));
+    background: -webkit-radial-gradient(center, ellipse cover, #2a4666 0%, #202020 60%);
+    background: -o-radial-gradient(center, ellipse cover, #2a4666 0%, #202020 60%);
+    background: -ms-radial-gradient(center, ellipse cover, #2a4666 0%, #202020 60%);
+    background: radial-gradient(ellipse at center, #2a4666 0%, #202020 60%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a4666', endColorstr='#202020',GradientType=1 ); }
 
 .active #brand:after {
   opacity: 1;
@@ -116,28 +107,35 @@ body {
   transition-delay: 300ms; }
 
 #logo {
-  width: 260px;
-  height: 48px;
-  background: url("../static/solar_logo.png") top left no-repeat;
   background-size: 100%;
-  margin: 25px 0 0 66px;
   z-index: 5;
+  line-height: 60px;
+  vertical-align: middle;
   position: relative; }
   #logo h1 {
-    font-size: 0;
-    text-indent: -9999px; }
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 15px;
+    letter-spacing: 17px;
+    font-weight: 200;
+    text-align: center; }
 
 #time {
-  cursor: pointer;
   overflow: auto;
   padding-bottom: 0;
   position: relative;
-  padding-top: 14px; }
-  #time:hover #time-clock, #time:hover #hours, #time:hover #minutes {
-    border-color: white;
-    transition: border-color 200ms linear; }
+  padding-top: 16px;
+  margin-top: 4px; }
+  #time:hover {
+    background: rgba(0, 0, 0, 0.1); }
+    #time:hover #time-clock, #time:hover #hours, #time:hover #minutes {
+      border-color: white;
+      transition: border-color 200ms linear; }
+    #time:hover .learn-ico {
+      display: block; }
 
 #time-content {
+  cursor: pointer;
   position: absolute;
   left: 50px;
   font-size: 12px;
@@ -156,7 +154,7 @@ body {
   border: 2px #979797 solid;
   transition: border-color 200ms linear;
   border-radius: 32px;
-  margin: 4px 2px 0 -8px;
+  margin: 4px 26px 0 -8px;
   position: relative;
   transform: rotate(180deg);
   pointer-events: none; }
@@ -181,8 +179,12 @@ body {
 
 #speed {
   overflow: auto;
-  padding: 12px;
-  margin-bottom: 36px; }
+  position: relative;
+  padding: 16px 12px 8px 12px; }
+  #speed:hover {
+    background: rgba(0, 0, 0, 0.1); }
+    #speed:hover .learn-ico {
+      display: block; }
   #speed h2 {
     margin: 0px 0px 6px 12px; }
   #speed div {
@@ -201,7 +203,7 @@ body {
       letter-spacing: 2px; }
   #speed input {
     border: 1px #1C1C1C solid;
-    width: 91px;
+    width: 86px;
     height: 30px;
     background: #272727;
     cursor: pointer;
@@ -241,7 +243,7 @@ body {
   #trails h2 {
     margin: 0px 0px 6px 12px; }
   #trails input[type="range"] {
-    width: 266px;
+    width: 256px;
     border-radius: 2px;
     height: 5px;
     border: 1px #1C1C1C solid;
@@ -283,7 +285,7 @@ body {
       transform: scaleX(0.7); }
 
 #trails-options {
-  width: 262px;
+  width: 252px;
   color: #d4d4d4;
   font-size: 11px;
   margin-top: 5px;
@@ -474,10 +476,11 @@ body {
 .control {
   clear: both;
   padding: 24px;
-  margin: 8px 0 32px 0; }
+  height: 70px; }
   .control h2 {
     color: #747474;
     font-size: 11px;
+    pointer-events: none;
     font-weight: 400;
     text-transform: uppercase;
     user-select: none;
@@ -658,7 +661,6 @@ body {
   overflow: hidden;
   whitespace: nowrap;
   text-overflow: ellipsis;
-  box-shadow: inset 0px 2px 3px rgba(0, 0, 0, 0.05), inset -7px 0px 7px rgba(0, 0, 0, 0.05);
   -webkit-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
   -moz-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
   -ms-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -679,5 +681,19 @@ body {
     background: #888 !important; }
   #copy-box::-moz-selection {
     background: #888 !important; }
+
+.learn-ico {
+  color: white;
+  width: 30px;
+  right: 0px;
+  position: absolute !important;
+  top: 36px;
+  cursor: pointer;
+  display: none; }
+  .learn-ico span {
+    pointer-events: none;
+    width: 6px;
+    display: block;
+    float: left; }
 
 /*# sourceMappingURL=main.css.map */

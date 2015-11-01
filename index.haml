@@ -71,7 +71,7 @@
         #control-panel
             #brand
                 #logo
-                    %h1 Solar Simulator
+                    %h1 Gravity
             #time.control
                 %h2 Arrow of time
                 #time-clock
@@ -83,6 +83,10 @@
                         .pause-right
                     %span#time-content
                         Forward
+                .learn-ico
+                    %span.learn1 .
+                    %span.learn2 .
+                    %span.learn3 .
             #speed.control
                 %h2 Speed
                 #speed-half
@@ -94,6 +98,11 @@
                 #speed-twice
                     %input{:type => 'radio', :name => 'speed_control', :value => '2'}
                     %a faster
+
+                .learn-ico
+                    %span.learn1 .
+                    %span.learn2 .
+                    %span.learn3 .
             #trails.control
                 %h2 Particle trails
                 %input#trails_slider{:type => 'range', :name => 'particle_trails', :min => '0', :max => '100'}

@@ -4,7 +4,7 @@
 	var controlpanel = document.getElementById("control-panel");
 	var hours_hand = document.getElementById("hours");
 	var minutes_hand = document.getElementById("minutes");
-	var time_toggle = document.getElementById("time");
+	var time_toggle = document.getElementById("time-content");
 	var time_message = document.getElementById("time-content");
 	var trails_slider = document.getElementById("trails_slider");
 	var trails_off = document.getElementById("options-off");
@@ -74,6 +74,10 @@
 		}
 	});
 
+	var animate_learn = new TimelineMax({
+		repeat:-1
+	});
+
 	var animate_drawer = new TimelineMax();
 	var animate_toast = new TimelineMax();
 
@@ -91,7 +95,7 @@
 
 	function init_controlpanel(){
 		TweenMax.set(controlpanel, {
-			x: -300,
+			x: -320,
 			autoAlpha: 1
 		})
 	};
@@ -242,7 +246,7 @@
 				animate_clock.reverse();
 			}
 		}
-		animate_drawer.timeScale(.5)
+		animate_drawer.timeScale(.7)
 		animate_drawer.play();
 		drawer_open = true;
 		position_message();
@@ -307,25 +311,98 @@
 	}, "-=360");
 
 	//Control panel opening
+	animate_drawer.set("#time", {
+		autoAlpha: 0
+	})
+	animate_drawer.set("#speed", {
+		autoAlpha: 0
+	})
+	animate_drawer.set("#trails", {
+		autoAlpha: 0
+	})
 	animate_drawer.to(controlpanel, .282, {
 		x: 0,
 		ease:Cubic.easeInOut
 	});
 	animate_drawer.to(canvas, .282, {
-		left: 300,
+		left: 320,
 		ease:Cubic.easeInOut
 	}, "-=.282");
 	animate_drawer.to(".hud", .282, {
 		autoAlpha: 1
 	}, "-=.282")
 	animate_drawer.to(settings, .282, {
-		left: 282,
+		left: 302,
 		top: 12,
 		rotation: 90,
 		ease:Cubic.easeInOut
 	}, "-=.282");
+	animate_drawer.to("#time", .45, {
+		autoAlpha: 1
+	}, "-=.15");
+	animate_drawer.to("#speed", .45, {
+		autoAlpha: 1
+	}, "-=.45");
+	animate_drawer.to("#trails", .45, {
+		autoAlpha: 1
+	}, "-=.45");
 	
 	animate_drawer.pause();
+
+	//animate learn
+	animate_learn.set(".learn1, .learn2, .learn3", {
+		autoAlpha: 0
+	})
+	animate_learn.to(".learn1", .1, {
+		autoAlpha: 1,
+		ease: Linear.easeNone
+	})
+	animate_learn.to(".learn2", .1, {
+		autoAlpha: 1,
+		ease: Linear.easeNone
+	})
+	animate_learn.to(".learn3", .1, {
+		autoAlpha: 1,
+		ease: Linear.easeNone
+	})
+	animate_learn.to(".learn1", .1, {
+		y: -7,
+		color: "#4A90E2",
+		delay: .1
+	})
+	animate_learn.to(".learn2", .1, {
+		y: -8,
+		color: "#4A90E2"
+	}, "-=.03")
+	animate_learn.to(".learn3", .1, {
+		y: -7,
+		color: "#4A90E2"
+	}, "-=.03")
+	animate_learn.to(".learn1", .1, {
+		y: 0,
+		color: "#FFFFFF"
+	})
+	animate_learn.to(".learn2", .1, {
+		y: 0,
+		color: "#FFFFFF"
+	}, "-=.03")
+	animate_learn.to(".learn3", .1, {
+		y: 0,
+		color: "#FFFFFF"
+	}, "-=.03")
+	animate_learn.to(".learn1", .1, {
+		autoAlpha: 0,
+		delay: .4,
+		ease: Linear.easeNone
+	})
+	animate_learn.to(".learn2", .1, {
+		autoAlpha: 0,
+		ease: Linear.easeNone
+	})
+	animate_learn.to(".learn3", .1, {
+		autoAlpha: 0,
+		ease: Linear.easeNone
+	})
 
 	//toast
 	animate_toast.timeScale(3)
