@@ -256,6 +256,8 @@ body
 	padding: 12px
 	h2
 		margin: 0px 0px 6px 12px
+	&:hover h2
+		color: #ccc
 	input[type="range"]
 		width: 256px
 		border-radius: 2px
@@ -630,8 +632,8 @@ body
 		z-index: 99999
 		+quantum-transition
 	&.active:after
-		left: 8px
-		right: 0px
+		left: 33px
+		right: -25px
 		+quantum-transition
 
 #copy-box
@@ -650,6 +652,7 @@ body
 	border-radius: 2px
 	z-index: 20
 	margin-top: 8px
+	position: relative
 	cursor: pointer
 	overflow: hidden
 	whitespace: nowrap

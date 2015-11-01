@@ -250,6 +250,8 @@ body {
   padding: 12px; }
   #trails h2 {
     margin: 0px 0px 6px 12px; }
+  #trails:hover h2 {
+    color: #ccc; }
   #trails input[type="range"] {
     width: 256px;
     border-radius: 2px;
@@ -646,8 +648,8 @@ body {
     -o-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
     transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1); }
   #input-wrapper.active:after {
-    left: 8px;
-    right: 0px;
+    left: 33px;
+    right: -25px;
     -webkit-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
     -moz-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
     -ms-transition: all 233ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -669,6 +671,7 @@ body {
   border-radius: 2px;
   z-index: 20;
   margin-top: 8px;
+  position: relative;
   cursor: pointer;
   overflow: hidden;
   whitespace: nowrap;
